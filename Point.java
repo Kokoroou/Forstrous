@@ -1,39 +1,47 @@
 package enemy;
 
+import java.util.ArrayList;
+import java.lang.Math;
+
 public class Point {
-	protected int x;
-	protected int y;
+	protected int cost;
+	protected Point cameFrom;
+	protected Point next;
+	protected ArrayList<Point> adjacent = new ArrayList<Point>();
+	protected int MapX, MapY;
 	public Point(int x, int y) {
-		this.x = x; 
-		this.y = y;
+		this.MapX = x; 
+		this.MapY = y;
 	}
 	
 	public int getX() {
-		return x;
+		return MapX;
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.MapX = x;
 	}
 
 	public int getY() {
-		return y;
+		return MapY;
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.MapY = y;
 	}
 
-	public void moveUp() {
-		y++;
+	protected double distance(Point a) {
+		return Math.sqrt((a.MapX - this.MapX)*(a.MapX - this.MapX) + (a.MapY - this.MapY)*(a.MapY - this.MapY));
 	}
-	public void moveRight() {
-		x++;
+	
+	protected int heuristic(Point a) {
+		return Math.abs(a.MapX - this.MapX) + Math.abs(a.MapY - this.MapY);
 	}
-	public void moveDown() {
-		y--;
-	}
-	public void moveLeft() {
-		x--;
+	
+	protected void addadj() {
+	if (arr[x][y+1] == 0) adjacent.add(new Point(x, y+1));
+	if (arr[x+1][y] == 0) adjacent.add(new Point(x+1, y));
+	if (arr[x][y-1] == 0) adjacent.add(new Point(x, y-1));
+	if (arr[x-1][y] == 0) adjacent.add(new Point(x-1, y));
 	}
 }
