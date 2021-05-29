@@ -11,6 +11,7 @@ public class Item{
     boolean pickUp = false;
     int itemType;
     String name;
+    Player player;
     int atk = 0;
     int hpMax = 0;
     int speed = 0;
@@ -171,5 +172,11 @@ public class Item{
 		if(player.getMapX() == mapX&&player.getMapY() == mapY) pickUp = true;
 	}
 	
-	
+	public void typeItem(int itemType) {
+		if (itemType == 1) chiso(player);
+		else potions();
+	}
+	public void potions() {
+		potions++;
+	}
 }
