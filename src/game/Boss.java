@@ -1,4 +1,3 @@
-//Test for instruction
 package game;
 
 public class Boss extends Monsters {
