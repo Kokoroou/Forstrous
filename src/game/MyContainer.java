@@ -1,5 +1,3 @@
-package game;
-
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -12,6 +10,7 @@ public class MyContainer extends JPanel{
 	private GUI gui;
 	private Menu mMenu;
 	private PlayGame mPlayGame;
+	private Option mOption;
 	public MyContainer(GUI mGui){
 		this.gui = mGui;
 		setBackground(Color.WHITE);
@@ -19,6 +18,8 @@ public class MyContainer extends JPanel{
 		setLayout(mCardLayout);
 		mMenu = new Menu(this);
 		add(mMenu,TAG_MENU);
+		mOption = new Option(this);
+		add(mOption, TAG_OPTION);
 		mPlayGame = new PlayGame(this);
 		add(mPlayGame, TAG_PLAYGAME);
 		
@@ -37,6 +38,10 @@ public class MyContainer extends JPanel{
 	public void setShowPlay(){
 		mCardLayout.show(MyContainer.this, TAG_PLAYGAME);
 		mPlayGame.requestFocus();
+	}
+	public void setShowOption(){
+		mCardLayout.show(MyContainer.this, TAG_OPTION);
+		mOption.requestFocus();
 	}
 	
 }

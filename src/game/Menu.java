@@ -1,4 +1,3 @@
-package game;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -31,7 +30,7 @@ public class Menu extends JPanel{
 	}
 	
 	public void initComps(GUI mGui){
-		lbPlayGame = setLabel((mGui.getWidth()-150)/2-30, (mGui.getHeight()-30)/2-30, "/Images/newgame.png");
+		lbPlayGame = setLabel((mGui.getWidth()-150)/2-40, (mGui.getHeight()-30)/2-30, "/Images/newgame.png");
 		lbOption = setLabel(lbPlayGame.getX(),lbPlayGame.getY() + lbPlayGame.getHeight()+padding, "/Images/option.png");
 		lbExit = setLabel(lbOption.getX(),lbOption.getY() + lbOption.getHeight()+padding, "/Images/exit.png");
 		lbPlayGame.addMouseListener(mMouseAdapter);
@@ -45,9 +44,9 @@ public class Menu extends JPanel{
 	
 	public void initbackground(){
 		lbbackground = new JLabel();
-		lbbackground.setBounds(0, -10, mGui.getWidth(), mGui.getHeight());
+		lbbackground.setBounds(0, -18, mGui.getWidth(), mGui.getHeight());
 		lbbackground.setBackground(Color.BLACK);
-		backgroundIcon = new ImageIcon(getClass().getResource("/Images/Forstrous.png"));
+		backgroundIcon = new ImageIcon(getClass().getResource("/Images/Forstrous2.png"));
 		lbbackground.setIcon(backgroundIcon);
 		add(lbbackground);
 	}
@@ -100,6 +99,9 @@ public class Menu extends JPanel{
 			}
 			if(e.getSource()==lbPlayGame){
 				mContainer.setShowPlay();
+			}
+			if(e.getSource()==lbOption){
+				mContainer.setShowOption();
 			}
 		}
 	};
