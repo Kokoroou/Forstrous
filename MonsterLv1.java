@@ -1,4 +1,3 @@
-//Test github
 package enemy;
 
 import java.awt.Image;
