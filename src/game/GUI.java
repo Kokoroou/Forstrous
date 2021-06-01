@@ -1,29 +1,21 @@
+package game;
 import java.awt.CardLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 public class GUI extends JFrame{
-	public static final int WIDTHJF = 720;
-	public static final int HEIGHTJF = 485;
-	private MyContainer mContainer;
+	public static final int WIDTH = 720;
+	public static final int HEIGHT = 485;
+	private ControlPanel control;
 
 	public GUI() {
 		setTitle("Forstrous");
-		setSize(WIDTHJF, HEIGHTJF);
+		setSize(WIDTH, HEIGHT);
 		setLayout(new CardLayout());
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		mContainer = new MyContainer(this);
-		add(mContainer);
-		//addWindowListener(mwindow);
+		control = new ControlPanel(this);
+		add(control);
 	}
-	/*
-	private WindowAdapter mwindow = new WindowAdapter() {
-		@Override
-		public void windowClosing(WindowEvent e) {
-			PlayGame.IS_RUNNING = false;
-		}
-	};
-	*/
 }

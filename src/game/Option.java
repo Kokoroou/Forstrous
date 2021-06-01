@@ -1,4 +1,4 @@
-
+package game;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -11,29 +11,29 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Option extends JPanel implements ActionListener{
-	private MyContainer mContainer;
-	private JLabel lbbackground;
-	private ImageIcon backgroundIcon;
+	private ControlPanel control;
+	private JLabel background;
+	private ImageIcon Background;
 	private JButton btn_Menu;
 	
-	public Option(MyContainer mContainer) {
-		this.mContainer = mContainer;
-		setBackground(Color.YELLOW);
+	public Option(ControlPanel mContainer) {
+		this.control = control;
+		setBackground(Color.WHITE);
 		setLayout(null);
 		initCompts();
 	}
 	
 	public void initCompts(){
-		lbbackground = new JLabel();
-		lbbackground.setBounds(0, -18, GUI.WIDTHJF, GUI.HEIGHTJF);
-		lbbackground.setBackground(Color.BLACK);
-		backgroundIcon = new ImageIcon(getClass().getResource("/Images/Forstrous2.png"));
-		lbbackground.setIcon(backgroundIcon);
-		add(lbbackground);
+		background = new JLabel();
+		background.setBounds(0, -18, GUI.WIDTH, GUI.HEIGHT);
+		background.setBackground(Color.BLACK);
+		Background = new ImageIcon(getClass().getResource("/Images/Forstrous.png"));
+		background.setIcon(Background);
+		add(background);
 		
 		btn_Menu = new JButton();
 		btn_Menu.setText("Menu");
-		btn_Menu.setBounds(0, 0, 80, 30);
+		btn_Menu.setBounds(600, 417, 80, 30);
 		btn_Menu.addActionListener(this);
 		add(btn_Menu);
 	}
@@ -41,7 +41,7 @@ public class Option extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btn_Menu){
-			mContainer.setShowMenu();
+			control.setShowMenu();
 		}	
 		
 	}
