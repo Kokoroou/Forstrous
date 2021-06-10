@@ -3,19 +3,22 @@ package com.kdat.object;
 import java.awt.Graphics2D;
 import java.util.Random;
 
-import com.kdat.effect.*;
-
 public class Monster extends Character {
+	
+	private float beginX, beginY;
 	private float currX, currY;
+	private int round;
 	
 	public Monster() {}
 
-	public Monster(String name, float mapX, float mapY, int maxHp, int attack, int luck, float movementSpeed, GameWorld gameWorld) {
+	public Monster(String name, float mapX, float mapY, int maxHp, int attack, int luck, float movementSpeed, GameWorld gameWorld, int round) {
 		super(name, mapX, mapY, maxHp, attack, luck, movementSpeed, gameWorld);
+		this.round = round;
 		this.setDirection(Character.DOWN_DIR);
 		currX = getMapX();
 		currY = getMapY();
-		Wonder();
+		beginX = getMapX();
+		beginY = getMapY();
 	}
 
 	private int Random(int a[]) {
@@ -27,8 +30,8 @@ public class Monster extends Character {
 	private void Wonder() {
 		this.setMovementSpeed(0);
 		int tileX = (int) this.getMapX() / 32;
-		int tileY = (int) this.getMapY() / 32;
-		int dir = Random(canDir[Map.arr1[tileX][tileY]]);
+		int tileY = (int) this.getMapY() / 32; 
+		int dir = Random(canDir[getGameWorld().m1.getTile(tileX, tileY)]);
 		//System.out.println("...: " + Map.arr1[tileX][tileY]);
 		switch(dir) {
 			case DOWN_DIR:
@@ -63,40 +66,71 @@ public class Monster extends Character {
 		}
 	}
 	
+	public void draw(Graphics2D g2, int round) {
+		if(getGameWorld().m1.getRound() == round)
+			this.draw(g2);
+	}
+	
 	@Override
 	public void update() {
-		if (Math.abs(getMapX() - currX) >= 32 || Math.abs(getMapY() - currY) >= 32){
-			//System.out.println(getMapX() + "   " + getMapY());
-			switch(getDirection()) {
-				case LEFT_DIR:
-					setMapX(currX - 32);
-					break;
-				case RIGHT_DIR:
-					setMapX(currX + 32);
-					break;
-				case UP_DIR:
-					setMapY(currY - 32);
-					break;
-				case DOWN_DIR:
-					setMapY(currY + 32);
-					break;
+		if(getGameWorld().m1.getRound() == round) {
+			if(!onInteract(getGameWorld().hero)){
+				if(getMapX() == beginX && getMapY() == beginY) 
+					Wonder();
+				if (Math.abs(getMapX() - currX) >= 32 || Math.abs(getMapY() - currY) >= 32){
+					switch(getDirection()) {
+						case LEFT_DIR:
+							setMapX(currX - 32);
+							break;
+						case RIGHT_DIR:
+							setMapX(currX + 32);
+							break;
+						case UP_DIR:
+							setMapY(currY - 32);
+							break;
+						case DOWN_DIR:
+							setMapY(currY + 32);
+							break;
+					}
+					currX = getMapX();
+					currY = getMapY();
+					Wonder();
+				}
+				else {
+					switch(getDirection()) {
+						case LEFT_DIR:
+						case RIGHT_DIR:
+							setMapX(getMapX() + getMovementSpeed());
+							break;
+						case UP_DIR:
+						case DOWN_DIR:
+							setMapY(getMapY() + getMovementSpeed());
+							break;
+					}
+				}
 			}
-			currX = getMapX();
-			currY = getMapY();
-			Wonder();
-		}
-		else {
-			switch(getDirection()) {
-				case LEFT_DIR:
-				case RIGHT_DIR:
-					setMapX(getMapX() + getMovementSpeed());
-					break;
-				case UP_DIR:
-				case DOWN_DIR:
-					setMapY(getMapY() + getMovementSpeed());
-					break;
-			}
+		
+			else{
+				getGameWorld().b1.setMonster(this);
+				getGameWorld().b1.setInBattle(true);
+			}	
 		}
 	}
 
+	public float getBeginX() {
+		return beginX;
+	}
+
+	public float getBeginY() {
+		return beginY;
+	}
+
+	public void setCurrX(float currX) {
+		this.currX = currX;
+	}
+
+	public void setCurrY(float currY) {
+		this.currY = currY;
+	}
+	
 }
