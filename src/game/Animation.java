@@ -1,6 +1,8 @@
-package game;
+package com.kdat.effect;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -13,8 +15,6 @@ public class Animation {
     private ArrayList<FrameImage> frameImages;
     private int currentFrame;
     
-    private ArrayList<Boolean> ignoreFrames;
-    
     private ArrayList<Double> delayFrames;
     private long beginTime;
 
@@ -24,8 +24,6 @@ public class Animation {
         delayFrames = new ArrayList<Double>();
         beginTime = 0;
         currentFrame = 0;
-
-        ignoreFrames = new ArrayList<Boolean>();
         
         frameImages = new ArrayList<FrameImage>();
         
@@ -46,11 +44,6 @@ public class Animation {
             delayFrames.add(d);
         }
         
-        ignoreFrames = new ArrayList<Boolean>();
-        for(boolean b : animation.ignoreFrames){
-            ignoreFrames.add(b);
-        }
-        
         frameImages = new ArrayList<FrameImage>();
         for(FrameImage f : animation.frameImages){
             frameImages.add(new FrameImage(f));
@@ -65,19 +58,6 @@ public class Animation {
         return isRepeated;
     }
     
-    public boolean isIgnoreFrame(int id){
-        return ignoreFrames.get(id);
-    }
-    
-    public void setIgnoreFrame(int id){
-        if(id >= 0 && id < ignoreFrames.size())
-            ignoreFrames.set(id, true);
-    }
-    
-    public void unIgnoreFrame(int id){
-        if(id >= 0 && id < ignoreFrames.size())
-            ignoreFrames.set(id, false);
-    }
     
     public void setName(String name){
         this.name = name;
@@ -102,9 +82,8 @@ public class Animation {
     
     public void add(FrameImage frameImage, double timeToNextFrame){
 
-        ignoreFrames.add(false);
         frameImages.add(frameImage);
-        delayFrames.add(timeToNextFrame);
+        delayFrames.add(new Double(timeToNextFrame));
         
     }
     
@@ -129,7 +108,8 @@ public class Animation {
         }
         
     }
-   
+
+    
     public boolean isLastFrame(){
         if(currentFrame == frameImages.size() - 1)
             return true;
@@ -144,18 +124,15 @@ public class Animation {
         }
         else currentFrame++;
         
-        if(ignoreFrames.get(currentFrame)) nextFrame();
-        
     }
-   
     
     public void draw(int x, int y, Graphics2D g2){
         
         BufferedImage image = getCurrentImage();
         
-        g2.drawImage(image, x - image.getWidth()/2, y - image.getHeight()/2, null);
+        g2.drawImage(image, x, y, null);
         if(drawRectFrame)
-            g2.drawRect(x - image.getWidth()/2, x - image.getWidth()/2, image.getWidth(), image.getHeight());
+            g2.drawRect(x, x, image.getWidth(), image.getHeight());
         
     }
     
