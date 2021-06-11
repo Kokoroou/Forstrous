@@ -110,7 +110,10 @@ public class Battle {
 	
 	public void update() {
 		
-		if (/*hero.isAlive() && monster.isAlive() &&*/ inBattle) onBattle();
+		if (inBattle) {
+			onBattle();
+			hero.battle = true;
+		}
 		else if(hero.isAlive()) {
 			
 		}
