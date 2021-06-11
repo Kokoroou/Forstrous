@@ -16,8 +16,8 @@ public class CacheDataLoader {
     
     private static CacheDataLoader instance = null;
     
-    private String framefile = "data/Monster.txt";
-    private String animationfile = "data/MonsterAnim.txt";
+    private String framefile = "data/frame.txt";
+    private String animationfile = "data/animation.txt";
 //    private String physmapfile = "data/phys_map.txt";
 //    private String backgroundmapfile = "data/background_map.txt";
 //    private String soundfile = "data/sounds.txt";
