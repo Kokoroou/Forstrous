@@ -19,6 +19,7 @@ public class Monster extends Character {
 		currY = getMapY();
 		beginX = getMapX();
 		beginY = getMapY();
+		fullBody = CacheDataLoader.getInstance().getFrameImage(name + "FullBody");
 	}
 
 	private int Random(int a[]) {
