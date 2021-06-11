@@ -8,6 +8,7 @@ public class GameWorld {
 	public Monster slime, gayzer, bat, skeleton;
 	public Hero hero;
 	public BattleMap b1;
+	public Item potion, sword, armor;
 	
 	public GameWorld() {
 		map = new Map();
@@ -17,6 +18,11 @@ public class GameWorld {
 		skeleton = new Monster("skeleton", 32, 352, 100, 20, 30, 0, this, 2);
 		hero = new Hero("hero", 0, 0, 500, 30, 50, 0, this);
 		b1 = new BattleMap(hero);
+		itemManager = new ObjectManager(this);
+		//Potion luon o vi tri 0
+		itemManager.items.add(potion);
+		itemManager.addItem(sword);
+		itemManager.addItem(armor);
 	}
 	
 	public void drawGameWorld(Graphics2D g2){
@@ -29,6 +35,7 @@ public class GameWorld {
 			hero.draw(g2);
 		}
 		else b1.draw(g2);
+		itemManager.draw(g2);
 	}
 	
 	public void update() {
@@ -39,6 +46,7 @@ public class GameWorld {
 		skeleton.update();
 		hero.update();
 		b1.update();
+		itemManager.update();
 	}
 	
 }
