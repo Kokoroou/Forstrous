@@ -17,6 +17,7 @@ public class Hero extends Character{
 
 	public Hero(String name, float mapX, float mapY, int maxHp, int attack, int luck, float movementSpeed, GameWorld gameWorld) {
 		super(name, mapX, mapY, maxHp, attack, luck, movementSpeed, gameWorld);
+		face = CacheDataLoader.getInstance().getFrameImage(name + "Face");
 	}
 	public void equip(Item item) {
 		
