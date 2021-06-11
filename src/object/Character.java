@@ -36,7 +36,7 @@ public abstract class Character {
 	private String name;
 	private float mapX, mapY;
 	private int maxHp, currentHp;
-	private FrameImage fullBody, face;
+	protected FrameImage fullBody, face;
 	private int attack, luck;
 	private float movementSpeed;
 	private boolean alive;
@@ -56,8 +56,6 @@ public abstract class Character {
 		this.movementSpeed = movementSpeed;
 		this.alive = true;
 		this.gameWorld = gameWorld;
-		fullBody = CacheDataLoader.getInstance().getFrameImage(name + "FullBody");
-		face = CacheDataLoader.getInstance().getFrameImage(name + "Face");
 		upAnim = CacheDataLoader.getInstance().getAnimation(name + "Up");
 		downAnim = CacheDataLoader.getInstance().getAnimation(name + "Down");
 		leftAnim = CacheDataLoader.getInstance().getAnimation(name + "Left");
