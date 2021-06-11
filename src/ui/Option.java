@@ -27,7 +27,7 @@ public class Option extends JPanel implements ActionListener{
 		background = new JLabel();
 		background.setBounds(0, -18, GUI.WIDTH, GUI.HEIGHT);
 		background.setBackground(Color.BLACK);
-		Background = new ImageIcon(getClass().getResource("/Images/Forstrous.png"));
+		Background = new ImageIcon(getClass().getResource("/image/Forstrous.png"));
 		background.setIcon(Background);
 		add(background);
 		

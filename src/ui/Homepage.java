@@ -54,7 +54,6 @@ public class Homepage extends JPanel{
 	
 	public JLabel setLabel(int x, int y, String ImageIcon){
 		JLabel label = new JLabel();
-//		System.out.println("Value URL = " + getClass().getResource(ImageIcon));
 		ImageIcon Icon = new ImageIcon(getClass().getResource(ImageIcon));
 		label.setBounds(x, y, Icon.getIconWidth(), Icon.getIconHeight());
 		label.setIcon(Icon);

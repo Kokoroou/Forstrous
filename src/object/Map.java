@@ -118,24 +118,21 @@ public class Map extends JLabel {
 		return this.arr[tileX][tileY];
 	}
 	
-	public void drawMap(Graphics2D g2d) {
+	public void drawMap(Graphics2D g2d, int round2) {
 		BufferedImage img;
 		switch (getRound()) {
 		case 1: {
 			try {
-				img = ImageIO.read(new File("data/map1.png"));
+				img = ImageIO.read(new File("image/map1.png"));
 				g2d.drawImage(img, 0, 0, null);
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-			
-			
-			
+			}			
 			break;
 		}
 		case 2: {
 			try {
-				img = ImageIO.read(new File("data/map2.png"));
+				img = ImageIO.read(new File("image/map2.png"));
 				g2d.drawImage(img, 0, 0, null);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -144,7 +141,7 @@ public class Map extends JLabel {
 		}
 		case 3: {
 			try {
-				img = ImageIO.read(new File("data/map3.png"));
+				img = ImageIO.read(new File("image/map3.png"));
 				g2d.drawImage(img, 0, 0, null);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -153,7 +150,7 @@ public class Map extends JLabel {
 		}
 		case 4: {
 			try {
-				img = ImageIO.read(new File("data/map4.png"));
+				img = ImageIO.read(new File("image/map4.png"));
 				g2d.drawImage(img, 0, 0, null);
 			} catch (IOException e) {
 				e.printStackTrace();

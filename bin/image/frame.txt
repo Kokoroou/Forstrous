@@ -1,0 +1,737 @@
+
+105
+
+slimeDown0
+image data/Monster3.png
+x 224
+y 0
+w 32
+h 32
+
+slimeDown1
+image data/Monster3.png
+x 192
+y 0
+w 32
+h 32
+
+slimeDown2
+image data/Monster3.png
+x 256
+y 0
+w 32
+h 32
+
+slimeLeft0
+image data/Monster3.png
+x 224
+y 32
+w 32
+h 32
+
+slimeLeft1
+image data/Monster3.png
+x 192
+y 32
+w 32
+h 32
+
+slimeLeft2
+image data/Monster3.png
+x 256
+y 32
+w 32
+h 32
+
+slimeRight0
+image data/Monster3.png
+x 224
+y 64
+w 32
+h 32
+
+slimeRight1
+image data/Monster3.png
+x 192
+y 64
+w 32
+h 32
+
+slimeRight2
+image data/Monster3.png
+x 256
+y 64
+w 32
+h 32
+
+slimeUp0
+image data/Monster3.png
+x 224
+y 96
+w 32
+h 32
+
+slimeUp1
+image data/Monster3.png
+x 192
+y 96
+w 32
+h 32
+
+slimeUp2
+image data/Monster3.png
+x 256
+y 96
+w 32
+h 32
+
+plantDown0
+image data/Monster3.png
+x 32
+y 0
+w 32
+h 32
+
+plantDown1
+image data/Monster3.png
+x 0
+y 0
+w 32
+h 32
+
+plantDown2
+image data/Monster3.png
+x 64
+y 0
+w 32
+h 32
+
+plantLeft0
+image data/Monster3.png
+x 32
+y 32
+w 32
+h 32
+
+plantLeft1
+image data/Monster3.png
+x 0
+y 32
+w 32
+h 32
+
+plantLeft2
+image data/Monster3.png
+x 64
+y 32
+w 32
+h 32
+
+plantRight0
+image data/Monster3.png
+x 32
+y 64
+w 32
+h 32
+
+plantRight1
+image data/Monster3.png
+x 0
+y 64
+w 32
+h 32
+
+plantRight2
+image data/Monster3.png
+x 64
+y 64
+w 32
+h 32
+
+plantUp0
+image data/Monster3.png
+x 32
+y 96
+w 32
+h 32
+
+plantUp1
+image data/Monster3.png
+x 0
+y 96
+w 32
+h 32
+
+plantUp2
+image data/Monster3.png
+x 64
+y 96
+w 32
+h 32
+
+ghostDown0
+image data/Monster2.png
+x 32
+y 0
+w 32
+h 32
+
+ghostDown1
+image data/Monster2.png
+x 0
+y 0
+w 32
+h 32
+
+ghostDown2
+image data/Monster2.png
+x 64
+y 0
+w 32
+h 32
+
+ghostLeft0
+image data/Monster2.png
+x 32
+y 32
+w 32
+h 32
+
+ghostLeft1
+image data/Monster2.png
+x 0
+y 32
+w 32
+h 32
+
+ghostLeft2
+image data/Monster2.png
+x 64
+y 32
+w 32
+h 32
+
+ghostRight0
+image data/Monster2.png
+x 32
+y 64
+w 32
+h 32
+
+ghostRight1
+image data/Monster2.png
+x 0
+y 64
+w 32
+h 32
+
+ghostRight2
+image data/Monster2.png
+x 64
+y 64
+w 32
+h 32
+
+ghostUp0
+image data/Monster2.png
+x 32
+y 96
+w 32
+h 32
+
+ghostUp1
+image data/Monster2.png
+x 0
+y 96
+w 32
+h 32
+
+ghostUp2
+image data/Monster2.png
+x 64
+y 96
+w 32
+h 32
+
+batDown0
+image data/Monster1.png
+x 32
+y 0
+w 32
+h 32
+
+batDown1
+image data/Monster1.png
+x 0
+y 0
+w 32
+h 32
+
+batDown2
+image data/Monster1.png
+x 64
+y 0
+w 32
+h 32
+
+batLeft0
+image data/Monster1.png
+x 32
+y 32
+w 32
+h 32
+
+batLeft1
+image data/Monster1.png
+x 0
+y 32
+w 32
+h 32
+
+batLeft2
+image data/Monster1.png
+x 64
+y 32
+w 32
+h 32
+
+batRight0
+image data/Monster1.png
+x 32
+y 64
+w 32
+h 32
+
+batRight1
+image data/Monster1.png
+x 0
+y 64
+w 32
+h 32
+
+batRight2
+image data/Monster1.png
+x 64
+y 64
+w 32
+h 32
+
+batUp0
+image data/Monster1.png
+x 32
+y 96
+w 32
+h 32
+
+batUp1
+image data/Monster1.png
+x 0
+y 96
+w 32
+h 32
+
+batUp2
+image data/Monster1.png
+x 64
+y 96
+w 32
+h 32
+
+gayzerDown0
+image data/Monster1.png
+x 128
+y 0
+w 32
+h 32
+
+gayzerDown1
+image data/Monster1.png
+x 96
+y 0
+w 32
+h 32
+
+gayzerDown2
+image data/Monster1.png
+x 160
+y 0
+w 32
+h 32
+
+gayzerLeft0
+image data/Monster1.png
+x 128
+y 32
+w 32
+h 32
+
+gayzerLeft1
+image data/Monster1.png
+x 96
+y 32
+w 32
+h 32
+
+gayzerLeft2
+image data/Monster1.png
+x 160
+y 32
+w 32
+h 32
+
+gayzerRight0
+image data/Monster1.png
+x 128
+y 64
+w 32
+h 32
+
+gayzerRight1
+image data/Monster1.png
+x 96
+y 64
+w 32
+h 32
+
+gayzerRight2
+image data/Monster1.png
+x 160
+y 64
+w 32
+h 32
+
+gayzerUp0
+image data/Monster1.png
+x 128
+y 96
+w 32
+h 32
+
+gayzerUp1
+image data/Monster1.png
+x 96
+y 96
+w 32
+h 32
+
+gayzerUp2
+image data/Monster1.png
+x 160
+y 96
+w 32
+h 32
+
+scorpionDown0
+image data/Monster1.png
+x 224
+y 128
+w 32
+h 32
+
+scorpionDown1
+image data/Monster1.png
+x 192
+y 128
+w 32
+h 32
+
+scorpionDown2
+image data/Monster1.png
+x 256
+y 128
+w 32
+h 32
+
+scorpionLeft0
+image data/Monster1.png
+x 224
+y 160
+w 32
+h 32
+
+scorpionLeft1
+image data/Monster1.png
+x 192
+y 160
+w 32
+h 32
+
+scorpionLeft2
+image data/Monster1.png
+x 256
+y 160
+w 32
+h 32
+
+scorpionRight0
+image data/Monster1.png
+x 224
+y 192
+w 32
+h 32
+
+scorpionRight1
+image data/Monster1.png
+x 192
+y 192
+w 32
+h 32
+
+scorpionRight2
+image data/Monster1.png
+x 256
+y 192
+w 32
+h 32
+
+scorpionUp0
+image data/Monster1.png
+x 224
+y 224
+w 32
+h 32
+
+scorpionUp1
+image data/Monster1.png
+x 192
+y 224
+w 32
+h 32
+
+scorpionUp2
+image data/Monster1.png
+x 256
+y 224
+w 32
+h 32
+
+skeletonDown0
+image data/Monster2.png
+x 128
+y 0
+w 32
+h 32
+
+skeletonDown1
+image data/Monster2.png
+x 96
+y 0
+w 32
+h 32
+
+skeletonDown2
+image data/Monster2.png
+x 160
+y 0
+w 32
+h 32
+
+skeletonLeft0
+image data/Monster2.png
+x 128
+y 32
+w 32
+h 32
+
+skeletonLeft1
+image data/Monster2.png
+x 96
+y 32
+w 32
+h 32
+
+skeletonLeft2
+image data/Monster2.png
+x 160
+y 32
+w 32
+h 32
+
+skeletonRight0
+image data/Monster2.png
+x 128
+y 64
+w 32
+h 32
+
+skeletonRight1
+image data/Monster2.png
+x 96
+y 64
+w 32
+h 32
+
+skeletonRight2
+image data/Monster2.png
+x 160
+y 64
+w 32
+h 32
+
+skeletonUp0
+image data/Monster2.png
+x 128
+y 96
+w 32
+h 32
+
+skeletonUp1
+image data/Monster2.png
+x 96
+y 96
+w 32
+h 32
+
+skeletonUp2
+image data/Monster2.png
+x 160
+y 96
+w 32
+h 32
+
+heroDown0
+image data/Actor.png
+x 32
+y 0
+w 32
+h 32
+
+heroDown1
+image data/Actor.png
+x 0
+y 0
+w 32
+h 32
+
+heroDown2
+image data/Actor.png
+x 64
+y 0
+w 32
+h 32
+
+heroLeft0
+image data/Actor.png
+x 32
+y 32
+w 32
+h 32
+
+heroLeft1
+image data/Actor.png
+x 0
+y 32
+w 32
+h 32
+
+heroLeft2
+image data/Actor.png
+x 64
+y 32
+w 32
+h 32
+
+heroRight0
+image data/Actor.png
+x 32
+y 64
+w 32
+h 32
+
+heroRight1
+image data/Actor.png
+x 0
+y 64
+w 32
+h 32
+
+heroRight2
+image data/Actor.png
+x 64
+y 64
+w 32
+h 32
+
+heroUp0
+image data/Actor.png
+x 32
+y 96
+w 32
+h 32
+
+heroUp1
+image data/Actor.png
+x 0
+y 96
+w 32
+h 32
+
+heroUp2
+image data/Actor.png
+x 64
+y 96
+w 32
+h 32
+
+slimeFullBody
+image data/Slime.png
+x 0
+y 0
+w 136
+h 47
+
+heroFace
+image data/Actor4.png
+x 0
+y 64
+w 64
+h 64
+
+background
+image data/background.png
+x 0
+y 0
+w 580
+h 444
+
+gayzerFullBody
+image data/Gayzer.png
+x 0
+y 0
+w 208
+h 137
+
+ghostFullBody
+image data/Ghost.png
+x 0
+y 0
+w 111
+h 179
+
+skeletonFullBody
+image data/Skeleton.png
+x 0
+y 0
+w 167
+h 189
+
+scorpionFullBody
+image data/Scorpion.png
+x 0
+y 0
+w 194
+h 163
+
+plantFullBody
+image data/Plant.png
+x 0
+y 0
+w 186
+h 155
+
+batFullBody
+image data/Bat.png
+x 0
+y 0
+w 114
+h 142

@@ -31,7 +31,7 @@ public class Monster extends Character {
 		this.setMovementSpeed(0);
 		int tileX = (int) this.getMapX() / 32;
 		int tileY = (int) this.getMapY() / 32; 
-		int dir = Random(canDir[getGameWorld().m1.getTile(tileX, tileY)]);
+		int dir = Random(canDir[getGameWorld().map.getTile(tileX, tileY)]);
 		//System.out.println("...: " + Map.arr1[tileX][tileY]);
 		switch(dir) {
 			case DOWN_DIR:
@@ -67,13 +67,13 @@ public class Monster extends Character {
 	}
 	
 	public void draw(Graphics2D g2, int round) {
-		if(getGameWorld().m1.getRound() == round)
+		if(getGameWorld().map.getRound() == round)
 			this.draw(g2);
 	}
 	
 	@Override
 	public void update() {
-		if(getGameWorld().m1.getRound() == round) {
+		if(getGameWorld().map.getRound() == round) {
 			if(!onInteract(getGameWorld().hero)){
 				if(getMapX() == beginX && getMapY() == beginY) 
 					Wonder();

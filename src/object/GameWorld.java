@@ -4,13 +4,13 @@ import java.awt.Graphics2D;
 
 public class GameWorld {
 	
-	public Map m1;
+	public Map map;
 	public Monster slime, gayzer, bat, skeleton;
 	public Hero hero;
 	public Battle b1;
 	
 	public GameWorld() {
-		m1 = new Map();
+		map = new Map();
 		slime = new Monster("slime", 32, 352, 100, 20, 30, 0, this, 1);
 		gayzer = new Monster("gayzer", 544, 64, 100, 20, 30, 0, this, 2);
 		bat = new Monster("bat", 352, 0, 100, 20, 30, 0, this, 1);
@@ -20,7 +20,7 @@ public class GameWorld {
 	}
 	
 	public void drawGameWorld(Graphics2D g2){
-		m1.drawMap(g2, 2);
+		map.drawMap(g2, 2);
 		b1.draw(g2);
 		slime.draw(g2, 1);
 		bat.draw(g2, 1);
@@ -31,7 +31,7 @@ public class GameWorld {
 	}
 	
 	public void update() {
-		m1.update();
+		map.update();
 		slime.update();
 		gayzer.update();
 		bat.update();
