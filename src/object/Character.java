@@ -50,6 +50,7 @@ public abstract class Character {
 		this.name = name;
 		this.mapX = mapX;
 		this.mapY = mapY;
+		this.currentHp = maxHp;
 		this.maxHp = maxHp;
 		this.attack = attack;
 		this.luck = luck;
