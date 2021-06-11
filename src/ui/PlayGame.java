@@ -26,7 +26,7 @@ public class PlayGame extends JPanel implements Runnable,ActionListener{
 	int x=0,y=0;
 	private ControlPanel control;
 	private BitSet traceKey = new BitSet();
-	private JButton btn_Menu, btn_Next,kiem1;
+	private JButton buttonHomepage, btn_Next,kiem1;
 	private Map map = new Map();
 	
 	public PlayGame(ControlPanel control) {
@@ -40,11 +40,11 @@ public class PlayGame extends JPanel implements Runnable,ActionListener{
 		innitCompts();
 	}
 	private void innitCompts(){
-		btn_Menu = new JButton();
-		btn_Menu.setText("Menu");
-		btn_Menu.setBounds(600, 417, 80, 30);
-		btn_Menu.addActionListener(this);
-		add(btn_Menu);
+		buttonHomepage = new JButton();
+		buttonHomepage.setText("Home");
+		buttonHomepage.setBounds(600, 417, 80, 30);
+		buttonHomepage.addActionListener(this);
+		add(buttonHomepage);
 		
 		btn_Next = new JButton();
 		btn_Next.setText("Next");
@@ -196,7 +196,7 @@ public class PlayGame extends JPanel implements Runnable,ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==btn_Menu){
+		if(e.getSource()==buttonHomepage){
 			control.setShowMenu();
 		
 		}
