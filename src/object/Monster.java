@@ -8,6 +8,7 @@ public class Monster extends Character {
 	private float beginX, beginY;
 	private float currX, currY;
 	private int round;
+	private boolean firstWonder;
 	
 	public Monster() {}
 
@@ -15,11 +16,12 @@ public class Monster extends Character {
 		super(name, mapX, mapY, maxHp, attack, luck, movementSpeed, gameWorld);
 		this.round = round;
 		this.setDirection(Character.DOWN_DIR);
-		currX = getMapX();
-		currY = getMapY();
-		beginX = getMapX();
-		beginY = getMapY();
-		fullBody = CacheDataLoader.getInstance().getFrameImage(name + "FullBody");
+		currX = mapX;
+		currY = mapY;
+		beginX = mapX;
+		beginY = mapY;
+		firstWonder = false;
+//		fullBody = CacheDataLoader.getInstance().getFrameImage(name + "FullBody");
 	}
 
 	private int Random(int a[]) {
@@ -33,7 +35,7 @@ public class Monster extends Character {
 		int tileX = (int) this.getMapX() / 32;
 		int tileY = (int) this.getMapY() / 32; 
 		int dir = Random(canDir[getGameWorld().map.getTile(tileX, tileY)]);
-		//System.out.println("...: " + Map.arr1[tileX][tileY]);
+		System.out.println(getName() + ": " + Map.arr1[tileX][tileY] + "   " + getMapX() + "   " + getMapY());
 		switch(dir) {
 			case DOWN_DIR:
 				setDirection(DOWN_DIR);
@@ -76,12 +78,12 @@ public class Monster extends Character {
 	public void update() {
 		if(getGameWorld().map.getRound() == round) {
 			if(!onInteract(getGameWorld().hero)){
-				if(getMapX() == beginX && getMapY() == beginY) {
+				if(!firstWonder) {
 					Wonder();
-					beginX = -1;
-					beginY = -1;
+					firstWonder = true;
 				}
-				if (Math.abs(getMapX() - currX) >= 32 || Math.abs(getMapY() - currY) >= 32){
+				
+				else if (Math.abs(getMapX() - currX) >= 32 || Math.abs(getMapY() - currY) >= 32){
 					switch(getDirection()) {
 						case LEFT_DIR:
 							setMapX(currX - 32);
@@ -135,6 +137,14 @@ public class Monster extends Character {
 
 	public void setCurrY(float currY) {
 		this.currY = currY;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setFirstWonder(boolean firstWonder) {
+		this.firstWonder = firstWonder;
 	}
 	
 }
