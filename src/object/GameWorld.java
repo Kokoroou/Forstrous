@@ -58,7 +58,7 @@ public class GameWorld {
 	}
 	
 	public void drawGameWorld(Graphics2D g2){
-		map.drawMap(g2, 1);
+		map.drawMap(g2);
 		b1.draw(g2);
 		hero.draw(g2);
 		objectManager.draw(g2);
