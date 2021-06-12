@@ -34,7 +34,7 @@ public abstract class Character {
     	};
 	
 	private String name;
-	private float mapX, mapY;
+	public float mapX, mapY;
 	private int maxHp, currentHp;
 	protected FrameImage fullBody, face;
 	private int attack, luck;

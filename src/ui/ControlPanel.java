@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 public class ControlPanel extends JPanel{
-	private static final String TAG_MENU = "tag_menu";
+	private static final String TAG_HOMEPAGE = "tag_homepage";
 	private static final String TAG_PLAYGAME = "tag_playgame";
 	private static final String TAG_OPTION = "tag_option";
 	private CardLayout cardLayout;
@@ -19,21 +19,21 @@ public class ControlPanel extends JPanel{
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
 		homepage = new Homepage(this);
-		add(homepage,TAG_MENU);
+		add(homepage,TAG_HOMEPAGE);
 		option = new Option(this);
 		add(option, TAG_OPTION);
 		playGame = new PlayGame(this);
 		add(playGame, TAG_PLAYGAME);
 		
-		setShowMenu();
+		setShowHomepage();
 
 	}
 
 	public GUI getGui() {
 		return gui;
 	}
-	public void setShowMenu(){
-		cardLayout.show(ControlPanel.this, TAG_MENU);
+	public void setShowHomepage(){
+		cardLayout.show(ControlPanel.this, TAG_HOMEPAGE);
 		homepage.requestFocus();
 	}
 

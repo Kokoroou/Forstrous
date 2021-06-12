@@ -19,15 +19,25 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class PlayGame extends JPanel implements Runnable,ActionListener{
-	public static boolean IS_RUNNING=true;
+public class PlayGame extends JPanel implements Runnable, ActionListener{
+	public static boolean running = true;
+	private ControlPanel control;
+	private JButton buttonHomepage, buttonNext;
+	private Map map = new Map();
+	private Hero hero = new Hero();
+	
+	
 	int round=0,change=1,key=1,key1=1,key2=1;;
 	Image img;
-	int x=0,y=0;
-	private ControlPanel control;
+	
 	private BitSet traceKey = new BitSet();
-	private JButton buttonHomepage, btn_Next,kiem1;
-	private Map map = new Map();
+	
+	public Hero getHero() {
+		return this.hero;
+	}
+	public void setHero() {
+		this.hero = hero;
+	}
 	
 	public PlayGame(ControlPanel control) {
 		this.control = control;
@@ -46,11 +56,11 @@ public class PlayGame extends JPanel implements Runnable,ActionListener{
 		buttonHomepage.addActionListener(this);
 		add(buttonHomepage);
 		
-		btn_Next = new JButton();
-		btn_Next.setText("Next");
-		btn_Next.setBounds(600, 357, 80, 30);
-		btn_Next.addActionListener(this);
-		add(btn_Next);	
+		buttonNext = new JButton();
+		buttonNext.setText("Next");
+		buttonNext.setBounds(600, 357, 80, 30);
+		buttonNext.addActionListener(this);
+		add(buttonNext);	
 	}
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -59,40 +69,46 @@ public class PlayGame extends JPanel implements Runnable,ActionListener{
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setFont(new Font("Arial", Font.BOLD, 20));
 		g2d.setColor(Color.RED);
-		g2d.drawString("Map "+round, 610, 25);
-		map.drawMap(g2d, round);
-		if(round==1) {			
-			if(x>=32*16+25&&y>32*12) {
-				x=32;y=32*13;
-				round++;
+		g2d.drawString("Map "+this.round, 610, 25);
+		map.drawMap(g2d, this.round);
+		if(this.round==1) {			
+			if(hero.mapX >= 32*16+25 && hero.mapY > 32*12) {
+				this.round++;
+				hero.mapX = 32;
+				hero.mapY = 32*13;
 			}
 		}
-		if(round == 2) {
+		if(this.round == 2) {
 			
-			if(x>=32*16+25&&y>32&&y<70) {
-				round++;
-				x=32;y=32*2;
+			if(hero.mapX >= 32*16+25 && hero.mapY > 32 && hero.mapY < 70) {
+				this.round++;
+				hero.mapX = 32;
+				hero.mapY = 32*2;
 			}
-			if(x<32&&y>32*12) {
-				round--;
-				x=32*16;y=32*13;
+			if(hero.mapX < 32 && hero.mapY > 32*12) {
+				this.round--;
+				hero.mapX = 32*16;
+				hero.mapY = 32*13;
 			}	
 		}
-		if(round == 3) {
+		if(this.round == 3) {
 
-			if(x<32&&y>30&&y<70) {
-				round--;
-				x=32*16;y=64;
+			if(hero.mapX < 32 && hero.mapY > 30 && hero.mapY < 70) {
+				this.round--;
+				hero.mapX = 32*16;
+				hero.mapY = 64;
 			}
-			if(x>32*16+25&&y>32*5&&y<32*6+10) {
-				round++;
-				x=32;y=32*5;
+			if(hero.mapX > 32*16+25 && hero.mapY > 32*5 && hero.mapY < 32*6+10) {
+				this.round++;
+				hero.mapX = 32;
+				hero.mapY = 32*5;
 			}
 		}
-		if(round == 4) {	
-			if(x<32&&y>32*4&&y<32*6) {
-				round--;
-				x=32*16;y=32*6;
+		if(this.round == 4) {	
+			if(hero.mapX < 32 && hero.mapY > 32*4 && hero.mapY < 32*6) {
+				this.round--;
+				hero.mapX = 32*16;
+				hero.mapY = 32*6;
 			}
 		}
 	}
@@ -111,7 +127,7 @@ public class PlayGame extends JPanel implements Runnable,ActionListener{
 	
 	@Override
 	public void run() {
-		while(IS_RUNNING){
+		while(running){
 			repaint();
 			int arr1[][]= {{0,0,0,1,1,1,1,1,1,1,1,1,1,1},//1
 					{0,0,0,1,0,0,0,0,0,0,0,0,0,1},//2
@@ -170,19 +186,19 @@ public class PlayGame extends JPanel implements Runnable,ActionListener{
 			try {
 				Thread.sleep(20);				
 				if(traceKey.get(KeyEvent.VK_LEFT)){
-					x-=2;
+					hero.mapX-=2;
 					change=3;				
 				}
 				if(traceKey.get(KeyEvent.VK_RIGHT)){
-					x+=2;
+					hero.mapX+=2;
 					change=4;
 				}
 				if(traceKey.get(KeyEvent.VK_UP)){
-					y-=2;
+					hero.mapY-=2;
 					change=2;
 				}
 				if(traceKey.get(KeyEvent.VK_DOWN)){
-					y+=2;
+					hero.mapY+=2;
 					change=1;
 				}
 				
@@ -197,12 +213,12 @@ public class PlayGame extends JPanel implements Runnable,ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==buttonHomepage){
-			control.setShowMenu();
+			control.setShowHomepage();
 		
 		}
-		if(e.getSource()==btn_Next){
-			round++;
-			if(round>4) round = 1;
+		if(e.getSource()==buttonNext){
+			this.round++;
+			if(this.round>4) this.round = 1;
 		}
 	}
 }

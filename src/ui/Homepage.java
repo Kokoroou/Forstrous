@@ -96,7 +96,7 @@ public class Homepage extends JPanel{
 		public void mousePressed(MouseEvent e) {
 			if(e.getSource()==labelExit){
 				gui.dispose();
-				PlayGame.IS_RUNNING=false;
+				PlayGame.running=false;
 			}
 			if(e.getSource()==labelPlayGame){
 				control.setShowPlay();

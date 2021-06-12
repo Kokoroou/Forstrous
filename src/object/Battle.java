@@ -4,30 +4,43 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import effect.CacheDataLoader;
 import effect.FrameImage;
 import ui.*;
 
-public class Battle {
+public class Battle extends JPanel {
+	private PlayGame playgame;
 	private FrameImage background;
 	private Monster monster;
 	private Hero hero;
 	private int heroChoice;
-	private boolean inBattle = false;
+	private boolean battling = false;
 	
-	public Battle() {}
-	public Battle(Hero hero) {
-		background = CacheDataLoader.getInstance().getFrameImage("background");
-		this.hero = hero;
+	public Battle() {
+		this.battling = true;
 	}
 	
-	public boolean isInBattle() {
-		return inBattle;
+	public Battle(PlayGame playgame) {
+		this.battling = true;
+		this.playgame = playgame;
+		this.hero = playgame.getHero();
 	}
-	public void setInBattle(boolean inBattle) {
-		this.inBattle = inBattle;
+	
+	public Battle(PlayGame playgame, Monster monster) {
+		this.battling = true;
+		this.playgame = playgame;
+		this.hero = playgame.getHero();
+		this.monster = monster;
+	}
+	
+	public boolean isBattling() {
+		return battling;
+	}
+	public void setBattling(boolean battling) {
+		this.battling = battling;
 	}
 	public int getHeroChoice() {
 		return heroChoice;
@@ -48,7 +61,7 @@ public class Battle {
     }
 	
 	public void draw(Graphics2D g2) {
-		if (inBattle) {
+		if (battling) {
 			background.draw(g2, 0, 0);
 			monster.getFullBody().draw(g2, (background.getImageWidth() - monster.getFullBody().getImageWidth())/2, (background.getImageHeight() - monster.getFullBody().getImageHeight())/2);
 			hero.getFace().draw(g2, 0, background.getImageHeight() - hero.getFace().getImageHeight());
@@ -80,7 +93,7 @@ public class Battle {
 				
 				break;
 			case 3://chay
-				inBattle = false;
+				battling = false;
 				hero.setMapX(0);
 				hero.setMapY(0);
 				monster.setMapX(monster.getBeginX());
@@ -110,7 +123,7 @@ public class Battle {
 	
 	public void update() {
 		
-		if (inBattle) {
+		if (battling) {
 			onBattle();
 			hero.battle = true;
 		}
