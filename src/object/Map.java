@@ -118,7 +118,7 @@ public class Map extends JLabel {
 		return this.arr[tileX][tileY];
 	}
 	
-	public void drawMap(Graphics2D g2d, int round2) {
+	public void drawMap(Graphics2D g2d) {
 		BufferedImage img;
 		switch (getRound()) {
 		case 1: {
