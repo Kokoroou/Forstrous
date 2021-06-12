@@ -58,19 +58,23 @@ public class GameWorld {
 	}
 	
 	public void drawGameWorld(Graphics2D g2){
-		map.drawMap(g2);
-		b1.draw(g2);
-		hero.draw(g2);
-		objectManager.draw(g2);
-		
+		if(!hero.battle) {
+			map.drawMap(g2);
+			hero.draw(g2);
+			objectManager.draw(g2);
+		}
+		else {
+			b1.draw(g2);
+		}
 	}
 	
 	public void update() {
-		map.update();
-		hero.update();
+		if(!hero.battle) {
+			map.update();
+			hero.update();
+			objectManager.update();
+		}
 		b1.update();
-		objectManager.update();
-		
 	}
 	
 }
