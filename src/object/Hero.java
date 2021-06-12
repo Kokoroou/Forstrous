@@ -56,7 +56,12 @@ public class Hero extends Character{
 			canMove[LEFT_DIR] = true;
 			canMove[RIGHT_DIR] = true;
 		}
-		
+		if(getMapX()==0 && getMapY()==beginY[getGameWorld().map.getRound()-1]) {
+			canMove[LEFT_DIR] = true;
+		}
+		if(getMapX()==544 && getMapY()==endY[getGameWorld().map.getRound()-1]) {
+			canMove[RIGHT_DIR] = true;
+		}
 		if(canMove[getDirection()])
 			switch(getDirection()) {
 			case LEFT_DIR:
