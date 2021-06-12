@@ -1,5 +1,5 @@
 
-105
+121
 
 slimeDown0
 image data/Monster3.png
@@ -334,6 +334,90 @@ batUp2
 image data/Monster1.png
 x 64
 y 96
+w 32
+h 32
+
+ifritDown0
+image data/Monster2.png
+x 32
+y 128
+w 32
+h 32
+
+ifritDown1
+image data/Monster2.png
+x 0
+y 128
+w 32
+h 32
+
+ifritDown2
+image data/Monster2.png
+x 64
+y 128
+w 32
+h 32
+
+ifritLeft0
+image data/Monster2.png
+x 32
+y 160
+w 32
+h 32
+
+ifritLeft1
+image data/Monster2.png
+x 0
+y 160
+w 32
+h 32
+
+ifritLeft2
+image data/Monster2.png
+x 64
+y 160
+w 32
+h 32
+
+ifritRight0
+image data/Monster2.png
+x 32
+y 192
+w 32
+h 32
+
+ifritRight1
+image data/Monster2.png
+x 0
+y 192
+w 32
+h 32
+
+ifritRight2
+image data/Monster2.png
+x 64
+y 192
+w 32
+h 32
+
+ifritUp0
+image data/Monster2.png
+x 32
+y 224
+w 32
+h 32
+
+ifritUp1
+image data/Monster2.png
+x 0
+y 224
+w 32
+h 32
+
+ifritUp2
+image data/Monster2.png
+x 64
+y 224
 w 32
 h 32
 
@@ -735,3 +819,31 @@ x 0
 y 0
 w 114
 h 142
+
+ifritFullBody
+image data/Ifrit.png
+x 0
+y 0
+w 314
+h 239
+
+potion
+image data/IconSet.png
+x 24
+y 0
+w 24
+h 24
+
+sword
+image data/IconSet.png
+x 48
+y 0
+w 24
+h 24
+
+armor
+image data/IconSet.png
+x 72
+y 0
+w 24
+h 24
