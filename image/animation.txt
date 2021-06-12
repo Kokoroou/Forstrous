@@ -1,4 +1,4 @@
-32
+36
 slimeDown
 slimeDown0 300000000 slimeDown1 300000000 slimeDown2 300000000 
 
@@ -46,6 +46,18 @@ batRight0 300000000 batRight1 300000000 batRight2 300000000
 
 batUp
 batUp0 300000000 batUp1 300000000 batUp2 300000000 
+
+ifritDown
+ifritDown0 300000000 ifritDown1 300000000 ifritDown2 300000000 
+
+ifritLeft
+ifritLeft0 300000000 ifritLeft1 300000000 ifritLeft2 300000000 
+
+ifritRight
+ifritRight0 300000000 ifritRight1 300000000 ifritRight2 300000000 
+
+ifritUp
+ifritUp0 300000000 ifritUp1 300000000 ifritUp2 300000000 
 
 gayzerDown
 gayzerDown0 300000000 gayzerDown1 300000000 gayzerDown2 300000000 
