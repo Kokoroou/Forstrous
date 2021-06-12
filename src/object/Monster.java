@@ -76,8 +76,11 @@ public class Monster extends Character {
 	public void update() {
 		if(getGameWorld().map.getRound() == round) {
 			if(!onInteract(getGameWorld().hero)){
-				if(getMapX() == beginX && getMapY() == beginY) 
+				if(getMapX() == beginX && getMapY() == beginY) {
 					Wonder();
+					beginX = -1;
+					beginY = -1;
+				}
 				if (Math.abs(getMapX() - currX) >= 32 || Math.abs(getMapY() - currY) >= 32){
 					switch(getDirection()) {
 						case LEFT_DIR:
