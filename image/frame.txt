@@ -676,84 +676,84 @@ h 32
 heroDown0
 image data/Actor.png
 x 32
-y 0
+y 128
 w 32
 h 32
 
 heroDown1
 image data/Actor.png
 x 0
-y 0
+y 128
 w 32
 h 32
 
 heroDown2
 image data/Actor.png
 x 64
-y 0
+y 128
 w 32
 h 32
 
 heroLeft0
 image data/Actor.png
 x 32
-y 32
+y 160
 w 32
 h 32
 
 heroLeft1
 image data/Actor.png
 x 0
-y 32
+y 160
 w 32
 h 32
 
 heroLeft2
 image data/Actor.png
 x 64
-y 32
+y 160
 w 32
 h 32
 
 heroRight0
 image data/Actor.png
 x 32
-y 64
+y 192
 w 32
 h 32
 
 heroRight1
 image data/Actor.png
 x 0
-y 64
+y 192
 w 32
 h 32
 
 heroRight2
 image data/Actor.png
 x 64
-y 64
+y 192
 w 32
 h 32
 
 heroUp0
 image data/Actor.png
 x 32
-y 96
+y 224
 w 32
 h 32
 
 heroUp1
 image data/Actor.png
 x 0
-y 96
+y 224
 w 32
 h 32
 
 heroUp2
 image data/Actor.png
 x 64
-y 96
+y 224
 w 32
 h 32
 
@@ -766,8 +766,8 @@ h 47
 
 heroFace
 image data/Actor4.png
-x 0
-y 64
+x 128
+y 0
 w 64
 h 64
 
