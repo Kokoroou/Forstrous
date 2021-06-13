@@ -27,8 +27,6 @@ public class Battle extends JPanel {
 	private boolean battling = false;
 	private Graphics2D g2d;
 	
-	public Battle() {}
-	
 //	public Battle(ControlPanel control) {
 //		this.control = control;
 //		this.gui = control.getGui();
@@ -36,8 +34,9 @@ public class Battle extends JPanel {
 //		this.setLayout(getLayout());
 //	}
 	
-	public Battle(GamePanel gamePanel) {
+	public Battle(GamePanel gamePanel, Hero hero) {
 		this.gamePanel = gamePanel;
+		this.hero = hero;
 	}
 	
 	public Battle(GamePanel gamePanel, Monster monster) {
@@ -95,6 +94,7 @@ public class Battle extends JPanel {
 	}
 	
 	public void onBattle() {
+		
 		boolean isHeroDefense = false;
 		Random rand = new Random();
 		int isMonsterDefense = rand.nextInt(1);
@@ -157,10 +157,10 @@ public class Battle extends JPanel {
 		
 		if (battling) {
 			onBattle();
-			hero.battle = true;
+			hero.inBattle = true;
 			if (monster.getCurrentHp()==0 || hero.getCurrentHp()==0)
 				battling = false;
 		}
-		else hero.battle = false;
+		else hero.inBattle = false;
 	}
 }
