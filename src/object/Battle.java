@@ -1,89 +1,34 @@
-package object;
+package com.kdat.object;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import effect.CacheDataLoader;
-import effect.FrameImage;
-import ui.*;
+import com.kdat.effect.CacheDataLoader;
+import com.kdat.effect.FrameImage;
+import com.kdat.ui.*;
 
-public class Battle extends JPanel {
-//	private ControlPanel control;
-//	private GUI gui;
-	private PlayGame play;
+public class Battle {
 	private FrameImage background;
-	private static Monster monster;
+	private Monster monster;
 	private Hero hero;
 	private int heroChoice;
-	private boolean battling = false;
+	private boolean inBattle = false;
 	
-	Graphics2D g2d;
-	
-	public Battle() {
-		this.battling = true;
+	public Battle() {}
+	public Battle(Hero hero) {
+		background = CacheDataLoader.getInstance().getFrameImage("background");
+		this.hero = hero;
+		heroChoice = -1;
 	}
 	
-//	public Battle(ControlPanel control) {
-//		this.control = control;
-//		this.gui = control.getGui();
-//		this.setBackground(Color.WHITE);
-//		this.setLayout(getLayout());
-//	}
-	
-	public Battle(PlayGame playgame) {
-		this.battling = true;
-		this.play = playgame;
-		this.hero = playgame.getGameWorld().getHero();
+	public boolean isInBattle() {
+		return inBattle;
 	}
-	
-	public Battle(PlayGame playgame, Monster monster) {
-		this.battling = true;
-		this.play = playgame;
-		this.hero = playgame.getGameWorld().getHero();
-		this.monster = monster;
-	}
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		
-		this.g2d = (Graphics2D) g;
-		
-		BufferedImage img;
-		
-		try {
-			img = ImageIO.read(new File("image/RockCave1.png"));
-			this.g2d.drawImage(img, 0, 4, null);
-		}
-		catch (IOException e) {	}
-		
-		try {
-			img = ImageIO.read(new File("image/RockCave.png"));
-			this.g2d.drawImage(img, 0, 0, null);
-		}
-		catch (IOException e) {	}
-		
-		img = this.monster.getFullBody();
-		this.g2d.drawImage(img, (580 - img.getWidth())/2, (448 - img.getHeight())/2, null);
-		
-		
-	}
-	
-	
-	
-	public boolean isBattling() {
-		return battling;
-	}
-	public void setBattling(boolean battling) {
-		this.battling = battling;
+	public void setInBattle(boolean inBattle) {
+		this.inBattle = inBattle;
 	}
 	public int getHeroChoice() {
 		return heroChoice;
@@ -98,22 +43,18 @@ public class Battle extends JPanel {
 		this.monster = monster;
 	}
 	
-	private void drawString(Graphics2D g2, String text, int x, int y){
-        for(String str : text.split("\n"))
-            g2.drawString(str, x, y+=g2.getFontMetrics().getHeight());
-    }
+//	private void drawString(Graphics2D g2, String text, int x, int y){
+//        for(String str : text.split("\n"))
+//            g2.drawString(str, x, y+=g2.getFontMetrics().getHeight());
+//    }
 	
 	public void draw(Graphics2D g2) {
-		if (battling) {
+		if (inBattle) {
 			background.draw(g2, 0, 0);
 			monster.getFullBody().draw(g2, (background.getImageWidth() - monster.getFullBody().getImageWidth())/2, (background.getImageHeight() - monster.getFullBody().getImageHeight())/2);
 			hero.getFace().draw(g2, 0, background.getImageHeight() - hero.getFace().getImageHeight());
 		}
 	}
-	
-	
-	
-	
 	
 	public void onBattle() {
 		boolean isHeroDefense = false;
@@ -140,13 +81,14 @@ public class Battle extends JPanel {
 				
 				break;
 			case 3://chay
-				battling = false;
+				inBattle = false;
 				hero.setMapX(0);
 				hero.setMapY(0);
 				monster.setMapX(monster.getBeginX());
 				monster.setMapY(monster.getBeginY());
 				monster.setCurrX(monster.getBeginX());
 				monster.setCurrY(monster.getBeginY());
+				monster.setFirstWonder(false);
 				//thong bao ra man hinh
 				
 				break;
@@ -156,6 +98,7 @@ public class Battle extends JPanel {
 			default: break;
 		}
 		//luot cua monster
+		if (heroChoice == 0) { 
 		if(isMonsterDefense == 0 && monster.onHit()) {
 			if(!isHeroDefense)
 				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack());
@@ -165,21 +108,19 @@ public class Battle extends JPanel {
 				monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
 			}
 		}
+			heroChoice = -1;
+		}
 		
+		System.out.println("Hero: " + hero.getCurrentHp());
+		System.out.println("Monster: " + monster.getCurrentHp());
 	}
 	
 	public void update() {
 		
-		if (battling) {
+		if (/*hero.isAlive() && monster.isAlive() &&*/ inBattle) {
 			onBattle();
-			hero.battle = true;
-		}
-		else if(hero.isAlive()) {
-			
-		}
-		else {
-			//
-			System.out.println("Game over");
+			if (!monster.isAlive() || !hero.isAlive())
+				inBattle = false;
 		}
 	}
 }
