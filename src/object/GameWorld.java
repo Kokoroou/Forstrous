@@ -51,6 +51,7 @@ public class GameWorld extends JPanel implements ActionListener {
 		hero.setMapX(32*8);
 		hero.setMapY(32*9);
 		hero.setMaxHp(500);
+		hero.updateCurrentHp(500);
 		hero.setAttack(30);
 		hero.setLuck(50);
 		hero.setMovementSpeed(0);
