@@ -2,8 +2,8 @@ package object;
 
 import java.awt.*;
 
-import com.kdat.effect.CacheDataLoader;
-import com.kdat.effect.FrameImage;
+import effect.CacheDataLoader;
+import effect.FrameImage;
 
 
 public class Item {
@@ -27,7 +27,7 @@ public class Item {
 		pickUp = false;
 		isBeingUsed = false;
 		firstPick = true;
-		img = CacheDataLoader.getInstance().getFrameImage(name);
+		img = CacheDataLoader.getCachedData().getFrameImage(name);
 	}
 	
 

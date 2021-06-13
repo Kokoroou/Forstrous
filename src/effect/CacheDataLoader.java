@@ -76,7 +76,8 @@ public class CacheDataLoader {
     		if (frameImages == null) {
             	LoadFrame();
             }
-    		FrameImage frameImage = new FrameImage(cachedData.frameImages.get(name));
+//    		FrameImage frameImage = new FrameImage(cachedData.frameImages.get(name));
+    		FrameImage frameImage = cachedData.frameImages.get(name);
     		return frameImage;
     	}
     	catch (Exception e) {

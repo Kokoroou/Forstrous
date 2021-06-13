@@ -81,7 +81,7 @@ public class PlayGame extends JPanel {
 	}
 	
 	public void showBattle() {
-		cardLayout.show(this, TAG_GAMEWORLD);
+		cardLayout.show(this, TAG_BATTLE);
 		battle.requestFocus();
 	}
 	
@@ -162,6 +162,14 @@ public class PlayGame extends JPanel {
 //		}
 //	}
 	
+	public GameWorld getGameWorld() {
+		return gameWorld;
+	}
+
+	public void setGameWorld(GameWorld gameWorld) {
+		this.gameWorld = gameWorld;
+	}
+
 	private KeyAdapter keyAdapter = new KeyAdapter() {
 		@Override
 		public void keyPressed(KeyEvent e) {

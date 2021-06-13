@@ -13,13 +13,13 @@ public class FrameImage {
 	   this.image = image;
 	}
 	
-	public FrameImage(FrameImage frameImage) {
-		image = new BufferedImage(frameImage.getImageWidth(), frameImage.getImageHeight(), frameImage.image.getType());
-		Graphics g = image.getGraphics();
-		g.drawImage(frameImage.getImage(), 0, 0, null);
-		name = frameImage.name;
-	
-	}
+//	public FrameImage(FrameImage frameImage) {
+//		image = new BufferedImage(frameImage.getImageWidth(), frameImage.getImageHeight(), frameImage.image.getType());
+//		Graphics g = image.getGraphics();
+//		g.drawImage(frameImage.getImage(), 0, 0, null);
+//		name = frameImage.name;
+//	
+//	}
 	
 	public FrameImage() {
 		this.name = null;

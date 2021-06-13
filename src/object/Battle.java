@@ -1,10 +1,14 @@
 package object;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -13,38 +17,67 @@ import effect.FrameImage;
 import ui.*;
 
 public class Battle extends JPanel {
-	private ControlPanel control;
-	private GUI gui;
-	private PlayGame playgame;
+//	private ControlPanel control;
+//	private GUI gui;
+	private PlayGame play;
 	private FrameImage background;
-	private Monster monster;
+	private static Monster monster;
 	private Hero hero;
 	private int heroChoice;
 	private boolean battling = false;
+	
+	Graphics2D g2d;
 	
 	public Battle() {
 		this.battling = true;
 	}
 	
-	public Battle(ControlPanel control) {
-		this.control = control;
-		this.gui = control.getGui();
-		this.setBackground(Color.WHITE);
-		this.setLayout(getLayout());
-	}
+//	public Battle(ControlPanel control) {
+//		this.control = control;
+//		this.gui = control.getGui();
+//		this.setBackground(Color.WHITE);
+//		this.setLayout(getLayout());
+//	}
 	
 	public Battle(PlayGame playgame) {
 		this.battling = true;
-		this.playgame = playgame;
-//		this.hero = playgame.getHero();
+		this.play = playgame;
+		this.hero = playgame.getGameWorld().getHero();
 	}
 	
 	public Battle(PlayGame playgame, Monster monster) {
 		this.battling = true;
-		this.playgame = playgame;
-//		this.hero = playgame.getHero();
+		this.play = playgame;
+		this.hero = playgame.getGameWorld().getHero();
 		this.monster = monster;
 	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		this.g2d = (Graphics2D) g;
+		
+		BufferedImage img;
+		
+		try {
+			img = ImageIO.read(new File("image/RockCave1.png"));
+			this.g2d.drawImage(img, 0, 4, null);
+		}
+		catch (IOException e) {	}
+		
+		try {
+			img = ImageIO.read(new File("image/RockCave.png"));
+			this.g2d.drawImage(img, 0, 0, null);
+		}
+		catch (IOException e) {	}
+		
+		img = this.monster.getFullBody();
+		this.g2d.drawImage(img, (580 - img.getWidth())/2, (448 - img.getHeight())/2, null);
+		
+		
+	}
+	
+	
 	
 	public boolean isBattling() {
 		return battling;

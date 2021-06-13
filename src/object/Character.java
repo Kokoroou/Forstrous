@@ -50,6 +50,9 @@ public abstract class Character {
 		this.name = name;
 		this.alive = true;
 		this.gameWorld = gameWorld;
+		this.fullBody = CacheDataLoader.getCachedData().getFrameImage(name + "FullBody");
+		this.face = CacheDataLoader.getCachedData().getFrameImage(name + "Face");
+		
 		upAnim = CacheDataLoader.getCachedData().getAnimation(name + "Up");
 		downAnim = CacheDataLoader.getCachedData().getAnimation(name + "Down");
 		leftAnim = CacheDataLoader.getCachedData().getAnimation(name + "Left");
@@ -67,6 +70,9 @@ public abstract class Character {
 		this.movementSpeed = movementSpeed;
 		this.alive = true;
 		this.gameWorld = gameWorld;
+		this.fullBody = CacheDataLoader.getCachedData().getFrameImage(name + "FullBody");
+		this.face = CacheDataLoader.getCachedData().getFrameImage(name + "Face");
+		
 		upAnim = CacheDataLoader.getCachedData().getAnimation(name + "Up");
 		downAnim = CacheDataLoader.getCachedData().getAnimation(name + "Down");
 		leftAnim = CacheDataLoader.getCachedData().getAnimation(name + "Left");
@@ -117,20 +123,20 @@ public abstract class Character {
 		this.currentHp = currentHp;
 	}
 
-	public FrameImage getFullBody() {
-		return fullBody;
+	public BufferedImage getFullBody() {
+		return fullBody.getImage();
 	}
 
-	public void setFullBody(FrameImage fullBody) {
-		this.fullBody = fullBody;
+	public void setFullBody(BufferedImage fullBody) {
+		this.fullBody.setImage(fullBody);;
 	}
 
-	public FrameImage getFace() {
-		return face;
+	public BufferedImage getFace() {
+		return face.getImage();
 	}
 
-	public void setFace(FrameImage face) {
-		this.face = face;
+	public void setFace(BufferedImage face) {
+		this.face.setImage(face);;
 	}
 
 	public int getAttack() {

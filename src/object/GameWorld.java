@@ -249,6 +249,9 @@ public class GameWorld extends JPanel implements ActionListener {
 		g2d.drawString("Map "+ this.round, 610, 25);
 		map.get(this.round).drawMap(g2d);
 		hero.draw(g2d);
+		
+		battle = new Battle(play, objectManager.monsters.get(0));
+		play.showBattle();
 	}
 	
 	public Graphics2D getG2d() {
@@ -257,6 +260,14 @@ public class GameWorld extends JPanel implements ActionListener {
 
 	public void setG2d(Graphics2D g2d) {
 		this.g2d = g2d;
+	}
+
+	public Hero getHero() {
+		return hero;
+	}
+
+	public void setHero(Hero hero) {
+		this.hero = hero;
 	}
 
 	public void update() {
