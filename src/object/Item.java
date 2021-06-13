@@ -2,8 +2,8 @@ package object;
 
 import java.awt.*;
 
-import effect.CacheDataLoader;
-import effect.FrameImage;
+import com.kdat.effect.CacheDataLoader;
+import com.kdat.effect.FrameImage;
 
 
 public class Item {
@@ -11,7 +11,7 @@ public class Item {
 	public static final int EQUIPMENT = 1;
 	private String name;
     private FrameImage img;
-    private boolean pickUp, isBeingUsed;
+    private boolean pickUp, isBeingUsed, firstPick;
     private GameWorld gameWorld;
     private int itemType;
     private Monster monster;
@@ -26,11 +26,12 @@ public class Item {
 		this.luck = luck;
 		pickUp = false;
 		isBeingUsed = false;
-		img = CacheDataLoader.getCachedData().getFrameImage(name);
+		firstPick = true;
+		img = CacheDataLoader.getInstance().getFrameImage(name);
 	}
 	
 
-	public boolean isPickUp() {
+	public boolean getIsPickUp() {
 		return pickUp;
 	}
 
@@ -47,6 +48,14 @@ public class Item {
 
 	public void setIsBeingUsed(boolean isBeingUsed) {
 		this.isBeingUsed = isBeingUsed;
+	}
+
+	public boolean isFirstPick() {
+		return firstPick;
+	}
+
+	public void setFirstPick(boolean firstPick) {
+		this.firstPick = firstPick;
 	}
 
 	public int getItemType() {
