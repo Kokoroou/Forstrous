@@ -1,4 +1,4 @@
-package com.kdat.ui;
+package ui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import com.kdat.effect.*;
+import effect.*;
 
 public class GameFrame extends JFrame{
 	public static final int SCREEN_WIDTH = 776;

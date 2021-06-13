@@ -14,10 +14,15 @@ public class Hero extends Character{
 	public boolean battle = false;
 	
 	public Hero() {}
+	
+	public Hero(String name, GameWorld gameWorld) {
+		super(name, gameWorld);
+		face = CacheDataLoader.getCachedData().getFrameImage(name + "Face");
+	}
 
-	public Hero(String name, float mapX, float mapY, int maxHp, int attack, int luck, float movementSpeed, GameWorld gameWorld) {
+	public Hero(String name, int mapX, int mapY, int maxHp, int attack, int luck, int movementSpeed, GameWorld gameWorld) {
 		super(name, mapX, mapY, maxHp, attack, luck, movementSpeed, gameWorld);
-		face = CacheDataLoader.getInstance().getFrameImage(name + "Face");
+		face = CacheDataLoader.getCachedData().getFrameImage(name + "Face");
 	}
 	public void equip(Item item) {
 		

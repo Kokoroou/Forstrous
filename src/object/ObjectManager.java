@@ -1,10 +1,14 @@
-package com.kdat.object;
+package object;
 
 import java.awt.Graphics2D;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The ObjectManager is the class that store information about monsters and items
+ *
+ */
 public class ObjectManager {
 	protected int numOfPotions;
 	protected List<Item> items;

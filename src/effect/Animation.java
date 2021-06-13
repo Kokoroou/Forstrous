@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 public class Animation {
     
-    private String name;
+    public String name;
     
     private boolean isRepeated;
     
-    private ArrayList<FrameImage> frameImages;
-    private int currentFrame;
+    public ArrayList<FrameImage> frameImages;
+    public int currentFrame;
     
-    private ArrayList<Double> delayFrames;
-    private long beginTime;
+    public ArrayList<Double> delayFrames;
+    public long beginTime;
 
     private boolean drawRectFrame;
     
@@ -32,23 +32,23 @@ public class Animation {
         isRepeated = true;
     }
     
-    public Animation(Animation animation){
-        
-        beginTime = animation.beginTime;
-        currentFrame = animation.currentFrame;
-        drawRectFrame = animation.drawRectFrame;
-        isRepeated = animation.isRepeated;
-        
-        delayFrames = new ArrayList<Double>();
-        for(Double d : animation.delayFrames){
-            delayFrames.add(d);
-        }
-        
-        frameImages = new ArrayList<FrameImage>();
-        for(FrameImage f : animation.frameImages){
-            frameImages.add(new FrameImage(f));
-        }
-    }
+//    public Animation(Animation animation){
+//        
+//        beginTime = animation.beginTime;
+//        currentFrame = animation.currentFrame;
+//        drawRectFrame = animation.drawRectFrame;
+//        isRepeated = animation.isRepeated;
+//        
+//        delayFrames = new ArrayList<Double>();
+//        for(Double d : animation.delayFrames){
+//            delayFrames.add(d);
+//        }
+//        
+//        frameImages = new ArrayList<FrameImage>();
+//        for(FrameImage f : animation.frameImages){
+//            frameImages.add(new FrameImage(f));
+//        }
+//    }
     
     public void setIsRepeated(boolean isRepeated){
         this.isRepeated = isRepeated;
@@ -96,11 +96,11 @@ public class Animation {
         return frameImages.get(currentFrame).getImage();
     }
     
-    public void Update(long deltaTime){
-        
+    public void Update(long deltaTime) {
+//        System.out.println(beginTime);
         if(beginTime == 0) beginTime = deltaTime;
         else{
-            
+//            System.out.println(currentFrame);
             if(deltaTime - beginTime > delayFrames.get(currentFrame)){
                 nextFrame();
                 beginTime = deltaTime;
@@ -127,12 +127,12 @@ public class Animation {
     }
     
     public void draw(int x, int y, Graphics2D g2){
-        
         BufferedImage image = getCurrentImage();
-        
         g2.drawImage(image, x, y, null);
-        if(drawRectFrame)
-            g2.drawRect(x, x, image.getWidth(), image.getHeight());
+        if(drawRectFrame) {
+        	g2.drawRect(x, x, image.getWidth(), image.getHeight());
+        }
+            
         
     }
     

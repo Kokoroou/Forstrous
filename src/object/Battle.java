@@ -1,5 +1,6 @@
 package object;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -12,6 +13,8 @@ import effect.FrameImage;
 import ui.*;
 
 public class Battle extends JPanel {
+	private ControlPanel control;
+	private GUI gui;
 	private PlayGame playgame;
 	private FrameImage background;
 	private Monster monster;
@@ -23,16 +26,23 @@ public class Battle extends JPanel {
 		this.battling = true;
 	}
 	
+	public Battle(ControlPanel control) {
+		this.control = control;
+		this.gui = control.getGui();
+		this.setBackground(Color.WHITE);
+		this.setLayout(getLayout());
+	}
+	
 	public Battle(PlayGame playgame) {
 		this.battling = true;
 		this.playgame = playgame;
-		this.hero = playgame.getHero();
+//		this.hero = playgame.getHero();
 	}
 	
 	public Battle(PlayGame playgame, Monster monster) {
 		this.battling = true;
 		this.playgame = playgame;
-		this.hero = playgame.getHero();
+//		this.hero = playgame.getHero();
 		this.monster = monster;
 	}
 	
@@ -67,6 +77,10 @@ public class Battle extends JPanel {
 			hero.getFace().draw(g2, 0, background.getImageHeight() - hero.getFace().getImageHeight());
 		}
 	}
+	
+	
+	
+	
 	
 	public void onBattle() {
 		boolean isHeroDefense = false;

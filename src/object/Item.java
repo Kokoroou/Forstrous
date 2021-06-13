@@ -26,7 +26,7 @@ public class Item {
 		this.luck = luck;
 		pickUp = false;
 		isBeingUsed = false;
-		img = CacheDataLoader.getInstance().getFrameImage(name);
+		img = CacheDataLoader.getCachedData().getFrameImage(name);
 	}
 	
 

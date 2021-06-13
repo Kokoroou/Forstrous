@@ -1,4 +1,4 @@
-package com.kdat.ui;
+package ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,8 +12,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.kdat.effect.*;
-import com.kdat.object.*;
+import effect.*;
+import object.*;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener{
 	

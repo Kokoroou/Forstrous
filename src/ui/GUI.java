@@ -1,23 +1,31 @@
 package ui;
 
 import java.awt.CardLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.Dimension;
+
+//import java.awt.event.WindowAdapter;
+//import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
-public class GUI extends JFrame{
+/**
+ * The GUI is the class that create a window of game
+ *
+ */
+public class GUI extends JFrame {
 	public static final int WIDTH = 720;
-	public static final int HEIGHT = 485;
+	public static final int HEIGHT = 448;
 	private ControlPanel control;
 
 	public GUI() {
-		setTitle("Forstrous");
-		setSize(WIDTH, HEIGHT);
-		setLayout(new CardLayout());
-		setLocationRelativeTo(null);
-		setResizable(false);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		control = new ControlPanel(this);
-		add(control);
+		this.setTitle("Forstrous");	
+		this.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		this.pack();
+		this.setLayout(new CardLayout());
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		this.control = new ControlPanel(this);
+		add(this.control);
 	}
 }

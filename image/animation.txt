@@ -1,108 +1,108 @@
 36
-slimeDown
-slimeDown0 300000000 slimeDown1 300000000 slimeDown2 300000000 
+SlimeDown
+SlimeDown0 300000000 SlimeDown1 300000000 SlimeDown2 300000000 
 
-slimeLeft
-slimeLeft0 300000000 slimeLeft1 300000000 slimeLeft2 300000000 
+SlimeLeft
+SlimeLeft0 300000000 SlimeLeft1 300000000 SlimeLeft2 300000000 
 
-slimeRight
-slimeRight0 300000000 slimeRight1 300000000 slimeRight2 300000000 
+SlimeRight
+SlimeRight0 300000000 SlimeRight1 300000000 SlimeRight2 300000000 
 
-slimeUp
-slimeUp0 300000000 slimeUp1 300000000 slimeUp2 300000000 
+SlimeUp
+SlimeUp0 300000000 SlimeUp1 300000000 SlimeUp2 300000000 
 
-plantDown
-plantDown0 300000000 plantDown1 300000000 plantDown2 300000000 
+PlantDown
+PlantDown0 300000000 PlantDown1 300000000 PlantDown2 300000000 
 
-plantLeft
-plantLeft0 300000000 plantLeft1 300000000 plantLeft2 300000000 
+PlantLeft
+PlantLeft0 300000000 PlantLeft1 300000000 PlantLeft2 300000000 
 
-plantRight
-plantRight0 300000000 plantRight1 300000000 plantRight2 300000000 
+PlantRight
+PlantRight0 300000000 PlantRight1 300000000 PlantRight2 300000000 
 
-plantUp
-plantUp0 300000000 plantUp1 300000000 plantUp2 300000000 
+PlantUp
+PlantUp0 300000000 PlantUp1 300000000 PlantUp2 300000000 
 
-ghostDown
-ghostDown0 300000000 ghostDown1 300000000 ghostDown2 300000000 
+GhostDown
+GhostDown0 300000000 GhostDown1 300000000 GhostDown2 300000000 
 
-ghostLeft
-ghostLeft0 300000000 ghostLeft1 300000000 ghostLeft2 300000000 
+GhostLeft
+GhostLeft0 300000000 GhostLeft1 300000000 GhostLeft2 300000000 
 
-ghostRight
-ghostRight0 300000000 ghostRight1 300000000 ghostRight2 300000000 
+GhostRight
+GhostRight0 300000000 GhostRight1 300000000 GhostRight2 300000000 
 
-ghostUp
-ghostUp0 300000000 ghostUp1 300000000 ghostUp2 300000000 
+GhostUp
+GhostUp0 300000000 GhostUp1 300000000 GhostUp2 300000000 
 
-batDown
-batDown0 300000000 batDown1 300000000 batDown2 300000000 
+BatDown
+BatDown0 300000000 BatDown1 300000000 BatDown2 300000000 
 
-batLeft
-batLeft0 300000000 batLeft1 300000000 batLeft2 300000000
+BatLeft
+BatLeft0 300000000 BatLeft1 300000000 BatLeft2 300000000
 
-batRight
-batRight0 300000000 batRight1 300000000 batRight2 300000000 
+BatRight
+BatRight0 300000000 BatRight1 300000000 BatRight2 300000000 
 
-batUp
-batUp0 300000000 batUp1 300000000 batUp2 300000000 
+BatUp
+BatUp0 300000000 BatUp1 300000000 BatUp2 300000000 
 
-ifritDown
-ifritDown0 300000000 ifritDown1 300000000 ifritDown2 300000000 
+IfritDown
+IfritDown0 300000000 IfritDown1 300000000 IfritDown2 300000000 
 
-ifritLeft
-ifritLeft0 300000000 ifritLeft1 300000000 ifritLeft2 300000000 
+IfritLeft
+IfritLeft0 300000000 IfritLeft1 300000000 IfritLeft2 300000000 
 
-ifritRight
-ifritRight0 300000000 ifritRight1 300000000 ifritRight2 300000000 
+IfritRight
+IfritRight0 300000000 IfritRight1 300000000 IfritRight2 300000000 
 
-ifritUp
-ifritUp0 300000000 ifritUp1 300000000 ifritUp2 300000000 
+IfritUp
+IfritUp0 300000000 IfritUp1 300000000 IfritUp2 300000000 
 
-gayzerDown
-gayzerDown0 300000000 gayzerDown1 300000000 gayzerDown2 300000000 
+GayzerDown
+GayzerDown0 300000000 GayzerDown1 300000000 GayzerDown2 300000000 
 
-gayzerLeft
-gayzerLeft0 300000000 gayzerLeft1 300000000 gayzerLeft2 300000000 
+GayzerLeft
+GayzerLeft0 300000000 GayzerLeft1 300000000 GayzerLeft2 300000000 
 
-gayzerRight
-gayzerRight0 300000000 gayzerRight1 300000000 gayzerRight2 300000000 
+GayzerRight
+GayzerRight0 300000000 GayzerRight1 300000000 GayzerRight2 300000000 
 
-gayzerUp
-gayzerUp0 300000000 gayzerUp1 300000000 gayzerUp2 300000000 
+GayzerUp
+GayzerUp0 300000000 GayzerUp1 300000000 GayzerUp2 300000000 
 
-scorpionDown
-scorpionDown0 300000000 scorpionDown1 300000000 scorpionDown2 300000000 
+ScorpionDown
+ScorpionDown0 300000000 ScorpionDown1 300000000 ScorpionDown2 300000000 
 
-scorpionLeft
-scorpionLeft0 300000000 scorpionLeft1 300000000 scorpionLeft2 300000000 
+ScorpionLeft
+ScorpionLeft0 300000000 ScorpionLeft1 300000000 ScorpionLeft2 300000000 
 
-scorpionRight
-scorpionRight0 300000000 scorpionRight1 300000000 scorpionRight2 300000000 
+ScorpionRight
+ScorpionRight0 300000000 ScorpionRight1 300000000 ScorpionRight2 300000000 
 
-scorpionUp
-scorpionUp0 300000000 scorpionUp1 300000000 scorpionUp2 300000000 
+ScorpionUp
+ScorpionUp0 300000000 ScorpionUp1 300000000 ScorpionUp2 300000000 
 
-skeletonDown
-skeletonDown0 300000000 skeletonDown1 300000000 skeletonDown2 300000000 
+SkeletonDown
+SkeletonDown0 300000000 SkeletonDown1 300000000 SkeletonDown2 300000000 
 
-skeletonLeft
-skeletonLeft0 300000000 skeletonLeft1 300000000 skeletonLeft2 300000000 
+SkeletonLeft
+SkeletonLeft0 300000000 SkeletonLeft1 300000000 SkeletonLeft2 300000000 
 
-skeletonRight
-skeletonRight0 300000000 skeletonRight1 300000000 skeletonRight2 300000000 
+SkeletonRight
+SkeletonRight0 300000000 SkeletonRight1 300000000 SkeletonRight2 300000000 
 
-skeletonUp
-skeletonUp0 300000000 skeletonUp1 300000000 skeletonUp2 300000000 
+SkeletonUp
+SkeletonUp0 300000000 SkeletonUp1 300000000 SkeletonUp2 300000000 
 
-heroUp
-heroUp0 300000000 heroUp1 300000000 heroUp2 300000000 
+HeroUp
+HeroUp0 300000000 HeroUp1 300000000 HeroUp2 300000000 
 
-heroDown
-heroDown0 300000000 heroDown1 300000000 heroDown2 300000000 
+HeroDown
+HeroDown0 300000000 HeroDown1 300000000 HeroDown2 300000000 
 
-heroLeft
-heroLeft0 300000000 heroLeft1 300000000 heroLeft2 300000000 
+HeroLeft
+HeroLeft0 300000000 HeroLeft1 300000000 HeroLeft2 300000000 
 
-heroRight
-heroRight0 300000000 heroRight1 300000000 heroRight2 300000000 
+HeroRight
+HeroRight0 300000000 HeroRight1 300000000 HeroRight2 300000000 

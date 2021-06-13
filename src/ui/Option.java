@@ -41,7 +41,7 @@ public class Option extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btn_Menu){
-			control.setShowMenu();
+			control.showHomepage();
 		}	
 		
 	}

@@ -34,11 +34,11 @@ public abstract class Character {
     	};
 	
 	private String name;
-	public float mapX, mapY;
+	public int mapX, mapY;
 	private int maxHp, currentHp;
 	protected FrameImage fullBody, face;
 	private int attack, luck;
-	private float movementSpeed;
+	private int movementSpeed;
 	private boolean alive;
 	private boolean talk;
 	private String[] sentences;
@@ -46,7 +46,17 @@ public abstract class Character {
 	private Animation upAnim, downAnim, leftAnim, rightAnim;
 	private GameWorld gameWorld;
 	
-	public Character(String name, float mapX, float mapY, int maxHp, int attack, int luck, float movementSpeed, GameWorld gameWorld) {
+	public Character(String name, GameWorld gameWorld) {
+		this.name = name;
+		this.alive = true;
+		this.gameWorld = gameWorld;
+		upAnim = CacheDataLoader.getCachedData().getAnimation(name + "Up");
+		downAnim = CacheDataLoader.getCachedData().getAnimation(name + "Down");
+		leftAnim = CacheDataLoader.getCachedData().getAnimation(name + "Left");
+		rightAnim = CacheDataLoader.getCachedData().getAnimation(name + "Right");
+	}
+	
+	public Character(String name, int mapX, int mapY, int maxHp, int attack, int luck, int movementSpeed, GameWorld gameWorld) {
 		this.name = name;
 		this.mapX = mapX;
 		this.mapY = mapY;
@@ -57,10 +67,10 @@ public abstract class Character {
 		this.movementSpeed = movementSpeed;
 		this.alive = true;
 		this.gameWorld = gameWorld;
-		upAnim = CacheDataLoader.getInstance().getAnimation(name + "Up");
-		downAnim = CacheDataLoader.getInstance().getAnimation(name + "Down");
-		leftAnim = CacheDataLoader.getInstance().getAnimation(name + "Left");
-		rightAnim = CacheDataLoader.getInstance().getAnimation(name + "Right");
+		upAnim = CacheDataLoader.getCachedData().getAnimation(name + "Up");
+		downAnim = CacheDataLoader.getCachedData().getAnimation(name + "Down");
+		leftAnim = CacheDataLoader.getCachedData().getAnimation(name + "Left");
+		rightAnim = CacheDataLoader.getCachedData().getAnimation(name + "Right");
 	}
 
 	public Character() {}
@@ -73,19 +83,19 @@ public abstract class Character {
 		this.name = name;
 	}
 
-	public float getMapX() {
+	public int getMapX() {
 		return mapX;
 	}
 
-	public void setMapX(float mapX) {
+	public void setMapX(int mapX) {
 		this.mapX = mapX;
 	}
 
-	public float getMapY() {
+	public int getMapY() {
 		return mapY;
 	}
 
-	public void setMapY(float mapY) {
+	public void setMapY(int mapY) {
 		this.mapY = mapY;
 	}
 
@@ -139,11 +149,11 @@ public abstract class Character {
 		this.luck = luck;
 	}
 
-	public float getMovementSpeed() {
+	public int getMovementSpeed() {
 		return movementSpeed;
 	}
 
-	public void setMovementSpeed(float movementSpeed) {
+	public void setMovementSpeed(int movementSpeed) {
 		this.movementSpeed = movementSpeed;
 	}
 
@@ -180,7 +190,7 @@ public abstract class Character {
     }
 	
 	public GameWorld getGameWorld() {
-		return gameWorld;
+		return this.gameWorld;
 	}
 
 	protected boolean onHit() {
@@ -200,27 +210,34 @@ public abstract class Character {
 	public abstract void update();
 	
 	public void draw (Graphics2D g2) {
-		if(!getGameWorld().b1.isInBattle())
+//		if(!getGameWorld().b1.isInBattle())
 		switch(this.getDirection()) {
-		case DOWN_DIR:
-			downAnim.Update(System.nanoTime());
-			downAnim.draw((int)getMapX(), (int)getMapY(), g2);
-			break;
-
-		case LEFT_DIR:
-			leftAnim.Update(System.nanoTime());
-			leftAnim.draw((int)getMapX(), (int)getMapY(), g2);
-			break;
-
-		case RIGHT_DIR:
-			rightAnim.Update(System.nanoTime());
-			rightAnim.draw((int)getMapX(), (int)getMapY(), g2);
-			break;
-
-		case UP_DIR:
-			upAnim.Update(System.nanoTime());
-			upAnim.draw((int)getMapX(), (int)getMapY(), g2);
-			break;
+			case DOWN_DIR:
+//				System.out.println(System.nanoTime());
+//				System.out.println(1);
+				downAnim.Update(System.nanoTime());
+//				System.out.println(2);
+//				System.out.println(getMapX());
+//				System.out.println(getMapY());
+//				System.out.println(gameWorld.getG2d());
+				downAnim.draw(getMapX(), getMapY(), gameWorld.getG2d());
+//				System.out.println(3);
+				break;
+	
+			case LEFT_DIR:
+				leftAnim.Update(System.nanoTime());
+				leftAnim.draw(getMapX(), getMapY(), g2);
+				break;
+	
+			case RIGHT_DIR:
+				rightAnim.Update(System.nanoTime());
+				rightAnim.draw(getMapX(), getMapY(), g2);
+				break;
+	
+			case UP_DIR:
+				upAnim.Update(System.nanoTime());
+				upAnim.draw(getMapX(), getMapY(), g2);
+				break;
 		}
 	}
 }

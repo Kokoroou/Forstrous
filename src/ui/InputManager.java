@@ -1,8 +1,8 @@
-package com.kdat.ui;
+package ui;
 
 import java.awt.event.KeyEvent;
 
-import com.kdat.object.*;
+import object.*;
 
 public class InputManager {
 	private GameWorld gameWorld;
@@ -30,7 +30,7 @@ public class InputManager {
 				gameWorld.hero.setMovementSpeed(4);
 				break;
 			case KeyEvent.VK_3:
-				if(gameWorld.b1.isInBattle())
+				if(gameWorld.b1.isBattling())
 				gameWorld.b1.setHeroChoice(3);
 				break;
 			default: break;

@@ -12,7 +12,7 @@ public class Monster extends Character {
 	
 	public Monster() {}
 
-	public Monster(String name, float mapX, float mapY, int maxHp, int attack, int luck, float movementSpeed, GameWorld gameWorld, int round) {
+	public Monster(String name, int mapX, int mapY, int maxHp, int attack, int luck, int movementSpeed, GameWorld gameWorld, int round) {
 		super(name, mapX, mapY, maxHp, attack, luck, movementSpeed, gameWorld);
 		this.round = round;
 		this.setDirection(Character.DOWN_DIR);
@@ -123,19 +123,19 @@ public class Monster extends Character {
 		}
 	}
 
-	public float getBeginX() {
+	public int getBeginX() {
 		return beginX;
 	}
 
-	public float getBeginY() {
+	public int getBeginY() {
 		return beginY;
 	}
 
-	public void setCurrX(float currX) {
+	public void setCurrX(int currX) {
 		this.currX = currX;
 	}
 
-	public void setCurrY(float currY) {
+	public void setCurrY(int currY) {
 		this.currY = currY;
 	}
 

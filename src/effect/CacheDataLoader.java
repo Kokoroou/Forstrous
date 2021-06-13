@@ -12,18 +12,22 @@ import java.net.URL;
 import java.util.Hashtable;
 import javax.imageio.ImageIO;
 
+/**
+ * The CacheDataLoader is the class that store frame and animation of all items and characters
+ *
+ */
 public class CacheDataLoader {
     
-    private static CacheDataLoader instance = null;
+    private static CacheDataLoader cachedData = null;
     
-    private String framefile = "data/frame.txt";
-    private String animationfile = "data/animation.txt";
+    private String framefile = "image/frame.txt";
+    private String animationfile = "image/animation.txt";
 //    private String physmapfile = "data/phys_map.txt";
 //    private String backgroundmapfile = "data/background_map.txt";
 //    private String soundfile = "data/sounds.txt";
     
     private Hashtable<String, FrameImage> frameImages; 
-    private Hashtable<String, Animation> animations;
+    public Hashtable<String, Animation> animations;
 //    private Hashtable<String, AudioClip> sounds;
 //    
 //    private int[][] phys_map;
@@ -31,26 +35,48 @@ public class CacheDataLoader {
 //    
     private CacheDataLoader() {}
 
-    public static CacheDataLoader getInstance(){
-        if(instance == null)
-            instance  = new CacheDataLoader();
-        return instance;
+    public static CacheDataLoader getCachedData(){
+        if(cachedData == null) {
+//        	System.out.println(cachedData == null);
+        	cachedData  = new CacheDataLoader();
+//        	LoadAnimation();
+        }
+//        System.out.println(cachedData == null);
+        return cachedData;
     }
     
 //    public AudioClip getSound(String name){
 //        return instance.sounds.get(name);
 //    }
     
-    public Animation getAnimation(String name){
+    public Animation getAnimation(String name) {
+//        System.out.println(name);
+//        System.out.println(this == null);
         
-        Animation animation = new Animation(instance.animations.get(name));
-        return animation;
-        
+//        System.out.println(System.getProperty("user.dir"));
+    	try {
+    		if (animations == null) {
+            	LoadAnimation();
+            }
+    		
+//    		Animation animation = new Animation(cachedData.animations.get(name));
+    		Animation animation = cachedData.animations.get(name);
+//    		System.out.println(animation);
+            return animation;
+    	}
+    	catch (Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
+                
     }
     
     public FrameImage getFrameImage(String name){
     	try {
-    		FrameImage frameImage = new FrameImage(instance.frameImages.get(name));
+    		if (frameImages == null) {
+            	LoadFrame();
+            }
+    		FrameImage frameImage = new FrameImage(cachedData.frameImages.get(name));
     		return frameImage;
     	}
     	catch (Exception e) {
@@ -223,7 +249,7 @@ public class CacheDataLoader {
                 for(int j = 0;j<str.length;j+=2)
                     animation.add(getFrameImage(str[j]), Double.parseDouble(str[j+1]));
                 
-                instance.animations.put(animation.getName(), animation);
+                cachedData.animations.put(animation.getName(), animation);
                 
             }
             
@@ -284,7 +310,7 @@ public class CacheDataLoader {
                 BufferedImage image = imageData.getSubimage(x, y, w, h);
                 frame.setImage(image);
                 
-                instance.frameImages.put(frame.getName(), frame);
+                cachedData.frameImages.put(frame.getName(), frame);
             }
             
         }
