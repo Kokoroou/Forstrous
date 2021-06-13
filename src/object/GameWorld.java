@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -14,7 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ui.PlayGame;
+import ui.GamePanel;
+import ui.InputManager;
 
 /**
  * The GameWorld is the class that draw everything in playing process
@@ -24,26 +27,26 @@ import ui.PlayGame;
  * @author Admin
  *
  */
-public class GameWorld extends JPanel implements ActionListener {	
-	private PlayGame play;
+public class GameWorld extends JPanel implements KeyListener, ActionListener {	
+	private GamePanel gamePanel;
+	private InputManager inputManager;
 	public ArrayList<Map> map = new ArrayList<Map>();
-	private int round = 0;
+	private int round = 1;
 	public Battle battle;
 	public Hero hero;
 	public ObjectManager objectManager;
 	
-	private JButton buttonHomepage, buttonNext;
+	private JButton buttonHomepage;// buttonNext;
 	private Graphics2D g2d;
 
 	
-	public GameWorld(PlayGame play) {
-		this.play = play;
-		
+	public GameWorld(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
 //		this.setBackground(Color.WHITE);
 //		this.setLocation(0, 0);
 		this.setFocusable(true);
 		this.setLayout(null);
-		
+		inputManager = new InputManager(this);
 //		map = new Map();
 		hero = new Hero("Hero", this);
 		hero.setMapX(32*8);
@@ -51,16 +54,14 @@ public class GameWorld extends JPanel implements ActionListener {
 		hero.setMaxHp(500);
 		hero.setAttack(30);
 		hero.setLuck(50);
-		hero.setMovementSpeed(1);
-		
+		hero.setMovementSpeed(0);
 		
 		objectManager = new ObjectManager(this);
 		initMonsterAndItem();
 		initMap();
 		initCompts();
 		
-		
-		
+		this.gamePanel.startGame();
 	}
 	
 	public int getRound() {
@@ -70,6 +71,7 @@ public class GameWorld extends JPanel implements ActionListener {
 	public void setRound(int round) {
 		this.round = round;
 	}
+	
 
 	private void initMonsterAndItem() {
 		Monster slime = new Monster("Slime", 32, 352, 60, 15, 25, 0, this, 1);
@@ -112,24 +114,24 @@ public class GameWorld extends JPanel implements ActionListener {
 	
 	private void initMap() {
 		Map map0 = new Map(this, 0);
-		int[][] arr0 = {{0,0,0,0,0,0,0,0,1,1,1,1,1,1},
-						{0,0,0,0,0,0,1,1,1,1,1,1,1,1},
-						{1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-						{1,1,0,0,0,0,0,0,0,0,0,0,0,1},
-						{1,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-						{1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-						{1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-						{1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-						{0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-						{0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-						{0,0,0,0,1,1,0,0,0,0,0,0,0,1},
-					   	{0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
+		int[][] arr0 = {{6,14,14,14,14,14,12,8,0,0,0,0,0,0},
+				{5,15,15,15,15,11,0,0,0,0,0,0,0,0},
+				{0,5,15,15,15,15,14,14,14,14,14,14,10,0},
+				{0,0,7,15,15,15,15,15,15,15,15,15,11,0},
+				{0,4,15,15,15,15,15,15,15,15,15,15,15,10},
+				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
+				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
+				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
+				{4,12,15,15,15,15,15,15,15,15,15,15,15,11},
+				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
+				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
+				{6,14,15,15,15,15,15,15,15,15,15,15,15,9},
+				{7,15,15,15,15,15,15,15,15,15,15,15,9,0},
+				{7,15,15,15,15,15,15,15,15,15,15,11,0,0},
+				{7,15,15,15,15,15,15,15,15,15,15,11,0,0},
+				{7,15,15,15,13,13,15,15,15,15,15,15,10,0},
+				{7,15,15,11,0,0,7,15,15,15,15,15,11,0},
+				{5,13,13,13,12,12,13,13,13,13,13,13,13,8}};
 		map0.setArr(arr0);
 		map.add(map0);
 		
@@ -232,11 +234,11 @@ public class GameWorld extends JPanel implements ActionListener {
 		buttonHomepage.addActionListener(this);
 		add(buttonHomepage);
 		
-		buttonNext = new JButton();
-		buttonNext.setText("Next");
-		buttonNext.setBounds(600, 357, 80, 30);
-		buttonNext.addActionListener(this);
-		add(buttonNext);	
+//		buttonNext = new JButton();
+//		buttonNext.setText("Next");
+//		buttonNext.setBounds(600, 357, 80, 30);
+//		buttonNext.addActionListener(this);
+//		add(buttonNext);	
 	}
 	
 	protected void paintComponent(Graphics g) {
@@ -249,9 +251,7 @@ public class GameWorld extends JPanel implements ActionListener {
 		g2d.drawString("Map "+ this.round, 610, 25);
 		map.get(this.round).drawMap(g2d);
 		hero.draw(g2d);
-		
-		battle = new Battle(play, objectManager.monsters.get(0));
-		play.showBattle();
+		objectManager.draw(g2d);
 	}
 	
 	public Graphics2D getG2d() {
@@ -261,38 +261,38 @@ public class GameWorld extends JPanel implements ActionListener {
 	public void setG2d(Graphics2D g2d) {
 		this.g2d = g2d;
 	}
-
-	public Hero getHero() {
-		return hero;
+	
+	public GamePanel getGamePanel() {
+		return gamePanel;
 	}
 
-	public void setHero(Hero hero) {
-		this.hero = hero;
+	public void setGamePanel(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
 	}
 
 	public void update() {
-
+		objectManager.update();
+		hero.update();
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == buttonHomepage){
-			play.getControl().showHomepage();
+			gamePanel.getControl().showHomepage();
 		
 		}
-		if(e.getSource() == buttonNext){
-			this.round++;
-			if(this.round >= map.size()) {
-				this.round = 0;
-				play.getControl().showHomepage();
-			}
+//		if(e.getSource() == buttonNext){
+//			this.round++;
+//			if(this.round >= map.size()) {
+//				this.round = 0;
+//				gamePanel.getControl().showHomepage();
+//			}
 //			else this.paintComponent(this.g2d);
-			else {
-				play.getControl().showHomepage();
-				play.getControl().showPlay();
-			}
-				
+		else {
+			gamePanel.getControl().showHomepage();
+			gamePanel.getControl().showPlay();
 		}
+				
 	}
 	
 	public void nextMap() {
@@ -305,5 +305,20 @@ public class GameWorld extends JPanel implements ActionListener {
 		if(this.getRound() > 0) {
 			this.setRound(getRound()-1);
 		}
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		inputManager.processKeyPressed(e.getKeyCode());
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		inputManager.processKeyReleaseed(e.getKeyCode());
 	}
 }
