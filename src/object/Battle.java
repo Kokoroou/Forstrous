@@ -1,34 +1,55 @@
-package com.kdat.object;
+package object;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.kdat.effect.CacheDataLoader;
-import com.kdat.effect.FrameImage;
-import com.kdat.ui.*;
+import effect.CacheDataLoader;
+import effect.FrameImage;
+import ui.*;
 
-public class Battle {
+public class Battle extends JPanel {
+	private ControlPanel control;
+	private GUI gui;
+	private GamePanel gamePanel;
 	private FrameImage background;
 	private Monster monster;
 	private Hero hero;
 	private int heroChoice;
-	private boolean inBattle = false;
+	private boolean battling = false;
+	private Graphics2D g2d;
 	
 	public Battle() {}
-	public Battle(Hero hero) {
-		background = CacheDataLoader.getInstance().getFrameImage("background");
-		this.hero = hero;
-		heroChoice = -1;
+	
+//	public Battle(ControlPanel control) {
+//		this.control = control;
+//		this.gui = control.getGui();
+//		this.setBackground(Color.WHITE);
+//		this.setLayout(getLayout());
+//	}
+	
+	public Battle(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
 	}
 	
-	public boolean isInBattle() {
-		return inBattle;
+	public Battle(GamePanel gamePanel, Monster monster) {
+		this.gamePanel = gamePanel;
+		this.monster = monster;
 	}
-	public void setInBattle(boolean inBattle) {
-		this.inBattle = inBattle;
+	
+	public boolean isBattling() {
+		return battling;
+	}
+	public void setBattling(boolean battling) {
+		this.battling = battling;
 	}
 	public int getHeroChoice() {
 		return heroChoice;
@@ -48,12 +69,29 @@ public class Battle {
 //            g2.drawString(str, x, y+=g2.getFontMetrics().getHeight());
 //    }
 	
-	public void draw(Graphics2D g2) {
-		if (inBattle) {
-			background.draw(g2, 0, 0);
-			monster.getFullBody().draw(g2, (background.getImageWidth() - monster.getFullBody().getImageWidth())/2, (background.getImageHeight() - monster.getFullBody().getImageHeight())/2);
-			hero.getFace().draw(g2, 0, background.getImageHeight() - hero.getFace().getImageHeight());
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		this.g2d = (Graphics2D) g;
+		
+		BufferedImage img;
+		
+		try {
+			img = ImageIO.read(new File("image/RockCave1.png"));
+			this.g2d.drawImage(img, 0, 4, null);
 		}
+		catch (IOException e) {	}
+		
+		try {
+			img = ImageIO.read(new File("image/RockCave.png"));
+			this.g2d.drawImage(img, 0, 0, null);
+		}
+		catch (IOException e) {	}
+		
+		img = this.monster.getFullBody().getImage();
+		this.g2d.drawImage(img, (580 - img.getWidth())/2, (448 - img.getHeight())/2, null);
+		
+		
 	}
 	
 	public void onBattle() {
@@ -81,7 +119,7 @@ public class Battle {
 				
 				break;
 			case 3://chay
-				inBattle = false;
+				battling = false;
 				hero.setMapX(0);
 				hero.setMapY(0);
 				monster.setMapX(monster.getBeginX());
@@ -90,7 +128,7 @@ public class Battle {
 				monster.setCurrY(monster.getBeginY());
 				monster.setFirstWonder(false);
 				//thong bao ra man hinh
-				
+				gamePanel.showGameWorld();
 				break;
 			case 4: //binh mau hoac mana
 				
@@ -117,10 +155,12 @@ public class Battle {
 	
 	public void update() {
 		
-		if (/*hero.isAlive() && monster.isAlive() &&*/ inBattle) {
+		if (battling) {
 			onBattle();
-			if (!monster.isAlive() || !hero.isAlive())
-				inBattle = false;
+			hero.battle = true;
+			if (monster.getCurrentHp()==0 || hero.getCurrentHp()==0)
+				battling = false;
 		}
+		else hero.battle = false;
 	}
 }
