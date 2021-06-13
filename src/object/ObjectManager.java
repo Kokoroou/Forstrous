@@ -22,11 +22,10 @@ public class ObjectManager {
 		monsters = Collections.synchronizedList(new LinkedList<Monster>());
 		currItems = Collections.synchronizedList(new LinkedList<Item>());
 		this.gameWorld = gameWorld;
-		numOfPotions = 0;
+		numOfPotions = -1;
 	}
 	
 	public void addItem (Item item) {
-		if (item.getItemType() == Item.EQUIPMENT)
 			synchronized (items) {
 				items.add(item);
 			}
@@ -38,8 +37,11 @@ public class ObjectManager {
 				currItems.add(item);
 			}
 		
-		else
-			numOfPotions++;
+//		else if (numOfPotions < 0) {
+//			currItems.add(item);
+//			numOfPotions = numOfPotions + 2;
+//		}
+		else numOfPotions++;
 	}
 	
 	public void removeItem (Item item) {
@@ -73,6 +75,10 @@ public class ObjectManager {
 	
 	public void update() {
 		synchronized (currItems) {
+			if (numOfPotions == -1) {
+				currItems.add(items.get(0));
+				numOfPotions++;
+			}
 			for(int id = 0; id < items.size(); id++) {
 				Item tmp = items.get(id);
 				tmp.update();
@@ -91,7 +97,10 @@ public class ObjectManager {
 				if (!tmp.isAlive()) removeMonster(tmp);
 			}
 		}
-		System.out.println(numOfPotions);
+//		System.out.println("Potion: " + numOfPotions);
+//		System.out.println("equipment: "+ currItems.size());
+//		for (Item i : currItems)
+//			System.out.println(i.getName());
 	}
 	
 	public void draw (Graphics2D g2) {
@@ -102,7 +111,7 @@ public class ObjectManager {
 		
 		synchronized (currItems) {
 			for(int id = 1; id < currItems.size(); id++)
-				items.get(id).draw(g2, 576 + ((id - 1) % 3) * 32, (id - 1) / 3 * 32 + 32);
+				currItems.get(id).draw(g2, 576 + ((id - 1) % 3) * 32, (id - 1) / 3 * 32 + 32);
 		}
 		
 		synchronized (monsters) {
