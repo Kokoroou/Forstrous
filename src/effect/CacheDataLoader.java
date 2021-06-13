@@ -73,11 +73,14 @@ public class CacheDataLoader {
     
     public FrameImage getFrameImage(String name){
     	try {
+//    		System.out.println(name);
     		if (frameImages == null) {
             	LoadFrame();
+//            	System.out.println(frameImages == null);
             }
 //    		FrameImage frameImage = new FrameImage(cachedData.frameImages.get(name));
     		FrameImage frameImage = cachedData.frameImages.get(name);
+//    		System.out.println(frameImages);
     		return frameImage;
     	}
     	catch (Exception e) {
@@ -281,7 +284,7 @@ public class CacheDataLoader {
             
             int n = Integer.parseInt(line);
             
-            for(int i = 0;i < n; i ++){
+            for(int i = 0; i < n; i ++){
                 
                 FrameImage frame = new FrameImage();
                 while((line = br.readLine()).equals(""));
@@ -310,7 +313,7 @@ public class CacheDataLoader {
                 BufferedImage imageData = ImageIO.read(new File(path));
                 BufferedImage image = imageData.getSubimage(x, y, w, h);
                 frame.setImage(image);
-                
+
                 cachedData.frameImages.put(frame.getName(), frame);
             }
             
