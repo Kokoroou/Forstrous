@@ -12,6 +12,7 @@ import java.util.List;
 public class ObjectManager {
 	protected int numOfPotions;
 	protected List<Item> items;
+	private List<Item> currItems;
 	protected List<Monster> monsters;
 	
 	private GameWorld gameWorld;
@@ -19,6 +20,7 @@ public class ObjectManager {
 	public ObjectManager(GameWorld gameWorld) {
 		items = Collections.synchronizedList(new LinkedList<Item>());
 		monsters = Collections.synchronizedList(new LinkedList<Monster>());
+		currItems = Collections.synchronizedList(new LinkedList<Item>());
 		this.gameWorld = gameWorld;
 		numOfPotions = 0;
 	}
@@ -28,17 +30,24 @@ public class ObjectManager {
 			synchronized (items) {
 				items.add(item);
 			}
+	}
+	
+	public void addCurrItem (Item item) {
+		if (item.getItemType() == Item.EQUIPMENT)
+			synchronized (currItems) {
+				currItems.add(item);
+			}
 		
 		else
 			numOfPotions++;
 	}
 	
 	public void removeItem (Item item) {
-		synchronized(items){
+		synchronized(currItems){
 			if (item.getItemType() == Item.EQUIPMENT)
-				for(int id = 1; id < items.size(); id++){
-					if(items.get(id) == item)
-						items.remove(id);
+				for(int id = 1; id < currItems.size(); id++){
+					if(currItems.get(id) == item)
+						currItems.remove(id);
 				}
 			else {
 				numOfPotions--;
@@ -63,10 +72,14 @@ public class ObjectManager {
 	}
 	
 	public void update() {
-		synchronized (items) {
+		synchronized (currItems) {
 			for(int id = 0; id < items.size(); id++) {
 				Item tmp = items.get(id);
 				tmp.update();
+				if (tmp.getIsPickUp() && tmp.isFirstPick()) {
+					addCurrItem(tmp);
+					tmp.setFirstPick(false);
+				}
 				if (tmp.getIsBeingUsed()) removeItem(tmp);
 			}
 		}
@@ -78,15 +91,18 @@ public class ObjectManager {
 				if (!tmp.isAlive()) removeMonster(tmp);
 			}
 		}
+		System.out.println(numOfPotions);
 	}
 	
 	public void draw (Graphics2D g2) {
-		if (numOfPotions >= 0)
+		if (numOfPotions >= 0) {
 			items.get(0).draw(g2, 576, 0);
+			g2.drawString(Integer.toString(numOfPotions), 592, 16);
+		}
 		
-		synchronized (items) {
-			for(int id = 1; id < items.size(); id++)
-				items.get(id).draw(g2, 576 + (id % 3 - 1) * 32, 32 + (id - 1) / 3);
+		synchronized (currItems) {
+			for(int id = 1; id < currItems.size(); id++)
+				items.get(id).draw(g2, 576 + ((id - 1) % 3) * 32, (id - 1) / 3 * 32 + 32);
 		}
 		
 		synchronized (monsters) {
