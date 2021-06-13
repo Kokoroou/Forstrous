@@ -44,11 +44,11 @@ public class Hero extends Character{
 		int tileY = (int) getMapY() / 32;
 		
 		if (getMapX() % 32 == 0 || getMapY() % 32 == 0)
-			for (int i : canDir[15 - getGameWorld().map.getTile(tileX, tileY)])
+			for (int i : canDir[15 - getGameWorld().map.get(gameWorld.getRound()).getTile(tileX, tileY)])
 				canMove[i] = false;
 		
 		if (getMapX() % 32 == 0 && getMapY() % 32 != 0) {
-			for (int i : canDir[15 - getGameWorld().map.getTile(tileX, tileY+1)])
+			for (int i : canDir[15 - getGameWorld().map.get(gameWorld.getRound()).getTile(tileX, tileY+1)])
 				
 				canMove[i] = false;
 			canMove[UP_DIR] = true;
@@ -56,29 +56,29 @@ public class Hero extends Character{
 		}
 		
 		if (getMapX() % 32 != 0 && getMapY() % 32 == 0) {
-			for (int i : canDir[15 - getGameWorld().map.getTile(tileX+1, tileY)])
+			for (int i : canDir[15 - getGameWorld().map.get(gameWorld.getRound()).getTile(tileX+1, tileY)])
 				canMove[i] = false;
 			canMove[LEFT_DIR] = true;
 			canMove[RIGHT_DIR] = true;
 		}
-		if(getMapX()==0 && getMapY()==beginY[getGameWorld().map.getRound()-1]) {
+		if(getMapX()==0 && getMapY()==beginY[getGameWorld().getRound()-1]) {
 			canMove[LEFT_DIR] = true;
 		}
-		if(getMapX()==544 && getMapY()==endY[getGameWorld().map.getRound()-1]) {
+		if(getMapX()==544 && getMapY()==endY[getGameWorld().getRound()-1]) {
 			canMove[RIGHT_DIR] = true;
 		}
 		if(canMove[getDirection()])
 			switch(getDirection()) {
 			case LEFT_DIR:
-				if(getMapX()==0 && getMapY()==beginY[getGameWorld().map.getRound()-1]) {
-					getGameWorld().map.backMap();
+				if(getMapX()==0 && getMapY()==beginY[getGameWorld().getRound()-1]) {
+					getGameWorld().backMap();
 					setMapX(544);
 				}
 				else setMapX(getMapX() + getMovementSpeed());
 				break;
 			case RIGHT_DIR:
-				if(getMapX()==544 && getMapY()==endY[getGameWorld().map.getRound()-1]) {
-					getGameWorld().map.nextMap();
+				if(getMapX()==544 && getMapY()==endY[getGameWorld().getRound()-1]) {
+					getGameWorld().nextMap();
 					setMapX(0);
 				}
 				else setMapX(getMapX() + getMovementSpeed());
