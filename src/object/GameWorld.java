@@ -29,7 +29,7 @@ import ui.InputManager;
  */
 public class GameWorld extends JPanel implements ActionListener {	
 	private GamePanel gamePanel;
-	private InputManager inputManager;
+//	private InputManager inputManager;
 	public ArrayList<Map> map = new ArrayList<Map>();
 	private int round = 1;
 	public Battle battle;
@@ -59,7 +59,7 @@ public class GameWorld extends JPanel implements ActionListener {
 		objectManager = new ObjectManager(this);
 		initMonsterAndItem();
 		initMap();
-		initCompts();
+		initComps();
 		
 		this.gamePanel.startGame();
 	}
@@ -251,7 +251,7 @@ public class GameWorld extends JPanel implements ActionListener {
 	/**
 	 * This function add 2 button to window
 	 */
-	private void initCompts(){
+	private void initComps(){
 		buttonHomepage = new JButton();
 		buttonHomepage.setText("Home");
 		buttonHomepage.setBounds(600, 417, 80, 30);
@@ -314,7 +314,7 @@ public class GameWorld extends JPanel implements ActionListener {
 //			else this.paintComponent(this.g2d);
 		else {
 			gamePanel.getControl().showHomepage();
-			gamePanel.getControl().showPlay();
+			gamePanel.getControl().showGamePanel();
 		}
 				
 	}

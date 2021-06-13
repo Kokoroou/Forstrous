@@ -10,7 +10,7 @@ public class Monster extends Character {
 	private int beginX, beginY;
 	private int currX, currY;
 	private int round;
-	private boolean firstWonder;
+	private boolean firstWander;
 	
 	public Monster() {}
 
@@ -22,7 +22,7 @@ public class Monster extends Character {
 		currY = mapY;
 		beginX = mapX;
 		beginY = mapY;
-		firstWonder = false;
+		firstWander = false;
 		fullBody = CacheDataLoader.getCachedData().getFrameImage(name + "FullBody");
 	}
 
@@ -32,7 +32,7 @@ public class Monster extends Character {
 		return a[dir];
 	}
 	
-	private void Wonder() {
+	private void wander() {
 		this.setMovementSpeed(0);
 		int tileX = (int) this.getMapX() / 32;
 		int tileY = (int) this.getMapY() / 32; 
@@ -77,11 +77,11 @@ public class Monster extends Character {
 	
 	@Override
 	public void update() {
-		if(getGameWorld().getRound() == round) {
+		if(getGameWorld().getRound() == round && this.isAlive()) {
 			if(!onInteract(getGameWorld().hero)){
-				if(!firstWonder) {
-					Wonder();
-					firstWonder = true;
+				if(!firstWander) {
+					wander();
+					firstWander = true;
 				}
 				
 				else if (Math.abs(getMapX() - currX) >= 32 || Math.abs(getMapY() - currY) >= 32){
@@ -101,7 +101,7 @@ public class Monster extends Character {
 					}
 					currX = getMapX();
 					currY = getMapY();
-					Wonder();
+					wander();
 				}
 				else {
 					switch(getDirection()) {
@@ -117,11 +117,13 @@ public class Monster extends Character {
 				}
 			}
 		
-			else{
+			else {
 				gameWorld.getGamePanel().getBattle().setMonster(this);
 				gameWorld.getGamePanel().getBattle().setBattling(true);
 				gameWorld.hero.inBattle = true;
+				gameWorld.getGamePanel().getControl().showGamePanel();
 				gameWorld.getGamePanel().showBattle();
+				
 			}	
 		}
 	}
@@ -147,7 +149,7 @@ public class Monster extends Character {
 	}
 
 	public void setFirstWonder(boolean firstWonder) {
-		this.firstWonder = firstWonder;
+		this.firstWander = firstWonder;
 	}
 	
 }

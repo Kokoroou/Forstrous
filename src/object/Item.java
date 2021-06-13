@@ -27,7 +27,9 @@ public class Item {
 		pickUp = false;
 		isBeingUsed = false;
 		firstPick = true;
+//		System.out.println(CacheDataLoader.getCachedData() == null);
 		img = CacheDataLoader.getCachedData().getFrameImage(name);
+//		System.out.println(img == null);
 	}
 	
 

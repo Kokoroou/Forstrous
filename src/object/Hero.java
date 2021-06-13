@@ -11,7 +11,8 @@ public class Hero extends Character{
 
 	public static final int beginY[] = {0, 416, 64, 192};
 	public static final int endY[] = {416, 64, 192, 416};
-	public boolean battle = false;
+	public boolean inBattle = false;
+	
 	
 	public Hero() {}
 	

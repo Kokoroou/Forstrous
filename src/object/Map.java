@@ -123,9 +123,9 @@ public class Map extends JLabel {
 		this.round = round;
 	}
 	
-//	public int getTile(int tileX, int tileY) {
-//		return this.arr[tileX][tileY];
-//	}
+	public int getTile(int tileX, int tileY) {
+		return this.arr[tileX][tileY];
+	}
 	
 //	public void drawMap() {
 //		JLabel mapLabel = new JLabel();
@@ -245,14 +245,14 @@ public class Map extends JLabel {
 	public void nextMap() {
 		if(this.getRound() < 4) {
 			this.setRound(this.getRound() + 1);
-			this.setArr(getRound());
+//			this.setArr(getRound());
 		}
 	}
 	
 	public void backMap() {
 		if(this.getRound() > 1) {
 			this.setRound(getRound()-1);
-			this.setArr(getRound());
+//			this.setArr(getRound());
 		}
 	}
 }

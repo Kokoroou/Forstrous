@@ -116,7 +116,10 @@ public class ObjectManager {
 		
 		synchronized (monsters) {
 			for (Monster monster : monsters)
-				monster.draw(g2, monster.getRound());
+				if (monster.isAlive()) {
+					monster.draw(g2, monster.getRound());
+				}
+				
 		}
 	}
 }

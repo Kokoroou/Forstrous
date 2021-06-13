@@ -44,7 +44,7 @@ public abstract class Character {
 	private String[] sentences;
 	private int direction;
 	private Animation upAnim, downAnim, leftAnim, rightAnim;
-	private GameWorld gameWorld;
+	protected GameWorld gameWorld;
 	
 	public Character(String name, GameWorld gameWorld) {
 		this.name = name;
@@ -123,20 +123,20 @@ public abstract class Character {
 		this.currentHp = currentHp;
 	}
 
-	public BufferedImage getFullBody() {
-		return fullBody.getImage();
+	public FrameImage getFullBody() {
+		return fullBody;
 	}
 
-	public void setFullBody(BufferedImage fullBody) {
-		this.fullBody.setImage(fullBody);;
+	public void setFullBody(FrameImage fullBody) {
+		this.fullBody = fullBody;
 	}
 
-	public BufferedImage getFace() {
-		return face.getImage();
+	public FrameImage getFace() {
+		return face;
 	}
 
-	public void setFace(BufferedImage face) {
-		this.face.setImage(face);;
+	public void setFace(FrameImage face) {
+		this.face = face;
 	}
 
 	public int getAttack() {
