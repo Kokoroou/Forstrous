@@ -193,7 +193,7 @@ public class Battle extends JPanel implements ActionListener {
 				System.out.println("Battle finish");
 				
 				monster.setAlive(false);
-				
+				hero.setMovementSpeed(0);
 				
 				gamePanel.showGameWorld();
 				System.out.println("Back to GameWorld");

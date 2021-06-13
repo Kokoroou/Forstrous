@@ -1,5 +1,5 @@
 
-121
+125
 
 SlimeDown0
 image image/Monster3.png
@@ -827,23 +827,51 @@ y 0
 w 314
 h 239
 
-potion
+Potion
 image image/IconSet.png
-x 24
-y 0
+x 96
+y 312
 w 24
 h 24
 
-sword
+Sword
 image image/IconSet.png
-x 48
-y 0
+x 264
+y 768
 w 24
 h 24
 
-armor
+Armor
 image image/IconSet.png
-x 72
-y 0
+x 192
+y 240
+w 24
+h 24
+
+Necklace
+image image/IconSet.png
+x 216
+y 768
+w 24
+h 24
+
+SwordPro
+image image/IconSet.png
+x 192
+y 576
+w 24
+h 24
+
+SuperArmor
+image image/IconSet.png
+x 144
+y 648
+w 24
+h 24
+
+Scarf
+image image/IconSet.png
+x 0
+y 672
 w 24
 h 24
