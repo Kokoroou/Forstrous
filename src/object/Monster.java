@@ -119,8 +119,9 @@ public class Monster extends Character {
 		
 			else{
 				gameWorld.getGamePanel().getBattle().setMonster(this);
+				gameWorld.getGamePanel().getBattle().setBattling(true);
+				gameWorld.hero.inBattle = true;
 				gameWorld.getGamePanel().showBattle();
-				
 			}	
 		}
 	}
