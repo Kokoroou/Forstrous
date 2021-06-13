@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		addKeyListener(keyAdapter);
 		inputManager = new InputManager(this);
 		gameWorld = new GameWorld(this);
-		battle = new Battle(this);
+		battle = new Battle(this, gameWorld.hero);
 		bufImage = new BufferedImage(GUI.WIDTH, GUI.HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		
 		this.add(this.gameWorld, TAG_GAMEWORLD);
