@@ -3,10 +3,12 @@ package object;
 import java.awt.Graphics2D;
 import java.util.Random;
 
+import effect.CacheDataLoader;
+
 public class Monster extends Character {
 	
-	private float beginX, beginY;
-	private float currX, currY;
+	private int beginX, beginY;
+	private int currX, currY;
 	private int round;
 	private boolean firstWonder;
 	
@@ -21,7 +23,7 @@ public class Monster extends Character {
 		beginX = mapX;
 		beginY = mapY;
 		firstWonder = false;
-//		fullBody = CacheDataLoader.getInstance().getFrameImage(name + "FullBody");
+		fullBody = CacheDataLoader.getCachedData().getFrameImage(name + "FullBody");
 	}
 
 	private int Random(int a[]) {
@@ -34,8 +36,7 @@ public class Monster extends Character {
 		this.setMovementSpeed(0);
 		int tileX = (int) this.getMapX() / 32;
 		int tileY = (int) this.getMapY() / 32; 
-		int dir = Random(canDir[getGameWorld().map.getTile(tileX, tileY)]);
-		System.out.println(getName() + ": " + Map.arr1[tileX][tileY] + "   " + getMapX() + "   " + getMapY());
+		int dir = Random(canDir[getGameWorld().map.get(gameWorld.getRound()).getTile(tileX, tileY)]);
 		switch(dir) {
 			case DOWN_DIR:
 				setDirection(DOWN_DIR);
@@ -70,13 +71,13 @@ public class Monster extends Character {
 	}
 	
 	public void draw(Graphics2D g2, int round) {
-		if(getGameWorld().map.getRound() == round)
+		if(getGameWorld().getRound() == round)
 			this.draw(g2);
 	}
 	
 	@Override
 	public void update() {
-		if(getGameWorld().map.getRound() == round) {
+		if(getGameWorld().getRound() == round) {
 			if(!onInteract(getGameWorld().hero)){
 				if(!firstWonder) {
 					Wonder();
@@ -117,8 +118,9 @@ public class Monster extends Character {
 			}
 		
 			else{
-				getGameWorld().b1.setMonster(this);
-				getGameWorld().b1.setInBattle(true);
+				gameWorld.getGamePanel().getBattle().setMonster(this);
+				gameWorld.getGamePanel().showBattle();
+				
 			}	
 		}
 	}
