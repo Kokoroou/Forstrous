@@ -52,7 +52,7 @@ public class ControlPanel extends JPanel {
 		homepage.requestFocus();
 	}
 
-	public void showPlay(){
+	public void showGamePanel(){
 //		cardLayout.show(ControlPanel.this, TAG_PLAYGAME);
 		cardLayout.show(this, TAG_PLAYGAME);
 		gamePanel.requestFocus();

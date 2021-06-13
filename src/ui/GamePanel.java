@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 	private static final String TAG_GAMEWORLD = "tag_gameworld";
 	private static final String TAG_BATTLE = "tag_battle";	
 	private Thread thread;
-	private boolean isRunning;
+	public static boolean running;
 	private BufferedImage bufImage;
 	private Graphics2D bufG2D;
 	private ControlPanel control;
@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		
 		setLayout(this.cardLayout);
 		setFocusable(true);
-		addKeyListener(keyAdapter);
+//		addKeyListener(keyAdapter);
 		inputManager = new InputManager(this);
 		gameWorld = new GameWorld(this);
 		battle = new Battle(this, gameWorld.hero);
@@ -92,29 +92,29 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 	}
 
 	public void UpdateGame() {
-		if(!gameWorld.hero.battle)
+		if(!gameWorld.hero.inBattle)
 			gameWorld.update();
 		else battle.update();
 	}
 	
-	public void RenderGame() {
-		if(bufImage == null)
-			bufImage = new BufferedImage(GUI.WIDTH, GUI.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+//	public void RenderGame() {
+//		if(bufImage == null)
+//			bufImage = new BufferedImage(GUI.WIDTH, GUI.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+//		
+//		if(bufImage != null) {
+//			bufG2D = (Graphics2D) bufImage.getGraphics();
+//		}
+//		
+//		if(bufG2D != null) {
+//			bufG2D.setColor(Color.white);
+//			bufG2D.fillRect(0, 0, GUI.WIDTH, GUI.HEIGHT);
+//		}
 		
-		if(bufImage != null) {
-			bufG2D = (Graphics2D) bufImage.getGraphics();
-		}
-		
-		if(bufG2D != null) {
-			bufG2D.setColor(Color.white);
-			bufG2D.fillRect(0, 0, GUI.WIDTH, GUI.HEIGHT);
-		}
-		
-	}
+//	}
 	
 	public void startGame() {
 		if(thread == null) {
-			isRunning = true;
+			running = true;
 			thread = new Thread(this);
 			thread.start();
 		}
@@ -129,10 +129,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 
         long period = 1000000000/30;
 
-        while(isRunning){
+        while(running){
         	
             UpdateGame();
-            RenderGame();
+//            RenderGame();
         	
             repaint();
 
@@ -163,18 +163,18 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		inputManager.processKeyReleaseed(e.getKeyCode());
+		inputManager.processKeyReleased(e.getKeyCode());
 	}
 	
-	private KeyAdapter keyAdapter = new KeyAdapter() {
-		@Override
-		public void keyPressed(KeyEvent e) {
-			traceKey.set(e.getKeyCode());
-		}
-		
-		@Override
-		public void keyReleased(KeyEvent e) {
-			traceKey.clear(e.getKeyCode());
-		}
-	};
+//	private KeyAdapter keyAdapter = new KeyAdapter() {
+//		@Override
+//		public void keyPressed(KeyEvent e) {
+//			traceKey.set(e.getKeyCode());
+//		}
+//		
+//		@Override
+//		public void keyReleased(KeyEvent e) {
+//			traceKey.clear(e.getKeyCode());
+//		}
+//	};
 }

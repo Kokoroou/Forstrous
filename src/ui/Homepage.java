@@ -20,7 +20,7 @@ public class Homepage extends JPanel {
 	private int padding = 10; //Distant between 2 button
 	private GUI gui;
 	private ControlPanel control;
-	private JLabel labelPlayGame;
+	private JLabel labelGamePanel;
 	private JLabel labelOption;
 	private JLabel labelExit;
 	private JLabel background;
@@ -41,15 +41,15 @@ public class Homepage extends JPanel {
 	 * This function add 3 buttons to homepage
 	 */
 	public void initComps(GUI gui){
-		labelPlayGame = setLabel((gui.getWidth()-150)/2-40, (gui.getHeight()-30)/2-30, "/image/newgame.png");
-		labelOption = setLabel(labelPlayGame.getX(), labelPlayGame.getY() + labelPlayGame.getHeight() + this.padding, "/image/option.png");
+		labelGamePanel = setLabel((gui.getWidth()-150)/2-40, (gui.getHeight()-30)/2-30, "/image/newgame.png");
+		labelOption = setLabel(labelGamePanel.getX(), labelGamePanel.getY() + labelGamePanel.getHeight() + this.padding, "/image/option.png");
 		labelExit = setLabel(labelOption.getX(), labelOption.getY() + labelOption.getHeight() + padding, "/image/exit.png");
 		
-		labelPlayGame.addMouseListener(mouseAdapter);
+		labelGamePanel.addMouseListener(mouseAdapter);
 		labelOption.addMouseListener(mouseAdapter);
 		labelExit.addMouseListener(mouseAdapter);
 		
-		add(labelPlayGame);
+		add(labelGamePanel);
 		add(labelOption);
 		add(labelExit);	
 	}
@@ -69,6 +69,7 @@ public class Homepage extends JPanel {
 	
 	public JLabel setLabel(int x, int y, String ImageIcon){
 		JLabel label = new JLabel();
+
 		ImageIcon Icon = new ImageIcon(getClass().getResource(ImageIcon));
 		
 		label.setBounds(x, y, Icon.getIconWidth(), Icon.getIconHeight());
@@ -80,9 +81,9 @@ public class Homepage extends JPanel {
 	private MouseAdapter mouseAdapter = new MouseAdapter() {
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			if(e.getSource() == labelPlayGame){
+			if(e.getSource() == labelGamePanel){
 				ImageIcon playIcon = new ImageIcon(getClass().getResource("/image/newgame1.png"));
-				labelPlayGame.setIcon(playIcon);
+				labelGamePanel.setIcon(playIcon);
 			}
 			if(e.getSource() == labelOption){
 				ImageIcon optionIcon = new ImageIcon(getClass().getResource("/image/option1.png"));
@@ -96,9 +97,9 @@ public class Homepage extends JPanel {
 		
 		@Override
 		public void mouseExited(MouseEvent e) {
-			if(e.getSource() == labelPlayGame){
+			if(e.getSource() == labelGamePanel){
 				ImageIcon playIcon = new ImageIcon(getClass().getResource("/image/newgame.png"));
-				labelPlayGame.setIcon(playIcon);
+				labelGamePanel.setIcon(playIcon);
 			}
 			if(e.getSource() == labelOption){
 				ImageIcon optionIcon = new ImageIcon(getClass().getResource("/image/option.png"));
@@ -114,10 +115,11 @@ public class Homepage extends JPanel {
 		public void mousePressed(MouseEvent e) {
 			if(e.getSource() == labelExit){
 				gui.dispose();
+//				GamePanel.running = false;
 				System.exit(0);
 			}
-			if(e.getSource() == labelPlayGame){
-				control.showPlay();
+			if(e.getSource() == labelGamePanel){
+				control.showGamePanel();
 			}
 			if(e.getSource() == labelOption){
 				control.showOption();
