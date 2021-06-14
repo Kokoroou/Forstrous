@@ -7,8 +7,11 @@ import effect.FrameImage;
 
 
 public class Item {
-	public static final int POTION = 0;
-	public static final int EQUIPMENT = 1;
+public static final int POTION = 0;
+	public static final int SWORD = 2;
+	public static final int ARMOR = 3;
+	public static final int NECKLACE = 4;
+	
 	private String name;
     private FrameImage img;
     private boolean pickUp, isBeingUsed, firstPick;
@@ -27,9 +30,7 @@ public class Item {
 		pickUp = false;
 		isBeingUsed = false;
 		firstPick = true;
-//		System.out.println(CacheDataLoader.getCachedData() == null);
-		img = CacheDataLoader.getCachedData().getFrameImage(name);
-//		System.out.println(img == null);
+		img = CacheDataLoader.getInstance().getFrameImage(name);
 	}
 	
 
@@ -46,6 +47,11 @@ public class Item {
 	public boolean getIsBeingUsed() {
 		return isBeingUsed;
 	}
+
+//
+//	public String getName() {
+//		return name;
+//	}
 
 
 	public void setIsBeingUsed(boolean isBeingUsed) {
@@ -76,7 +82,7 @@ public class Item {
 		if (!monster.isAlive()) pickUp = true;
 		
 		if (pickUp && isBeingUsed) {
-			if (itemType == EQUIPMENT) {
+			if (itemType != POTION) {
 				gameWorld.hero.setAttack(gameWorld.hero.getAttack() + attack);
 				gameWorld.hero.setMaxHp(gameWorld.hero.getMaxHp() + hp);
 				gameWorld.hero.updateCurrentHp(gameWorld.hero.getCurrentHp() + hp);
@@ -86,7 +92,6 @@ public class Item {
 			
 			else {
 				gameWorld.hero.updateCurrentHp(gameWorld.hero.getCurrentHp() + hp);
-				isBeingUsed = false;
 			}
 		}
 	}
