@@ -14,22 +14,22 @@ public class InputManager {
 	public void processKeyPressed(int keyCode) {
 		switch(keyCode) {
 			case KeyEvent.VK_UP:
-				System.out.println("Pressed UP");
+//				System.out.println("Pressed UP");
 				gamePanel.getGameWorld().hero.setDirection(Hero.UP_DIR);
 				gamePanel.getGameWorld().hero.setMovementSpeed(-4);
 				break;
 			case KeyEvent.VK_DOWN:
-				System.out.println("Pressed DOWN");
+//				System.out.println("Pressed DOWN");
 				gamePanel.getGameWorld().hero.setDirection(Hero.DOWN_DIR);
 				gamePanel.getGameWorld().hero.setMovementSpeed(4);
 				break;
 			case KeyEvent.VK_LEFT:
-				System.out.println("Pressed LEFT");
+//				System.out.println("Pressed LEFT");
 				gamePanel.getGameWorld().hero.setDirection(Hero.LEFT_DIR);
 				gamePanel.getGameWorld().hero.setMovementSpeed(-4);
 				break;
 			case KeyEvent.VK_RIGHT:
-				System.out.println("Pressed RIGHT");
+//				System.out.println("Pressed RIGHT");
 				gamePanel.getGameWorld().hero.setDirection(Hero.RIGHT_DIR);
 				gamePanel.getGameWorld().hero.setMovementSpeed(4);
 				break;
