@@ -130,17 +130,19 @@ public class ObjectManager {
 			g2.drawString(Integer.toString(numOfPotions), 602, 51);
 		}
 		
-		synchronized (currItems) {
-			for(int id = 1; id < currItems.size(); id++)
-				currItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, 35 + (id - 1) / 3 * 32 + 32);
+		synchronized (unequipItems) {
+			for(int id = 1; id < unequipItems.size(); id++)
+				unequipItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, (id - 1) / 3 * 32 + 67);
+		}
+		
+		synchronized (equippedItems) {
+			for(int id = 1; id < equippedItems.size(); id++)
+				equippedItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, (id - 1) / 3 * 32 + 147);
 		}
 		
 		synchronized (monsters) {
 			for (Monster monster : monsters)
-				if (monster.isAlive()) {
-					monster.draw(g2, monster.getRound());
-				}
-				
+				monster.draw(g2, monster.getRound());
 		}
 	}
 	
@@ -152,9 +154,9 @@ public class ObjectManager {
 			g2.drawString(Integer.toString(numOfPotions), 602, 51);
 		}
 		
-		synchronized (currItems) {
-			for(int id = 1; id < currItems.size(); id++)
-				currItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, 35 + (id - 1) / 3 * 32 + 32);
+		synchronized (unequipItems) {
+			for(int id = 1; id < unequipItems.size(); id++)
+				unequipItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, 35 + (id - 1) / 3 * 32 + 32);
 		}
 	}
 }
