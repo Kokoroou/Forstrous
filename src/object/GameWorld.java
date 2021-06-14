@@ -27,9 +27,9 @@ import ui.InputManager;
  * @author Admin
  *
  */
-public class GameWorld extends JPanel implements ActionListener {	
+public class GameWorld extends JPanel implements KeyListener, ActionListener {	
 	private GamePanel gamePanel;
-//	private InputManager inputManager;
+	private InputManager inputManager;
 	public ArrayList<Map> map = new ArrayList<Map>();
 	private int round = 1;
 	public Battle battle;
@@ -46,6 +46,10 @@ public class GameWorld extends JPanel implements ActionListener {
 //		this.setLocation(0, 0);
 		this.setFocusable(true);
 		this.setLayout(null);
+		
+		inputManager = new InputManager(this.gamePanel);
+		this.addKeyListener(this);
+		
 //		map = new Map();
 		hero = new Hero("Hero", this);
 		hero.setMapX(32*8);
@@ -340,4 +344,18 @@ public class GameWorld extends JPanel implements ActionListener {
 		}
 	}
 	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		inputManager.processKeyPressed(e.getKeyCode());
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		inputManager.processKeyReleased(e.getKeyCode());
+	}
 }

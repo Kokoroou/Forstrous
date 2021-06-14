@@ -91,7 +91,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		this.battle = battle;
 	}
 
-	public void UpdateGame() {
+	public void updateGame() {
 		if(!gameWorld.hero.inBattle)
 			gameWorld.update();
 		else battle.update();
@@ -131,7 +131,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 
         while(running){
         	
-            UpdateGame();
+            updateGame();
 //            RenderGame();
         	
             repaint();

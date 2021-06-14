@@ -35,9 +35,10 @@ public class InputManager {
 				break;
 			case KeyEvent.VK_1:
 				System.out.println("Pressed 1");
-				if(gamePanel.getGameWorld().hero.inBattle)
+				if(gamePanel.getGameWorld().hero.inBattle) {
 					gamePanel.getBattle().setHeroChoice(1);
-					
+					gamePanel.getControl().showGamePanel();
+				}
 				break;
 			case KeyEvent.VK_2:
 				System.out.println("Pressed 2");
@@ -54,6 +55,9 @@ public class InputManager {
 			default: break;
 		
 		}
+		if(gamePanel.getBattle().isBattling()) {
+			gamePanel.getBattle().update();
+		}
 	}
 	
 	public void processKeyReleased(int keyCode) {
@@ -64,9 +68,25 @@ public class InputManager {
 			case KeyEvent.VK_RIGHT:
 				gamePanel.getGameWorld().hero.setMovementSpeed(0);
 				break;
+				
+			case KeyEvent.VK_1:
+				if(gamePanel.getBattle().isBattling()) {
+					gamePanel.getBattle().update();
+				}
+				break;
+			case KeyEvent.VK_2:
+				if(gamePanel.getBattle().isBattling()) {
+					gamePanel.getBattle().update();
+				}
+				break;
 			case KeyEvent.VK_3:
 				if(gamePanel.getGameWorld().hero.inBattle) {
 					gamePanel.getBattle().setHeroChoice(0);
+				}
+				break;
+			case KeyEvent.VK_4:
+				if(gamePanel.getGameWorld().hero.inBattle) {
+					gamePanel.getBattle().update();
 				}
 				break;
 			default: break;

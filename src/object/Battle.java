@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +22,7 @@ import effect.CacheDataLoader;
 import effect.FrameImage;
 import ui.*;
 
-public class Battle extends JPanel implements ActionListener {
+public class Battle extends JPanel implements KeyListener, ActionListener {
 	private GamePanel gamePanel;
 	private Graphics2D g2d;
 	private JButton buttonHomepage;
@@ -29,11 +31,11 @@ public class Battle extends JPanel implements ActionListener {
 //	private FrameImage background;	
 	private Monster monster;
 	private Hero hero;
-	private int heroChoice = -1;
+	private static int heroChoice = -1;
 	public ObjectManager objectManager;
 	private boolean battling = false;	
 	
-//	private InputManager inputManager;
+	private InputManager inputManager;
 	
 	public Battle(GamePanel gamePanel, Hero hero) {
 		this.gamePanel = gamePanel;
@@ -43,7 +45,12 @@ public class Battle extends JPanel implements ActionListener {
 		this.setFocusable(true);
 		this.setLayout(null);
 				
+		inputManager = new InputManager(this.gamePanel);
+		this.addKeyListener(this);
+		
 		initComps();
+		
+//		gamePanel.addKeyListener(gamePanel);
 	}
 	
 	public Battle(GamePanel gamePanel, Monster monster) {
@@ -129,25 +136,41 @@ public class Battle extends JPanel implements ActionListener {
 		if (rand.nextInt(1) == 1) monsterDefending = true;
 		
 		//Hero's turn
+		System.out.println(heroChoice);
 		switch(heroChoice) {
 			case 1: //Attack
+				System.out.println("Hero attacked!");
+				
 				if(hero.onHit()) {
-					if(monsterDefending == true)
+					if(monsterDefending == false) {
+						System.out.println(monster.getName() + " took " + Integer.toString(hero.getAttack()) + " damage.");
+						
 						monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack());
+					}
+						
 					else {
+						System.out.println(monster.getName() + " is defending!");
+						System.out.println(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.");
+						System.out.println("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.");
+						
 						hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2);
 						monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
 					}
 				}
-				heroChoice = -1;
+				else {
+					System.out.println("Miss!");
+				}
 				break;
 			case 2: //Defend
 				heroDefending = true;
 				
-				heroChoice = -1;
+				System.out.println("Hero took a protective stance!");
 				break;
 			case 3://Run
 				battling = false;
+				
+				System.out.println("Hero run away safely");
+				
 				hero.setMapX(0);
 				hero.setMapY(0);
 				monster.setMapX(monster.getBeginX());
@@ -157,30 +180,49 @@ public class Battle extends JPanel implements ActionListener {
 				monster.setFirstWonder(false);
 
 				gamePanel.showGameWorld();
-				heroChoice = -1;
 				break;
 			case 4: //Use Item
-				heroChoice = -1;
 				break;
 			default: break;
 		}
 		
 		//Monster's turn
-		if (heroChoice == 0) { 
-		if(monsterDefending == false && monster.onHit()) {
-			if(!heroDefending)
-				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack());
-			else {
-				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2
-						);
-				monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
+		if (heroChoice != 3) {
+			System.out.println(monster.getName() + " attacked!");
+			
+			if (monster.onHit()) {				
+				if (heroDefending) {
+					System.out.println("Hero defended!");
+					System.out.println("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.");
+					System.out.println(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.");
+				}
+				else {
+					System.out.println("Hero took " + Integer.toString(monster.getAttack()) + " damage.");
+				}
 			}
+			else {
+				System.out.println("Miss!");
+			}
+			
+			System.out.println("Hero has " + Integer.toString(hero.getCurrentHp()) + " health points left.");
+			System.out.println(monster.getName() +" has " + Integer.toString(monster.getCurrentHp()) + " health points left.");
 		}
-			heroChoice = -1;
-		}
+		heroChoice = -1;
 		
-		System.out.println("Hero: " + hero.getCurrentHp());
-		System.out.println("Monster: " + monster.getCurrentHp());
+		
+//		if (heroChoice == 0) { 
+//		if(monsterDefending == false && monster.onHit()) {
+//			if(!heroDefending)
+//				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack());
+//			else {
+//				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2
+//						);
+//				monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
+//			}
+//		}
+//		}
+		
+		
 	}
 	
 	public void update() {
@@ -189,14 +231,20 @@ public class Battle extends JPanel implements ActionListener {
 			if (heroChoice != -1) {
 				onBattle();
 				hero.inBattle = true;
-				if (monster.getCurrentHp()==0 || hero.getCurrentHp()==0)
+				if (monster.getCurrentHp() == 0) {
+					System.out.println(monster.getName() + " defeated!");
+				}
+				
+				else if (hero.getCurrentHp() == 0) {
+					System.out.println("Hero defeated!");
+				}
 					battling = false;
 			}			
 		}
 		else {
 			if (monster.getCurrentHp() == 0) {
 				hero.inBattle = false;
-				System.out.println("Battle finish");
+				System.out.println("Battle finished");
 				
 				monster.setAlive(false);
 				hero.setMovementSpeed(0);
@@ -205,12 +253,30 @@ public class Battle extends JPanel implements ActionListener {
 				System.out.println("Back to GameWorld");
 			}
 			
-			else if (hero.getCurrentHp()==0) {
+			else if (hero.getCurrentHp() == 0) {
 				System.out.println("Game Over!");
+				gamePanel.running = false;
 			}
 			
 			
 		}
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		inputManager.processKeyPressed(e.getKeyCode());
+		this.update();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		inputManager.processKeyReleased(e.getKeyCode());
+		this.update();
 	}
 	
 	@Override
