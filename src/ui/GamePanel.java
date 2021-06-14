@@ -44,6 +44,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		gameWorld = new GameWorld(this);
 		battle = new Battle(this, gameWorld.hero);
 		bufImage = new BufferedImage(GUI.WIDTH, GUI.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+//		System.out.println(gameWorld.hero);
+
 		
 		this.add(this.gameWorld, TAG_GAMEWORLD);
 		this.add(this.battle, TAG_BATTLE);
@@ -92,9 +94,15 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 	}
 
 	public void updateGame() {
-		if(!gameWorld.hero.inBattle)
+		if(!gameWorld.hero.inBattle) {
+//			System.out.println("Update GameWorld");
 			gameWorld.update();
-		else battle.update();
+		}
+		else {
+//			System.out.println("Update Battle");
+			battle.update();
+			
+		}
 	}
 	
 //	public void RenderGame() {
@@ -130,8 +138,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
         long period = 1000000000/30;
 
         while(running){
-        	
+//        	System.out.println("Update Game");
             updateGame();
+//            System.out.println(gameWorld.hero.inBattle);
 //            RenderGame();
         	
             repaint();
