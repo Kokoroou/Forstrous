@@ -170,7 +170,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 				battling = false;
 				
 				System.out.println("Hero run away safely");
-				
+				hero.inBattle = false;
 				hero.setMapX(0);
 				hero.setMapY(0);
 				monster.setMapX(monster.getBeginX());
@@ -251,8 +251,9 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 			}			
 		}
 		else {
+			hero.inBattle = false;
 			if (monster.getCurrentHp() == 0) {
-				hero.inBattle = false;
+//				hero.inBattle = false;
 				System.out.println("Battle finished");
 				
 				monster.setAlive(false);
@@ -266,7 +267,6 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 				System.out.println("Game Over!");
 				gamePanel.running = false;
 			}
-			
 			
 		}
 	}
