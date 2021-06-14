@@ -14,7 +14,9 @@ import java.util.List;
 public class ObjectManager {
 	protected int numOfPotions;
 	protected List<Item> items;
-	private List<Item> currItems;
+	private List<Item> unequipItems;
+	private List<Item> equippedItems;
+	
 	protected List<Monster> monsters;
 	
 	private GameWorld gameWorld;
@@ -22,7 +24,7 @@ public class ObjectManager {
 	public ObjectManager(GameWorld gameWorld) {
 		items = Collections.synchronizedList(new LinkedList<Item>());
 		monsters = Collections.synchronizedList(new LinkedList<Monster>());
-		currItems = Collections.synchronizedList(new LinkedList<Item>());
+		unequipItems = Collections.synchronizedList(new LinkedList<Item>());
 		this.gameWorld = gameWorld;
 		numOfPotions = -1;
 	}
@@ -34,28 +36,30 @@ public class ObjectManager {
 	}
 	
 	public void addCurrItem (Item item) {
-		if (item.getItemType() == Item.EQUIPMENT)
-			synchronized (currItems) {
-				currItems.add(item);
-			}
+		if (item.getItemType() == Item.POTION)
+				numOfPotions++;
 		
 //		else if (numOfPotions < 0) {
 //			currItems.add(item);
 //			numOfPotions = numOfPotions + 2;
 //		}
-		else numOfPotions++;
+		else 
+			synchronized (unequipItems) {
+				unequipItems.add(item);
+			}
 	}
 	
-	public void removeItem (Item item) {
-		synchronized(currItems){
-			if (item.getItemType() == Item.EQUIPMENT)
-				for(int id = 1; id < currItems.size(); id++){
-					if(currItems.get(id) == item)
-						currItems.remove(id);
-				}
-			else {
+	public void removeUnequipItem (Item item) {
+		synchronized(unequipItems){
+			if (item.getItemType() == Item.POTION) {
 				numOfPotions--;
 				if (numOfPotions <= 0) numOfPotions = 0;
+			}
+			else {
+				for(int id = 1; id < unequipItems.size(); id++){
+					if(unequipItems.get(id) == item)
+						unequipItems.remove(id);
+				}
 			}
 		}
 	}
@@ -76,9 +80,9 @@ public class ObjectManager {
 	}
 	
 	public void update() {
-		synchronized (currItems) {
+		synchronized (unequipItems) {
 			if (numOfPotions == -1) {
-				currItems.add(items.get(0));
+				unequipItems.add(items.get(0));
 				numOfPotions++;
 			}
 			for(int id = 0; id < items.size(); id++) {
@@ -88,7 +92,20 @@ public class ObjectManager {
 					addCurrItem(tmp);
 					tmp.setFirstPick(false);
 				}
-				if (tmp.getIsBeingUsed()) removeItem(tmp);
+				
+				if (tmp.getIsBeingUsed()) {
+					removeUnequipItem(tmp);
+					if(tmp.getItemType() != Item.POTION) {
+						for (int i=0; i<equippedItems.size(); i++)
+							if (equippedItems.get(i).getItemType() == tmp.getItemType())
+								equippedItems.remove(i);
+						equippedItems.add(tmp);
+					}
+					else tmp.setIsBeingUsed(false);
+				}
+				
+				if(!tmp.getIsPickUp() && !tmp.getIsBeingUsed() && !tmp.isFirstPick() && tmp.getItemType() != Item.POTION)
+					addCurrItem(tmp);
 			}
 		}
 		
