@@ -7,30 +7,23 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Option extends JPanel implements ActionListener{
 	private ControlPanel control;
 	private JLabel background;
 	private ImageIcon Background;
-//	private JButton btn_Menu;
 	private JButton buttonHomepage;
 	
 	public Option(ControlPanel control) {
 		this.control = control;
 		setBackground(Color.WHITE);
 		setLayout(null);
-		initCompts();
+		initComps();
 	}
 	
-	public void initCompts(){
-		
-//		btn_Menu = new JButton();
-//		btn_Menu.setText("Menu");
-//		btn_Menu.setBounds(600, 417, 80, 30);
-//		btn_Menu.addActionListener(this);
-//		add(btn_Menu);
+	public void initComps(){
+
 		buttonHomepage = new JButton();
 		buttonHomepage.setText("Home");
 		buttonHomepage.setBounds(608, 408, 80, 30);
@@ -51,13 +44,6 @@ public class Option extends JPanel implements ActionListener{
 			control.showHomepage();
 		
 		}
-//		if(e.getSource() == buttonNext){
-//			this.round++;
-//			if(this.round >= map.size()) {
-//				this.round = 0;
-//				gamePanel.getControl().showHomepage();
-//			}
-//			else this.paintComponent(this.g2d);
 		else {
 			control.showHomepage();
 			control.showGamePanel();

@@ -17,9 +17,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import effect.CacheDataLoader;
 import effect.FrameImage;
 import ui.*;
 
@@ -28,7 +26,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 	private Graphics2D g2d;
 	private JButton buttonHomepage;
 	private JPanel noticeBoard;
-	
+	private long beginTime;
 	private FrameImage background = new FrameImage();	
 	private Monster monster;
 	private Hero hero;
@@ -40,19 +38,16 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 	
 	public Battle(GamePanel gamePanel, Hero hero) {
 		this.gamePanel = gamePanel;
-		this.noticeBoard = new JPanel();
 		this.hero = hero;
 		this.objectManager = gamePanel.getGameWorld().objectManager;
-		
+		this.noticeBoard = new JPanel();
 		this.setFocusable(true);
 		this.setLayout(null);
-				
+		beginTime = System.nanoTime();
 		inputManager = new InputManager(this.gamePanel);
 		this.addKeyListener(this);
 		
 		initComps();
-		
-//		gamePanel.addKeyListener(gamePanel);
 	}
 	
 	public Battle(GamePanel gamePanel, Monster monster) {
@@ -61,7 +56,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		this.objectManager = gamePanel.getGameWorld().objectManager;
 		
 		this.setFocusable(true);
-		this.setLayout(new BorderLayout());
+		this.setLayout(null);
 		
 		initComps();
 	}
@@ -83,80 +78,42 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		
 		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		g2d.setColor(Color.BLACK);
-		g2d.drawString("Equipped", 610, 200);
+		g2d.drawString("HP:" , 580, 250);
+		g2d.setColor(Color.BLUE);
+		g2d.drawRect(610, 235, hero.getMaxHp()/20, 18);
+		g2d.fillRect(610, 235, hero.getCurrentHp()/20, 18);
 		
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Monster HP:" , 80, 50);
+		g2d.setColor(Color.RED);
+		g2d.drawRect(80, 35, 200, 18);
+		g2d.fillRect(80, 35, this.monster.getCurrentHp()/this.monster.getMaxHp(), 18);
 		
 		try {
 			BufferedImage img;
-						
+
 			//Draw Battleback_Floor
 			img = ImageIO.read(new File("image/Meadow.png"));
 			background.setImage(img);
 			background.draw(g2d, 0, 4);
-			
+
 			//Draw Battleback_Wall
 			img = ImageIO.read(new File("image/Forest1.png"));
+			this.g2d.drawImage(img, 0, 0, null);
+
 			background.setImage(img);
 			background.draw(g2d, 0, 0);
-			
+
 			//Draw Monster
 			img = this.monster.getFullBody().getImage();
 			this.monster.getFullBody().draw(g2d, (576 - img.getWidth())/2, (448 - img.getHeight())/2);
-			
-		}
-		catch (IOException e) { }
-		
-		objectManager.drawItems(g2d);
 
-		
-//		//Draw GameOver
-//		try {
-//			BufferedImage img;
-//			
-//			img = ImageIO.read(new File("image/GameOver.png"));
-//			background.setImage(img);
-//			background.draw(g2d, 0, 0);
-////			this.g2d.drawImage(img, 0, 0, null);
-////			System.out.println("Read Image GameOver");
-//
-//		} catch (IOException e) {	}
-//		
-		
-//		//Draw Battleback_Floor
-//		try {
-//			img = ImageIO.read(new File("image/Meadow.png"));
-//			this.g2d.drawImage(img, 0, 4, null);
-//		} catch (IOException e) {	}
-//		
-//		//Draw Battleback_Wall
-//		try {
-//			img = ImageIO.read(new File("image/Forest1.png"));
-//			this.g2d.drawImage(img, 0, 0, null);
-//		} catch (IOException e) {	}
-//		
-//		//Draw Monster
-//		img = this.monster.getFullBody().getImage();
-//		this.g2d.drawImage(img, (576 - img.getWidth())/2, (448 - img.getHeight())/2, null);
-		
+		}
+		catch (IOException e) {}
+
 		//Draw Items
-		
-		
-//		gamePanel.showBattle();
-//		if (gamePanel.running = false) {
-//			BufferedImage img;
-//			
-//			//Draw GameOver
-//			try {
-//				img = ImageIO.read(new File("image/GameOver.png"));
-//				this.g2d.drawImage(img, 0, 0, null);
-////				System.out.println("Read Image GameOver");
-//
-//			} catch (IOException e) {	}
-//			System.out.println("Over");
-//		}
-		
+		objectManager.drawItems(g2d);
 	}
-	
 	
 	public boolean isBattling() {
 		return battling;
@@ -177,175 +134,122 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		this.monster = monster;
 	}
 	
-//	private void drawString(Graphics2D g2, String text, int x, int y){
-//        for(String str : text.split("\n"))
-//            g2.drawString(str, x, y+=g2.getFontMetrics().getHeight());
-//    }
-	
 	public void onBattle() {
+		beginTime = System.nanoTime();
 		boolean heroDefending = false, monsterDefending = false;
 		Random rand = new Random();
 		if (rand.nextInt(1) == 1) monsterDefending = true;
 		
-		//Hero's turn
+		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		g2d.setColor(Color.BLACK);
 		switch(heroChoice) {
 			case 1: //Attack
-				System.out.println("Hero attacked!");
+				
+				g2d.drawString("Hero attacked!", 160, 384);
 				
 				if(hero.onHit()) {
 					if(monsterDefending == false) {
-						System.out.println(monster.getName() + " took " + Integer.toString(hero.getAttack()) + " damage.");
+						g2d.drawString(monster.getName() + " took " + Integer.toString(hero.getAttack()) + " damage.", 160, 384 );
 						
 						monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack());
 					}
 						
 					else {
-						System.out.println(monster.getName() + " is defending!");
-						System.out.println(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.");
-						System.out.println("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.");
+						g2d.drawString(monster.getName() + " is defending!", 160, 412);
+						g2d.drawString(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.", 160, 352);
+						g2d.drawString("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.", 160, 384);
 						
 						hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2);
 						monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
 					}
 				}
 				else {
-					System.out.println("Miss!");
+					g2d.drawString("Miss!", 160, 384);
 				}
 				break;
 			case 2: //Defend
 				heroDefending = true;
 				
-				System.out.println("Hero took a protective stance!");
+				g2d.drawString("Hero took a protective stance!", 160, 384);
 				break;
-			case 3: //Run				
-				System.out.println("Hero run away safely!");
+			case 3://Run				
+				g2d.drawString("Hero run away safely", 160, 384);
 				
-//				heroChoice = -1;
-				
-//				hero.setMapX(hero.getBeginX());
-//				hero.setMapY(hero.getBeginY());
-				hero.setMapX(0);
-				hero.setMapY(0);
 				hero.setMovementSpeed(0);
 				
 				monster.setMapX(monster.getBeginX());
 				monster.setMapY(monster.getBeginY());
-//				monster.setMovementSpeed(0);
-//				monster.setCurrX(monster.getBeginX());
-//				monster.setCurrY(monster.getBeginY());
-//				monster.setFirstWonder(false);
 				
 				battling = false;
 				hero.inBattle = false;
-//				System.out.println(hero);
-//				System.out.println(hero.inBattle);
 
 				gamePanel.showGameWorld();
 				break;
 			case 4: //Use Item
+				g2d.drawString("Hero used potion", 160, 384);
+				hero.usePotion();
 				break;
 			default: break;
 		}
+		while(System.nanoTime() - beginTime <= 2000000000) {};
+		beginTime = System.nanoTime();
 		
 		//Monster's turn
 		if (heroChoice != 3) {
-			System.out.println(monster.getName() + " attacked!");
+			g2d.drawString(monster.getName() + " attacked!", 160, 384);
 			
 			if (monster.onHit()) {				
 				if (heroDefending) {
-					System.out.println("Hero defended!");
-					System.out.println("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.");
-					System.out.println(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.");
+					g2d.drawString("Hero defended!", 160, 384);
+					g2d.drawString("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.", 160, 384);
+					g2d.drawString(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.", 160, 384);
 					
 					hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2);
 					monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
 				}
 				else {
-					System.out.println("Hero took " + Integer.toString(monster.getAttack()) + " damage.");
+					g2d.drawString("Hero took " + Integer.toString(monster.getAttack()) + " damage.", 160, 384);
 					
 					hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack());
 				}
 			}
 			else {
-				System.out.println("Miss!");
+				g2d.drawString("Miss!", 160, 384);
 			}
-			
-			System.out.println("Hero has " + Integer.toString(hero.getCurrentHp()) + " health points left.");
-			System.out.println(monster.getName() +" has " + Integer.toString(monster.getCurrentHp()) + " health points left.");
+			g2d.drawString("Hero has " + Integer.toString(hero.getCurrentHp()) + " health points left.", 160, 384);
+			g2d.drawString(monster.getName() +" has " + Integer.toString(monster.getCurrentHp()) + " health points left.", 160, 384);
 		}
 		heroChoice = -1;
-//		System.out.println(heroChoice);
-		
-		
-//		if (heroChoice == 0) { 
-//		if(monsterDefending == false && monster.onHit()) {
-//			if(!heroDefending)
-//				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack());
-//			else {
-//				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2
-//						);
-//				monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
-//			}
-//		}
-//		}
-		
 		
 	}
 	
 	public void update() {
-//		System.out.println(battling);
+
 		if (battling) {
 			if (heroChoice != -1) {
 				onBattle();
 				hero.inBattle = true;
 				
 				if (hero.getCurrentHp() == 0) {
-					System.out.println("Hero defeated!");
-					
 					battling = false;
 					hero.inBattle = false;
-					System.out.println("Game Over!");
-					
-					
-//					BufferedImage img;
-//					
-//					//Draw Battleback_Floor
-//					img = ImageIO.read(new File("image/Meadow.png"));
-//					background.setImage(img);
-//					background.draw(g2d, 0, 4);
-					
-					
-					
-//					//Draw GameOver
-//					try {
-//						BufferedImage img;
-//						
-//						img = ImageIO.read(new File("image/GameOver.png"));
-//						background.setImage(img);
-//						background.draw(g2d, 0, 0);
-////						this.g2d.drawImage(img, 0, 0, null);
-////						System.out.println("Read Image GameOver");
-//		
-//					} catch (IOException e) {	}
-//					this.setVisible(true);
-					
 					gamePanel.getControl().showGameOver();
-					
 					gamePanel.running = false;
 				}
 				
 				else if (monster.getCurrentHp() == 0) {
-					System.out.println(monster.getName() + " defeated!");
-					
-					battling = false;
-					hero.inBattle = false;
-					System.out.println("Battle finished");
-					
-					monster.setAlive(false);
-					hero.setMovementSpeed(0);
-					
-					System.out.println("Back to GameWorld");
-					gamePanel.showGameWorld();
+					if(monster.getName()!="Demon") {						
+						battling = false;
+						hero.inBattle = false;
+						
+						monster.setAlive(false);
+						hero.setMovementSpeed(0);
+						gamePanel.showGameWorld();
+					}
+					else {
+						gamePanel.getControl().showVictory();
+						gamePanel.running = false;
+					}
 				}					
 			}			
 		}

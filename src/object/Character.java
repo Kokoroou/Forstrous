@@ -1,8 +1,6 @@
 package object;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import effect.Animation;
@@ -216,18 +214,10 @@ public abstract class Character {
 	public abstract void update();
 	
 	public void draw (Graphics2D g2) {
-//		if(!getGameWorld().b1.isInBattle())
 		switch(this.getDirection()) {
 			case DOWN_DIR:
-//				System.out.println(System.nanoTime());
-//				System.out.println(1);
 				downAnim.Update(System.nanoTime());
-//				System.out.println(2);
-//				System.out.println(getMapX());
-//				System.out.println(getMapY());
-//				System.out.println(gameWorld.getG2d());
 				downAnim.draw(getMapX(), getMapY(), gameWorld.getG2d());
-//				System.out.println(3);
 				break;
 	
 			case LEFT_DIR:

@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import effect.CacheDataLoader;
+import effect.FrameImage;
+
 /**
  * The ObjectManager is the class that store information about monsters and items
  *
@@ -14,8 +17,8 @@ import java.util.List;
 public class ObjectManager {
 	protected int numOfPotions;
 	protected List<Item> items;
-	private List<Item> unequipItems;
 	private List<Item> equippedItems;
+	private FrameImage potion;
 	
 	protected List<Monster> monsters;
 	
@@ -24,42 +27,39 @@ public class ObjectManager {
 	public ObjectManager(GameWorld gameWorld) {
 		items = Collections.synchronizedList(new LinkedList<Item>());
 		monsters = Collections.synchronizedList(new LinkedList<Monster>());
-		unequipItems = Collections.synchronizedList(new LinkedList<Item>());
 		equippedItems = Collections.synchronizedList(new LinkedList<Item>());
 		this.gameWorld = gameWorld;
-		numOfPotions = -1;
+		potion = CacheDataLoader.getCachedData().getFrameImage("Potion");
+		numOfPotions = 0;
 	}
 	
 	public void addItem (Item item) {
 			synchronized (items) {
 				items.add(item);
+				item.setGameWorld(gameWorld);
 			}
 	}
 	
-	public void addCurrItem (Item item) {
+	public void addEquippedItem (Item item) {
 		if (item.getItemType() == Item.POTION)
 				numOfPotions++;
-		
-//		else if (numOfPotions < 0) {
-//			currItems.add(item);
-//			numOfPotions = numOfPotions + 2;
-//		}
+
 		else 
-			synchronized (unequipItems) {
-				unequipItems.add(item);
+			synchronized (equippedItems) {
+				equippedItems.add(item);
 			}
 	}
 	
-	public void removeUnequipItem (Item item) {
-		synchronized(unequipItems){
+	public void removeEquippedItem (Item item) {
+		synchronized(equippedItems){
 			if (item.getItemType() == Item.POTION) {
 				numOfPotions--;
 				if (numOfPotions <= 0) numOfPotions = 0;
 			}
 			else {
-				for(int id = 1; id < unequipItems.size(); id++){
-					if(unequipItems.get(id) == item)
-						unequipItems.remove(id);
+				for(int id = 0; id < equippedItems.size(); id++){
+					if(equippedItems.get(id) == item)
+						equippedItems.remove(id);
 				}
 			}
 		}
@@ -81,32 +81,20 @@ public class ObjectManager {
 	}
 	
 	public void update() {
-		synchronized (unequipItems) {
-			if (numOfPotions == -1) {
-				unequipItems.add(items.get(0));
-				numOfPotions++;
-			}
+		
+		synchronized(equippedItems) {
 			for(int id = 0; id < items.size(); id++) {
 				Item tmp = items.get(id);
 				tmp.update();
-				if (tmp.getIsPickUp() && tmp.isFirstPick()) {
-					addCurrItem(tmp);
-					tmp.setFirstPick(false);
-				}
-				
-				if (tmp.getIsBeingUsed()) {
-					removeUnequipItem(tmp);
-					if(tmp.getItemType() != Item.POTION) {
-						for (int i=0; i<equippedItems.size(); i++)
-							if (equippedItems.get(i).getItemType() == tmp.getItemType())
-								equippedItems.remove(i);
-						equippedItems.add(tmp);
+				if (tmp.isFirstPick() && tmp.getMonster().getCurrentHp()<=0) {                   
+					for(int i = 0; i < equippedItems.size(); i++) {
+						if(equippedItems.get(i).getItemType() == tmp.getItemType())
+							removeEquippedItem(equippedItems.get(i));
 					}
-					else tmp.setIsBeingUsed(false);
-				}
-				
-				if(!tmp.getIsPickUp() && !tmp.getIsBeingUsed() && !tmp.isFirstPick() && tmp.getItemType() != Item.POTION)
-					addCurrItem(tmp);
+					addEquippedItem(tmp);
+                    tmp.setFirstPick(false);
+                    tmp.setIsBeingUsed(true);
+                }
 			}
 		}
 		
@@ -117,28 +105,19 @@ public class ObjectManager {
 				if (!tmp.isAlive()) removeMonster(tmp);
 			}
 		}
-//		System.out.println("Potion: " + numOfPotions);
-//		System.out.println("equipment: "+ currItems.size());
-//		for (Item i : currItems)
-//			System.out.println(i.getName());
 	}
 	
 	public void draw (Graphics2D g2) {
 		if (numOfPotions >= 0) {
-			items.get(0).draw(g2, 580, 35);
+			potion.draw(g2, 580, 35);
 			g2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			g2.setColor(Color.BLUE);
 			g2.drawString(Integer.toString(numOfPotions), 602, 51);
 		}
 		
-		synchronized (unequipItems) {
-			for(int id = 1; id < unequipItems.size(); id++)
-				unequipItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, (id - 1) / 3 * 32 + 67);
-		}
-		
 		synchronized (equippedItems) {
-			for(int id = 1; id < equippedItems.size(); id++)
-				equippedItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, (id - 1) / 3 * 32 + 147);
+			for(int id = 0; id < equippedItems.size(); id++)
+				equippedItems.get(id).draw(g2, 580 + (id % 3) * 32, id / 3 * 32 + 67);
 		}
 		
 		synchronized (monsters) {
@@ -149,15 +128,15 @@ public class ObjectManager {
 	
 	public void drawItems(Graphics2D g2) {
 		if (numOfPotions >= 0) {
-			items.get(0).draw(g2, 580, 35);
+			potion.draw(g2, 580, 35);
 			g2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			g2.setColor(Color.BLUE);
 			g2.drawString(Integer.toString(numOfPotions), 602, 51);
 		}
 		
-		synchronized (unequipItems) {
-			for(int id = 1; id < unequipItems.size(); id++)
-				unequipItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, 35 + (id - 1) / 3 * 32 + 32);
+		synchronized (equippedItems) {
+			for(int id = 0; id < equippedItems.size(); id++)
+				equippedItems.get(id).draw(g2, 580 + (id % 3) * 32, id / 3 * 32 + 67);
 		}
 	}
 }

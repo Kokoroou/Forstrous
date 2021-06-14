@@ -23,7 +23,7 @@ public class Monster extends Character {
 		beginX = mapX;
 		beginY = mapY;
 		firstWander = false;
-//		fullBody = CacheDataLoader.getCachedData().getFrameImage(name + "FullBody");
+		fullBody = CacheDataLoader.getCachedData().getFrameImage(name + "FullBody");
 	}
 
 	private int Random(int a[]) {
@@ -43,28 +43,24 @@ public class Monster extends Character {
 				this.setMovementSpeed(1);
 				this.setMapX(this.getMapX());
 				this.setMapY(this.getMapY() + this.getMovementSpeed());
-				//System.out.println("Downing");
 				break;
 			case LEFT_DIR:
 				setDirection(LEFT_DIR);
 				this.setMovementSpeed(-1);
 				this.setMapY(this.getMapY());
 				this.setMapX(this.getMapX() + this.getMovementSpeed());
-				//System.out.println("Lefting");
 				break;
 			case RIGHT_DIR:
 				setDirection(RIGHT_DIR);
 				this.setMovementSpeed(1);
 				this.setMapY(this.getMapY());
 				this.setMapX(this.getMapX() + this.getMovementSpeed());
-				//System.out.println("Righting");
 				break;
 			case UP_DIR:
 				setDirection(UP_DIR);
 				this.setMovementSpeed(-1);
 				this.setMapX(this.getMapX());
 				this.setMapY(this.getMapY() + this.getMovementSpeed());
-				//System.out.println("Uping");
 				break;
 			default: break;
 		}
@@ -124,7 +120,7 @@ public class Monster extends Character {
 				gameWorld.getGamePanel().getControl().showGamePanel();
 				gameWorld.getGamePanel().showBattle();
 				
-			}	
+			}
 		}
 	}
 

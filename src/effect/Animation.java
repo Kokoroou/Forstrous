@@ -32,24 +32,6 @@ public class Animation {
         isRepeated = true;
     }
     
-//    public Animation(Animation animation){
-//        
-//        beginTime = animation.beginTime;
-//        currentFrame = animation.currentFrame;
-//        drawRectFrame = animation.drawRectFrame;
-//        isRepeated = animation.isRepeated;
-//        
-//        delayFrames = new ArrayList<Double>();
-//        for(Double d : animation.delayFrames){
-//            delayFrames.add(d);
-//        }
-//        
-//        frameImages = new ArrayList<FrameImage>();
-//        for(FrameImage f : animation.frameImages){
-//            frameImages.add(new FrameImage(f));
-//        }
-//    }
-    
     public void setIsRepeated(boolean isRepeated){
         this.isRepeated = isRepeated;
     }
@@ -97,10 +79,8 @@ public class Animation {
     }
     
     public void Update(long deltaTime) {
-//        System.out.println(beginTime);
         if(beginTime == 0) beginTime = deltaTime;
         else{
-//            System.out.println(currentFrame);
             if(deltaTime - beginTime > delayFrames.get(currentFrame)){
                 nextFrame();
                 beginTime = deltaTime;

@@ -1,17 +1,12 @@
 package ui;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 /**
  * The Homepage is the class that build the page where user interact firstly
  *
@@ -24,7 +19,6 @@ public class Homepage extends JPanel {
 	private JLabel labelOption;
 	private JLabel labelExit;
 	private JLabel background;
-//	private ImageIcon Background;
 	
 	public Homepage(ControlPanel control) {
 		this.control = control;
@@ -115,7 +109,6 @@ public class Homepage extends JPanel {
 		public void mousePressed(MouseEvent e) {
 			if(e.getSource() == labelExit){
 				gui.dispose();
-//				GamePanel.running = false;
 				System.exit(0);
 			}
 			if(e.getSource() == labelGamePanel){

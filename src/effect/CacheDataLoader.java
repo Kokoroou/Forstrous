@@ -22,46 +22,24 @@ public class CacheDataLoader {
     
     private String framefile = "image/frame.txt";
     private String animationfile = "image/animation.txt";
-//    private String physmapfile = "data/phys_map.txt";
-//    private String backgroundmapfile = "data/background_map.txt";
-//    private String soundfile = "data/sounds.txt";
-    
     private Hashtable<String, FrameImage> frameImages; 
     public Hashtable<String, Animation> animations;
-//    private Hashtable<String, AudioClip> sounds;
-//    
-//    private int[][] phys_map;
-//    private int[][] background_map;
-//    
+    
     private CacheDataLoader() {}
 
     public static CacheDataLoader getCachedData(){
         if(cachedData == null) {
-//        	System.out.println(cachedData == null);
         	cachedData  = new CacheDataLoader();
-//        	LoadAnimation();
         }
-//        System.out.println(cachedData == null);
         return cachedData;
     }
     
-//    public AudioClip getSound(String name){
-//        return instance.sounds.get(name);
-//    }
-    
     public Animation getAnimation(String name) {
-//        System.out.println(name);
-//        System.out.println(this == null);
-        
-//        System.out.println(System.getProperty("user.dir"));
     	try {
     		if (animations == null) {
             	LoadAnimation();
             }
-    		
-//    		Animation animation = new Animation(cachedData.animations.get(name));
     		Animation animation = cachedData.animations.get(name);
-//    		System.out.println(animation);
             return animation;
     	}
     	catch (Exception e) {
@@ -73,14 +51,10 @@ public class CacheDataLoader {
     
     public FrameImage getFrameImage(String name){
     	try {
-//    		System.out.println(name);
     		if (frameImages == null) {
             	LoadFrame();
-//            	System.out.println(frameImages == null);
             }
-//    		FrameImage frameImage = new FrameImage(cachedData.frameImages.get(name));
     		FrameImage frameImage = cachedData.frameImages.get(name);
-//    		System.out.println(frameImages);
     		return frameImage;
     	}
     	catch (Exception e) {
@@ -89,136 +63,12 @@ public class CacheDataLoader {
 
     }
     
-//    public int[][] getPhysicalMap(){
-//        return instance.phys_map;
-//    }
-//    
-//    public int[][] getBackgroundMap(){
-//        return instance.background_map;
-//    }
-    
     public void LoadData()throws IOException{
         
         LoadFrame();
-        LoadAnimation();
-//        LoadPhysMap();
-//        LoadBackgroundMap();
-//        LoadSounds();
-        
+        LoadAnimation();    
     }
     
-//    public void LoadSounds() throws IOException{
-//        sounds = new Hashtable<String, AudioClip>();
-//        
-//        FileReader fr = new FileReader(soundfile);
-//        BufferedReader br = new BufferedReader(fr);
-//        
-//        String line = null;
-//        
-//        if(br.readLine()==null) { // no line = "" or something like that
-//            System.out.println("No data");
-//            throw new IOException();
-//        }
-//        else {
-//            
-//            fr = new FileReader(soundfile);
-//            br = new BufferedReader(fr);
-//            
-//            while((line = br.readLine()).equals(""));
-//            
-//            int n = Integer.parseInt(line);
-//            
-//            for(int i = 0;i < n; i ++){
-//                
-//                AudioClip audioClip = null;
-//                while((line = br.readLine()).equals(""));
-//
-//                String[] str = line.split(" ");
-//                String name = str[0];
-//                
-//                String path = str[1];
-//
-//                try {
-//                   audioClip =  Applet.newAudioClip(new URL("file","",str[1]));
-//
-//                } catch (MalformedURLException ex) {}
-//                
-//                instance.sounds.put(name, audioClip);
-//            }
-//            
-//        }
-//        
-//        br.close();
-//        
-//    }
-    
-//    public void LoadBackgroundMap() throws IOException{
-//        
-//        FileReader fr = new FileReader(backgroundmapfile);
-//        BufferedReader br = new BufferedReader(fr);
-//        
-//        String line = null;
-//        
-//        line = br.readLine();
-//        int numberOfRows = Integer.parseInt(line);
-//        line = br.readLine();
-//        int numberOfColumns = Integer.parseInt(line);
-//            
-//        
-//        instance.background_map = new int[numberOfRows][numberOfColumns];
-//        
-//        for(int i = 0;i < numberOfRows;i++){
-//            line = br.readLine();
-//            String [] str = line.split(" |  ");
-//            for(int j = 0;j<numberOfColumns;j++)
-//                instance.background_map[i][j] = Integer.parseInt(str[j]);
-//        }
-//        
-//        for(int i = 0;i < numberOfRows;i++){
-//            
-//            for(int j = 0;j<numberOfColumns;j++)
-//                System.out.print(" "+instance.background_map[i][j]);
-//            
-//            System.out.println();
-//        }
-//        
-//        br.close();
-//        
-//    }
-    
-//    public void LoadPhysMap() throws IOException{
-//        
-//        FileReader fr = new FileReader(physmapfile);
-//        BufferedReader br = new BufferedReader(fr);
-//        
-//        String line = null;
-//        
-//        line = br.readLine();
-//        int numberOfRows = Integer.parseInt(line);
-//        line = br.readLine();
-//        int numberOfColumns = Integer.parseInt(line);
-//            
-//        
-//        instance.phys_map = new int[numberOfRows][numberOfColumns];
-//        
-//        for(int i = 0;i < numberOfRows;i++){
-//            line = br.readLine();
-//            String [] str = line.split(" ");
-//            for(int j = 0;j<numberOfColumns;j++)
-//                instance.phys_map[i][j] = Integer.parseInt(str[j]);
-//        }
-//        
-//        for(int i = 0;i < numberOfRows;i++){
-//            
-//            for(int j = 0;j<numberOfColumns;j++)
-//                System.out.print(" "+instance.phys_map[i][j]);
-//            
-//            System.out.println();
-//        }
-//        
-//        br.close();
-//        
-//    }
     public void LoadAnimation() throws IOException {
         
         animations = new Hashtable<String, Animation>();

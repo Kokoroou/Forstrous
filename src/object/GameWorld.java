@@ -4,16 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ui.GamePanel;
@@ -31,7 +27,7 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 	private GamePanel gamePanel;
 	private InputManager inputManager;
 	public ArrayList<Map> map = new ArrayList<Map>();
-	private int round = 1;
+	private int round = 0;
 	public Battle battle;
 	public Hero hero;
 	public ObjectManager objectManager;
@@ -39,24 +35,22 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 	private JButton buttonHomepage;// buttonNext;
 	private Graphics2D g2d;
 
+	public Boss boss = new Boss("Demon", 288, 224, 700, 100, 50, 0, this, 4);
 	
 	public GameWorld(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
-//		this.setBackground(Color.WHITE);
-//		this.setLocation(0, 0);
 		this.setFocusable(true);
 		this.setLayout(null);
 		
 		inputManager = new InputManager(this.gamePanel);
 		this.addKeyListener(this);
 		
-//		map = new Map();
 		hero = new Hero("Hero", this);
 		hero.setMapX(32*8);
 		hero.setMapY(32*9);
-		hero.setMaxHp(500);
-		hero.updateCurrentHp(500);
-		hero.setAttack(30);
+		hero.setMaxHp(1200);
+		hero.updateCurrentHp(1200);
+		hero.setAttack(60);
 		hero.setLuck(50);
 		hero.setMovementSpeed(0);
 		
@@ -87,25 +81,25 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 		Monster plant = new Monster("Plant", 512, 416, 100, 25, 35, 0, this, 1);
 		objectManager.addMonster(plant);
 		
-		Monster gayzer = new Monster("Gayzer", 544, 64, 175, 50, 50, 0, this, 2);
+		Monster gayzer = new Monster("Gayzer", 544, 64, 125, 50, 50, 0, this, 2);
 		objectManager.addMonster(gayzer);
 		
 		Monster skeleton = new Monster("Skeleton", 32, 352, 150, 55, 52, 0, this, 2);
 		objectManager.addMonster(skeleton);
 		
-		Monster ghost = new Monster("Ghost", 288, 224, 200, 60, 55, 0, this, 2);
+		Monster ghost = new Monster("Ghost", 288, 224, 175, 60, 55, 0, this, 2);
 		objectManager.addMonster(ghost);
 		
-		Monster scorpion = new Monster("Scorpion", 256, 0, 400, 85, 67, 0, this, 3);
+		Monster scorpion = new Monster("Scorpion", 256, 0, 300, 85, 67, 0, this, 3);
 		objectManager.addMonster(scorpion);
 		
-		Monster ifrit = new Monster("Ifrit", 544, 64, 450, 90, 70, 0, this, 3);
+		Monster ifrit = new Monster("Ifrit", 544, 64, 350, 90, 50, 0, this, 3);
 		objectManager.addMonster(ifrit);
 		
 		Monster gayzer1 = new Monster("Gayzer", 64, 352, 350, 80, 60, 0, this, 3);
 		objectManager.addMonster(gayzer1);
 		
-		Monster skeleton1 = new Monster("Skeleton", 320, 320, 300, 75, 63, 0, this, 3);
+		Monster skeleton1 = new Monster("Skeleton", 320, 320, 300, 55, 63, 0, this, 3);
 		objectManager.addMonster(skeleton1);
 		
 		Item potion = new Item("Potion", slime, Item.POTION, 0, 100, 0);
@@ -129,38 +123,37 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 		Item potion3 = new Item("Potion", skeleton1, Item.POTION, 0, 100, 0);
 		objectManager.addItem(potion3);
 		
-		Item swordPro = new Item("SwordPro", gayzer1, Item.SWORD, 60, 0, 0);
+		Item swordPro = new Item("SwordPro", gayzer1, Item.SWORD, 40, 0, 0);
 		objectManager.addItem(swordPro);
 		
-		Item superArmor = new Item("SuperArmor", scorpion, Item.ARMOR, 0, 400, 0);
+		Item superArmor = new Item("SuperArmor", scorpion, Item.ARMOR, 0, 300, 0);
 		objectManager.addItem(superArmor);
 		
-		Item scarf = new Item("Scarf", ifrit, Item.NECKLACE, 0, 0, 20);
+		Item scarf = new Item("Scarf", ifrit, Item.NECKLACE, 0, 0, 5);
 		objectManager.addItem(scarf);
-		
 		
 	}
 	
 	private void initMap() {
 		Map map0 = new Map(this, 0);
-		int[][] arr0 = {{6,14,14,14,14,14,12,8,0,0,0,0,0,0},
-				{5,15,15,15,15,11,0,0,0,0,0,0,0,0},
-				{0,5,15,15,15,15,14,14,14,14,14,14,10,0},
-				{0,0,7,15,15,15,15,15,15,15,15,15,11,0},
-				{0,4,15,15,15,15,15,15,15,15,15,15,15,10},
-				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
-				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
-				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
-				{4,12,15,15,15,15,15,15,15,15,15,15,15,11},
-				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
-				{0,0,7,15,15,15,15,15,15,15,15,15,15,11},
-				{6,14,15,15,15,15,15,15,15,15,15,15,15,9},
-				{7,15,15,15,15,15,15,15,15,15,15,15,9,0},
-				{7,15,15,15,15,15,15,15,15,15,15,11,0,0},
-				{7,15,15,15,15,15,15,15,15,15,15,11,0,0},
-				{7,15,15,15,13,13,15,15,15,15,15,15,10,0},
-				{7,15,15,11,0,0,7,15,15,15,15,15,11,0},
-				{5,13,13,13,12,12,13,13,13,13,13,13,13,8}};
+		int[][] arr0 = {{6,14,14,14,14,14,14,14,14,14,14,14,14,10},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{7,15,15,15,15,15,15,15,15,15,15,15,15,11},
+				{5,13,13,13,13,13,13,13,13,13,13,13,13,9}};
 		map0.setArr(arr0);
 		map.add(map0);
 		
@@ -263,33 +256,31 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 		buttonHomepage.addActionListener(this);
 		add(buttonHomepage);
 		
-//		buttonNext = new JButton();
-//		buttonNext.setText("Next");
-//		buttonNext.setBounds(600, 357, 80, 30);
-//		buttonNext.addActionListener(this);
-//		add(buttonNext);	
 	}
 	
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
-//		g2d.setStroke(new java.awt.BasicStroke(2));
-//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("Items", 620, 30);
-		
-		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		g2d.setColor(Color.BLACK);
-		g2d.drawString("Equipped", 610, 200);
 		
 		g2d.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("Map "+ this.round, 620, 390);
 		
+		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("HP:" , 580, 250);
+		g2d.setColor(Color.BLUE);
+		g2d.drawRect(610, 235, hero.getMaxHp()/20, 18);
+		g2d.fillRect(610, 235, hero.getCurrentHp()/20, 18);
+		
+		
 		map.get(this.round).drawMap(g2d);
 		hero.draw(g2d);
 		objectManager.draw(g2d);
+		
 	}
 	
 	public Graphics2D getG2d() {
@@ -319,13 +310,6 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 			gamePanel.getControl().showHomepage();
 		
 		}
-//		if(e.getSource() == buttonNext){
-//			this.round++;
-//			if(this.round >= map.size()) {
-//				this.round = 0;
-//				gamePanel.getControl().showHomepage();
-//			}
-//			else this.paintComponent(this.g2d);
 		else {
 			gamePanel.getControl().showHomepage();
 			gamePanel.getControl().showGamePanel();

@@ -1,16 +1,9 @@
 package object;
 
-import effect.*;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-
 public class Hero extends Character{
 
-	public static final int beginY[] = {0, 416, 64, 192};
-	public static final int endY[] = {416, 64, 192, 416};
+	public static final int beginY[] = {0, 0, 416, 64, 192};
+	public static final int endY[] = {0, 416, 64, 192, 416};
 	public boolean inBattle = false;
 	
 	
@@ -18,23 +11,20 @@ public class Hero extends Character{
 	
 	public Hero(String name, GameWorld gameWorld) {
 		super(name, gameWorld);
-//		face = CacheDataLoader.getCachedData().getFrameImage(name + "Face");
 	}
 
 	public Hero(String name, int mapX, int mapY, int maxHp, int attack, int luck, int movementSpeed, GameWorld gameWorld) {
 		super(name, mapX, mapY, maxHp, attack, luck, movementSpeed, gameWorld);
-//		face = CacheDataLoader.getCachedData().getFrameImage(name + "Face");
 	}
 	public void equip(Item item) {
 		
 	}
 	
-	public void addItem(Item item) {
-		
-	}
-	
-	public void useItem(Item item) {
-		
+	public void usePotion() {
+		if(getGameWorld().objectManager.numOfPotions>=1) {
+			getGameWorld().objectManager.numOfPotions--;
+			updateCurrentHp(getCurrentHp()+150);
+		}
 	}
 	
 	@Override
@@ -62,25 +52,34 @@ public class Hero extends Character{
 			canMove[LEFT_DIR] = true;
 			canMove[RIGHT_DIR] = true;
 		}
-		if(getMapX()==0 && getMapY()==beginY[getGameWorld().getRound()-1]) {
+		if(getMapX()==0 && getMapY()==beginY[getGameWorld().getRound()]) {
 			canMove[LEFT_DIR] = true;
 		}
-		if(getMapX()==544 && getMapY()==endY[getGameWorld().getRound()-1]) {
+		if(getMapX()==544 && getMapY()==endY[getGameWorld().getRound()]) {
 			canMove[RIGHT_DIR] = true;
 		}
 		if(canMove[getDirection()])
 			switch(getDirection()) {
 			case LEFT_DIR:
-				if(getMapX()==0 && getMapY()==beginY[getGameWorld().getRound()-1]) {
+				if(getMapX()==0 && getMapY()==beginY[getGameWorld().getRound()]) {
 					getGameWorld().backMap();
 					setMapX(544);
 				}
 				else setMapX(getMapX() + getMovementSpeed());
 				break;
 			case RIGHT_DIR:
-				if(getMapX()==544 && getMapY()==endY[getGameWorld().getRound()-1]) {
+				if(getMapX()==544 && getMapY()==endY[getGameWorld().getRound()]) {
+					if(getGameWorld().getRound()==3) {
+						gameWorld.getGamePanel().getBattle().setMonster(getGameWorld().boss);
+						gameWorld.getGamePanel().getBattle().setBattling(true);
+						gameWorld.hero.inBattle = true;
+						gameWorld.getGamePanel().getControl().showGamePanel();
+						gameWorld.getGamePanel().showBattle();
+					}
+					else {
 					getGameWorld().nextMap();
 					setMapX(0);
+					}
 				}
 				else setMapX(getMapX() + getMovementSpeed());
 				break;

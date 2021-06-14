@@ -14,43 +14,38 @@ public class InputManager {
 	public void processKeyPressed(int keyCode) {
 		switch(keyCode) {
 			case KeyEvent.VK_UP:
-//				System.out.println("Pressed UP");
 				gamePanel.getGameWorld().hero.setDirection(Hero.UP_DIR);
 				gamePanel.getGameWorld().hero.setMovementSpeed(-4);
 				break;
 			case KeyEvent.VK_DOWN:
-//				System.out.println("Pressed DOWN");
 				gamePanel.getGameWorld().hero.setDirection(Hero.DOWN_DIR);
 				gamePanel.getGameWorld().hero.setMovementSpeed(4);
 				break;
 			case KeyEvent.VK_LEFT:
-//				System.out.println("Pressed LEFT");
 				gamePanel.getGameWorld().hero.setDirection(Hero.LEFT_DIR);
 				gamePanel.getGameWorld().hero.setMovementSpeed(-4);
 				break;
 			case KeyEvent.VK_RIGHT:
-//				System.out.println("Pressed RIGHT");
 				gamePanel.getGameWorld().hero.setDirection(Hero.RIGHT_DIR);
 				gamePanel.getGameWorld().hero.setMovementSpeed(4);
 				break;
 			case KeyEvent.VK_1:
-				System.out.println("Pressed 1");
 				if(gamePanel.getGameWorld().hero.inBattle) {
 					gamePanel.getBattle().setHeroChoice(1);
 					gamePanel.getControl().showGamePanel();
 				}
 				break;
 			case KeyEvent.VK_2:
-				System.out.println("Pressed 2");
 				if(gamePanel.getGameWorld().hero.inBattle)
 					gamePanel.getBattle().setHeroChoice(2);
 					
 				break;
 			case KeyEvent.VK_3:
-				System.out.println("Pressed 3");
 				if(gamePanel.getGameWorld().hero.inBattle)
 					gamePanel.getBattle().setHeroChoice(3);
-					
+			case KeyEvent.VK_4:
+				if(gamePanel.getGameWorld().hero.inBattle)
+					gamePanel.getBattle().setHeroChoice(4);
 				break;
 			default: break;
 		
@@ -81,7 +76,7 @@ public class InputManager {
 				break;
 			case KeyEvent.VK_3:
 				if(gamePanel.getGameWorld().hero.inBattle) {
-					gamePanel.getBattle().setHeroChoice(0);
+					gamePanel.getBattle().update();
 				}
 				break;
 			case KeyEvent.VK_4:
