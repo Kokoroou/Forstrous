@@ -254,7 +254,7 @@ public class GameWorld extends JPanel implements ActionListener {
 	private void initComps(){
 		buttonHomepage = new JButton();
 		buttonHomepage.setText("Home");
-		buttonHomepage.setBounds(600, 417, 80, 30);
+		buttonHomepage.setBounds(608, 408, 80, 30);
 		buttonHomepage.addActionListener(this);
 		add(buttonHomepage);
 		
@@ -268,11 +268,20 @@ public class GameWorld extends JPanel implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
-		g2d.setStroke(new java.awt.BasicStroke(2));
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setFont(new Font("Arial", Font.BOLD, 20));
+//		g2d.setStroke(new java.awt.BasicStroke(2));
+//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		g2d.setColor(Color.BLACK);
-		g2d.drawString("Map "+ this.round, 610, 25);
+		g2d.drawString("Items", 620, 30);
+		
+		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Equipped", 610, 200);
+		
+		g2d.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Map "+ this.round, 620, 390);
+		
 		map.get(this.round).drawMap(g2d);
 		hero.draw(g2d);
 		objectManager.draw(g2d);

@@ -1,6 +1,7 @@
 package object;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -20,47 +21,83 @@ import effect.FrameImage;
 import ui.*;
 
 public class Battle extends JPanel implements ActionListener {
-//	private ControlPanel control;
-//	private GUI gui;
 	private GamePanel gamePanel;
-//	private FrameImage background;
+	private Graphics2D g2d;
+	private JButton buttonHomepage;
+	private JPanel noticeBoard;
+	
+//	private FrameImage background;	
 	private Monster monster;
 	private Hero hero;
 	private int heroChoice = -1;
-	private boolean battling = false;
+	public ObjectManager objectManager;
+	private boolean battling = false;	
 	
-	private Graphics2D g2d;
 //	private InputManager inputManager;
-	private JButton buttonHomepage;
-	
-//	public Battle() {}
-	
-//	public Battle(ControlPanel control) {
-//		this.control = control;
-//		this.gui = control.getGui();
-//		this.setBackground(Color.WHITE);
-//		this.setLayout(getLayout());
-//	}
 	
 	public Battle(GamePanel gamePanel, Hero hero) {
 		this.gamePanel = gamePanel;
 		this.hero = hero;
+		this.objectManager = gamePanel.getGameWorld().objectManager;
 		
 		this.setFocusable(true);
 		this.setLayout(null);
-		
+				
 		initComps();
 	}
 	
 	public Battle(GamePanel gamePanel, Monster monster) {
 		this.gamePanel = gamePanel;
 		this.monster = monster;
+		this.objectManager = gamePanel.getGameWorld().objectManager;
 		
 		this.setFocusable(true);
 		this.setLayout(null);
 		
 		initComps();
 	}
+	
+	private void initComps(){
+		buttonHomepage = new JButton();
+		buttonHomepage.setText("Home");
+		buttonHomepage.setBounds(608, 408, 80, 30);
+		buttonHomepage.addActionListener(this);
+		add(buttonHomepage);
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		this.g2d = (Graphics2D) g;
+		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Items", 620, 30);
+		
+		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Equipped", 610, 200);
+		
+		BufferedImage img;
+		
+		//Draw Battleback_Floor
+		try {
+			img = ImageIO.read(new File("image/Meadow.png"));
+			this.g2d.drawImage(img, 0, 4, null);
+		} catch (IOException e) {	}
+		
+		//Draw Battleback_Wall
+		try {
+			img = ImageIO.read(new File("image/Forest1.png"));
+			this.g2d.drawImage(img, 0, 0, null);
+		} catch (IOException e) {	}
+		
+		//Draw Monster
+		img = this.monster.getFullBody().getImage();
+		this.g2d.drawImage(img, (576 - img.getWidth())/2, (448 - img.getHeight())/2, null);
+		
+		//Draw Items
+		objectManager.drawItems(g2d);
+	}
+	
 	
 	public boolean isBattling() {
 		return battling;
@@ -86,62 +123,30 @@ public class Battle extends JPanel implements ActionListener {
 //            g2.drawString(str, x, y+=g2.getFontMetrics().getHeight());
 //    }
 	
-	private void initComps(){
-		buttonHomepage = new JButton();
-		buttonHomepage.setText("Home");
-		buttonHomepage.setBounds(600, 417, 80, 30);
-		buttonHomepage.addActionListener(this);
-		add(buttonHomepage);
-			
-	}
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		this.g2d = (Graphics2D) g;
-		
-		BufferedImage img;
-		
-		try {
-			img = ImageIO.read(new File("image/RockCave1.png"));
-			this.g2d.drawImage(img, 0, 4, null);
-		} catch (IOException e) {	}
-		
-		try {
-			img = ImageIO.read(new File("image/RockCave.png"));
-			this.g2d.drawImage(img, 0, 0, null);
-		} catch (IOException e) {	}
-		
-		img = this.monster.getFullBody().getImage();
-		this.g2d.drawImage(img, (580 - img.getWidth())/2, (448 - img.getHeight())/2, null);
-		
-		
-	}
-	
 	public void onBattle() {
-		boolean isHeroDefense = false;
+		boolean heroDefending = false, monsterDefending = false;
 		Random rand = new Random();
-		int isMonsterDefense = rand.nextInt(1);
-		// danh, phong thu, chay, hoi mau, mana
-		//luot cua hero
+		if (rand.nextInt(1) == 1) monsterDefending = true;
+		
+		//Hero's turn
 		switch(heroChoice) {
-			case 1://attack
+			case 1: //Attack
 				if(hero.onHit()) {
-					if(isMonsterDefense == 1)
+					if(monsterDefending == true)
 						monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack());
 					else {
 						hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2);
 						monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
 					}
 				}
-				//thong bao ra man hinh
 				heroChoice = -1;
 				break;
-			case 2:// phong thu
-				isHeroDefense = true;
-				//thong bao ra man hinh
+			case 2: //Defend
+				heroDefending = true;
+				
 				heroChoice = -1;
 				break;
-			case 3://chay
+			case 3://Run
 				battling = false;
 				hero.setMapX(0);
 				hero.setMapY(0);
@@ -150,19 +155,20 @@ public class Battle extends JPanel implements ActionListener {
 				monster.setCurrX(monster.getBeginX());
 				monster.setCurrY(monster.getBeginY());
 				monster.setFirstWonder(false);
-				//thong bao ra man hinh
+
 				gamePanel.showGameWorld();
 				heroChoice = -1;
 				break;
-			case 4: //binh mau hoac mana
+			case 4: //Use Item
 				heroChoice = -1;
 				break;
 			default: break;
 		}
-		//luot cua monster
+		
+		//Monster's turn
 		if (heroChoice == 0) { 
-		if(isMonsterDefense == 0 && monster.onHit()) {
-			if(!isHeroDefense)
+		if(monsterDefending == false && monster.onHit()) {
+			if(!heroDefending)
 				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack());
 			else {
 				hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2
@@ -211,19 +217,6 @@ public class Battle extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == buttonHomepage){
 			gamePanel.getControl().showHomepage();
-		
 		}
-//		if(e.getSource() == buttonNext){
-//			this.round++;
-//			if(this.round >= map.size()) {
-//				this.round = 0;
-//				gamePanel.getControl().showHomepage();
-//			}
-//			else this.paintComponent(this.g2d);
-		else {
-			gamePanel.getControl().showHomepage();
-			gamePanel.getControl().showGamePanel();
-		}
-				
 	}
 }

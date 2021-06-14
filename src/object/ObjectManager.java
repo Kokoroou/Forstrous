@@ -1,5 +1,7 @@
 package object;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -105,13 +107,15 @@ public class ObjectManager {
 	
 	public void draw (Graphics2D g2) {
 		if (numOfPotions >= 0) {
-			items.get(0).draw(g2, 576, 0);
-			g2.drawString(Integer.toString(numOfPotions), 592, 16);
+			items.get(0).draw(g2, 580, 35);
+			g2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			g2.setColor(Color.BLUE);
+			g2.drawString(Integer.toString(numOfPotions), 602, 51);
 		}
 		
 		synchronized (currItems) {
 			for(int id = 1; id < currItems.size(); id++)
-				currItems.get(id).draw(g2, 576 + ((id - 1) % 3) * 32, (id - 1) / 3 * 32 + 32);
+				currItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, 35 + (id - 1) / 3 * 32 + 32);
 		}
 		
 		synchronized (monsters) {
@@ -120,6 +124,20 @@ public class ObjectManager {
 					monster.draw(g2, monster.getRound());
 				}
 				
+		}
+	}
+	
+	public void drawItems(Graphics2D g2) {
+		if (numOfPotions >= 0) {
+			items.get(0).draw(g2, 580, 35);
+			g2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			g2.setColor(Color.BLUE);
+			g2.drawString(Integer.toString(numOfPotions), 602, 51);
+		}
+		
+		synchronized (currItems) {
+			for(int id = 1; id < currItems.size(); id++)
+				currItems.get(id).draw(g2, 580 + ((id - 1) % 3) * 32, 35 + (id - 1) / 3 * 32 + 32);
 		}
 	}
 }
