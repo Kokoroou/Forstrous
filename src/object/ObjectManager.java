@@ -25,6 +25,7 @@ public class ObjectManager {
 		items = Collections.synchronizedList(new LinkedList<Item>());
 		monsters = Collections.synchronizedList(new LinkedList<Monster>());
 		unequipItems = Collections.synchronizedList(new LinkedList<Item>());
+		equippedItems = Collections.synchronizedList(new LinkedList<Item>());
 		this.gameWorld = gameWorld;
 		numOfPotions = -1;
 	}
