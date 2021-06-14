@@ -1,5 +1,6 @@
 package object;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -28,7 +29,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 	private JButton buttonHomepage;
 	private JPanel noticeBoard;
 	
-//	private FrameImage background;	
+	private FrameImage background = new FrameImage();	
 	private Monster monster;
 	private Hero hero;
 	private static int heroChoice = -1;
@@ -39,6 +40,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 	
 	public Battle(GamePanel gamePanel, Hero hero) {
 		this.gamePanel = gamePanel;
+		this.noticeBoard = new JPanel();
 		this.hero = hero;
 		this.objectManager = gamePanel.getGameWorld().objectManager;
 		
@@ -59,7 +61,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		this.objectManager = gamePanel.getGameWorld().objectManager;
 		
 		this.setFocusable(true);
-		this.setLayout(null);
+		this.setLayout(new BorderLayout());
 		
 		initComps();
 	}
@@ -83,26 +85,76 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("Equipped", 610, 200);
 		
-		BufferedImage img;
 		
-		//Draw Battleback_Floor
 		try {
+			BufferedImage img;
+						
+			//Draw Battleback_Floor
 			img = ImageIO.read(new File("image/Meadow.png"));
-			this.g2d.drawImage(img, 0, 4, null);
-		} catch (IOException e) {	}
-		
-		//Draw Battleback_Wall
-		try {
+			background.setImage(img);
+			background.draw(g2d, 0, 4);
+			
+			//Draw Battleback_Wall
 			img = ImageIO.read(new File("image/Forest1.png"));
-			this.g2d.drawImage(img, 0, 0, null);
-		} catch (IOException e) {	}
+			background.setImage(img);
+			background.draw(g2d, 0, 0);
+			
+			//Draw Monster
+			img = this.monster.getFullBody().getImage();
+			this.monster.getFullBody().draw(g2d, (576 - img.getWidth())/2, (448 - img.getHeight())/2);
+			
+		}
+		catch (IOException e) { }
 		
-		//Draw Monster
-		img = this.monster.getFullBody().getImage();
-		this.g2d.drawImage(img, (576 - img.getWidth())/2, (448 - img.getHeight())/2, null);
+		objectManager.drawItems(g2d);
+
+		
+//		//Draw GameOver
+//		try {
+//			BufferedImage img;
+//			
+//			img = ImageIO.read(new File("image/GameOver.png"));
+//			background.setImage(img);
+//			background.draw(g2d, 0, 0);
+////			this.g2d.drawImage(img, 0, 0, null);
+////			System.out.println("Read Image GameOver");
+//
+//		} catch (IOException e) {	}
+//		
+		
+//		//Draw Battleback_Floor
+//		try {
+//			img = ImageIO.read(new File("image/Meadow.png"));
+//			this.g2d.drawImage(img, 0, 4, null);
+//		} catch (IOException e) {	}
+//		
+//		//Draw Battleback_Wall
+//		try {
+//			img = ImageIO.read(new File("image/Forest1.png"));
+//			this.g2d.drawImage(img, 0, 0, null);
+//		} catch (IOException e) {	}
+//		
+//		//Draw Monster
+//		img = this.monster.getFullBody().getImage();
+//		this.g2d.drawImage(img, (576 - img.getWidth())/2, (448 - img.getHeight())/2, null);
 		
 		//Draw Items
-		objectManager.drawItems(g2d);
+		
+		
+//		gamePanel.showBattle();
+//		if (gamePanel.running = false) {
+//			BufferedImage img;
+//			
+//			//Draw GameOver
+//			try {
+//				img = ImageIO.read(new File("image/GameOver.png"));
+//				this.g2d.drawImage(img, 0, 0, null);
+////				System.out.println("Read Image GameOver");
+//
+//			} catch (IOException e) {	}
+//			System.out.println("Over");
+//		}
+		
 	}
 	
 	
@@ -136,7 +188,6 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		if (rand.nextInt(1) == 1) monsterDefending = true;
 		
 		//Hero's turn
-//		System.out.println(heroChoice);
 		switch(heroChoice) {
 			case 1: //Attack
 				System.out.println("Hero attacked!");
@@ -166,13 +217,15 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 				
 				System.out.println("Hero took a protective stance!");
 				break;
-			case 3://Run				
-				System.out.println("Hero run away safely");
+			case 3: //Run				
+				System.out.println("Hero run away safely!");
 				
 //				heroChoice = -1;
 				
-//				hero.setMapX(0);
-//				hero.setMapY(0);
+//				hero.setMapX(hero.getBeginX());
+//				hero.setMapY(hero.getBeginY());
+				hero.setMapX(0);
+				hero.setMapY(0);
 				hero.setMovementSpeed(0);
 				
 				monster.setMapX(monster.getBeginX());
@@ -252,6 +305,32 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 					battling = false;
 					hero.inBattle = false;
 					System.out.println("Game Over!");
+					
+					
+//					BufferedImage img;
+//					
+//					//Draw Battleback_Floor
+//					img = ImageIO.read(new File("image/Meadow.png"));
+//					background.setImage(img);
+//					background.draw(g2d, 0, 4);
+					
+					
+					
+//					//Draw GameOver
+//					try {
+//						BufferedImage img;
+//						
+//						img = ImageIO.read(new File("image/GameOver.png"));
+//						background.setImage(img);
+//						background.draw(g2d, 0, 0);
+////						this.g2d.drawImage(img, 0, 0, null);
+////						System.out.println("Read Image GameOver");
+//		
+//					} catch (IOException e) {	}
+//					this.setVisible(true);
+					
+					gamePanel.getControl().showGameOver();
+					
 					gamePanel.running = false;
 				}
 				
@@ -273,18 +352,6 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		else {
 			hero.inBattle = false;
 		}
-//		else {
-//			if (monster.getCurrentHp() == 0) {
-//				
-//				
-//			}
-//			
-//			else if (hero.getCurrentHp() == 0) {
-//				
-//			}
-//			
-//			
-//		}
 	}
 	
 	@Override
