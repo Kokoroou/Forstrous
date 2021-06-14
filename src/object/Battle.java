@@ -33,7 +33,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 	private Hero hero;
 	private static int heroChoice = -1;
 	public ObjectManager objectManager;
-	private boolean battling = false;	
+	public boolean battling = false;	
 	
 	private InputManager inputManager;
 	
@@ -136,7 +136,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		if (rand.nextInt(1) == 1) monsterDefending = true;
 		
 		//Hero's turn
-		System.out.println(heroChoice);
+//		System.out.println(heroChoice);
 		switch(heroChoice) {
 			case 1: //Attack
 				System.out.println("Hero attacked!");
@@ -166,18 +166,26 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 				
 				System.out.println("Hero took a protective stance!");
 				break;
-			case 3://Run
-				battling = false;
-				
+			case 3://Run				
 				System.out.println("Hero run away safely");
-				hero.inBattle = false;
-				hero.setMapX(0);
-				hero.setMapY(0);
+				
+//				heroChoice = -1;
+				
+//				hero.setMapX(0);
+//				hero.setMapY(0);
+				hero.setMovementSpeed(0);
+				
 				monster.setMapX(monster.getBeginX());
 				monster.setMapY(monster.getBeginY());
-				monster.setCurrX(monster.getBeginX());
-				monster.setCurrY(monster.getBeginY());
-				monster.setFirstWonder(false);
+//				monster.setMovementSpeed(0);
+//				monster.setCurrX(monster.getBeginX());
+//				monster.setCurrY(monster.getBeginY());
+//				monster.setFirstWonder(false);
+				
+				battling = false;
+				hero.inBattle = false;
+//				System.out.println(hero);
+//				System.out.println(hero.inBattle);
 
 				gamePanel.showGameWorld();
 				break;
@@ -213,6 +221,7 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 			System.out.println(monster.getName() +" has " + Integer.toString(monster.getCurrentHp()) + " health points left.");
 		}
 		heroChoice = -1;
+//		System.out.println(heroChoice);
 		
 		
 //		if (heroChoice == 0) { 
@@ -231,44 +240,51 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	public void update() {
-		
+//		System.out.println(battling);
 		if (battling) {
 			if (heroChoice != -1) {
 				onBattle();
 				hero.inBattle = true;
-				if (monster.getCurrentHp() == 0) {
-					System.out.println(monster.getName() + " defeated!");
-					
-					battling = false;
-				}
 				
-				else if (hero.getCurrentHp() == 0) {
+				if (hero.getCurrentHp() == 0) {
 					System.out.println("Hero defeated!");
 					
 					battling = false;
+					hero.inBattle = false;
+					System.out.println("Game Over!");
+					gamePanel.running = false;
 				}
+				
+				else if (monster.getCurrentHp() == 0) {
+					System.out.println(monster.getName() + " defeated!");
 					
+					battling = false;
+					hero.inBattle = false;
+					System.out.println("Battle finished");
+					
+					monster.setAlive(false);
+					hero.setMovementSpeed(0);
+					
+					System.out.println("Back to GameWorld");
+					gamePanel.showGameWorld();
+				}					
 			}			
 		}
 		else {
 			hero.inBattle = false;
-			if (monster.getCurrentHp() == 0) {
-//				hero.inBattle = false;
-				System.out.println("Battle finished");
-				
-				monster.setAlive(false);
-				hero.setMovementSpeed(0);
-				
-				gamePanel.showGameWorld();
-				System.out.println("Back to GameWorld");
-			}
-			
-			else if (hero.getCurrentHp() == 0) {
-				System.out.println("Game Over!");
-				gamePanel.running = false;
-			}
-			
 		}
+//		else {
+//			if (monster.getCurrentHp() == 0) {
+//				
+//				
+//			}
+//			
+//			else if (hero.getCurrentHp() == 0) {
+//				
+//			}
+//			
+//			
+//		}
 	}
 	
 	@Override
