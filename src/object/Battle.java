@@ -195,9 +195,14 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 					System.out.println("Hero defended!");
 					System.out.println("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.");
 					System.out.println(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.");
+					
+					hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2);
+					monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
 				}
 				else {
 					System.out.println("Hero took " + Integer.toString(monster.getAttack()) + " damage.");
+					
+					hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack());
 				}
 			}
 			else {
@@ -233,12 +238,16 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 				hero.inBattle = true;
 				if (monster.getCurrentHp() == 0) {
 					System.out.println(monster.getName() + " defeated!");
+					
+					battling = false;
 				}
 				
 				else if (hero.getCurrentHp() == 0) {
 					System.out.println("Hero defeated!");
-				}
+					
 					battling = false;
+				}
+					
 			}			
 		}
 		else {

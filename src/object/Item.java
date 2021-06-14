@@ -30,7 +30,7 @@ public static final int POTION = 0;
 		pickUp = false;
 		isBeingUsed = false;
 		firstPick = true;
-		img = CacheDataLoader.getInstance().getFrameImage(name);
+		img = CacheDataLoader.getCachedData().getFrameImage(name);
 	}
 	
 
