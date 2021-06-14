@@ -108,35 +108,36 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 		Monster skeleton1 = new Monster("Skeleton", 320, 320, 300, 75, 63, 0, this, 3);
 		objectManager.addMonster(skeleton1);
 		
-		Item potion = new Item("Potion", slime, Item.POTION, 0, 100, 0);
+		Item potion = new Item("potion", slime, Item.POTION, 0, 100, 0);
 		objectManager.items.add(potion);
 		
-		Item potion1 = new Item("Potion", bat, Item.POTION, 0, 100, 0);
+		Item potion1 = new Item("potion", bat, Item.POTION, 0, 100, 0);
 		objectManager.addItem(potion1);
 		
-		Item sword = new Item("Sword", plant, Item.EQUIPMENT, 40, 0, 0);
+		Item sword = new Item("sword", plant, Item.SWORD, 40, 0, 0);
 		objectManager.addItem(sword);
 		
-		Item potion2 = new Item("Potion", gayzer, Item.POTION, 0, 100, 0);
+		Item potion2 = new Item("potion", gayzer, Item.POTION, 0, 100, 0);
 		objectManager.addItem(potion2);
 		
-		Item armor = new Item("Armor", skeleton, Item.EQUIPMENT, 0, 200, 0);
+		Item armor = new Item("armor", skeleton, Item.ARMOR, 0, 200, 0);
 		objectManager.addItem(armor);
 		
-		Item necklace = new Item("Necklace", ghost, Item.EQUIPMENT, 0, 0, 15);
+		Item necklace = new Item("necklace", ghost, Item.NECKLACE, 0, 0, 15);
 		objectManager.addItem(necklace);
 		
-		Item potion3 = new Item("Potion", skeleton1, Item.POTION, 0, 100, 0);
+		Item potion3 = new Item("potion", skeleton1, Item.POTION, 0, 100, 0);
 		objectManager.addItem(potion3);
 		
-		Item swordPro = new Item("SwordPro", gayzer1, Item.EQUIPMENT, 60, 0, 0);
+		Item swordPro = new Item("swordPro", gayzer1, Item.SWORD, 60, 0, 0);
 		objectManager.addItem(swordPro);
 		
-		Item superArmor = new Item("SuperArmor", scorpion, Item.EQUIPMENT, 0, 400, 0);
+		Item superArmor = new Item("superArmor", scorpion, Item.ARMOR, 0, 400, 0);
 		objectManager.addItem(superArmor);
 		
-		Item scarf = new Item("Scarf", ifrit, Item.EQUIPMENT, 0, 0, 20);
+		Item scarf = new Item("scarf", ifrit, Item.NECKLACE, 0, 0, 20);
 		objectManager.addItem(scarf);
+		
 		
 	}
 	
