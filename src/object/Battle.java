@@ -109,10 +109,10 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		objectManager.drawItems(g2d);
 		
 		g2d.setColor(Color.WHITE);
-		g2d.drawString("Monster HP:" , 60, 50);
+		g2d.drawString("Monster HP:" , 110, 50);
 		g2d.setColor(Color.RED);
-		g2d.drawRect(150, 35, 200, 18);
-		g2d.fillRect(150, 35, 200 * this.monster.getCurrentHp()/this.monster.getMaxHp(), 18);
+		g2d.drawRect(188, 35, 200, 18);
+		g2d.fillRect(188, 35, 200 * this.monster.getCurrentHp()/this.monster.getMaxHp(), 18);
 	}
 	
 	public boolean isBattling() {
