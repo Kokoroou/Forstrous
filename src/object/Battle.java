@@ -83,12 +83,6 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		g2d.drawRect(610, 235, hero.getMaxHp()/20, 18);
 		g2d.fillRect(610, 235, hero.getCurrentHp()/20, 18);
 		
-		g2d.setColor(Color.BLACK);
-		g2d.drawString("Monster HP:" , 80, 50);
-		g2d.setColor(Color.RED);
-		g2d.drawRect(80, 35, 200, 18);
-		g2d.fillRect(80, 35, this.monster.getCurrentHp()/this.monster.getMaxHp(), 18);
-		
 		try {
 			BufferedImage img;
 
@@ -113,6 +107,12 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 
 		//Draw Items
 		objectManager.drawItems(g2d);
+		
+		g2d.setColor(Color.WHITE);
+		g2d.drawString("Monster HP:" , 60, 50);
+		g2d.setColor(Color.RED);
+		g2d.drawRect(150, 35, 200, 18);
+		g2d.fillRect(150, 35, 200 * this.monster.getCurrentHp()/this.monster.getMaxHp(), 18);
 	}
 	
 	public boolean isBattling() {
@@ -155,9 +155,9 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 					}
 						
 					else {
-						g2d.drawString(monster.getName() + " is defending!", 160, 412);
-						g2d.drawString(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.", 160, 352);
-						g2d.drawString("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.", 160, 384);
+						g2d.drawString(monster.getName() + " is defending!", 160, 352);
+						g2d.drawString(monster.getName() + " took " + Integer.toString(hero.getAttack()/2) + " damage.", 160, 384);
+						g2d.drawString("Hero took " + Integer.toString(monster.getAttack()/2) + " damage.", 160, 416);
 						
 						hero.updateCurrentHp(hero.getCurrentHp() - monster.getAttack()/2);
 						monster.updateCurrentHp(monster.getCurrentHp() - hero.getAttack()/2);
