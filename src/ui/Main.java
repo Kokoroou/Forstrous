@@ -8,7 +8,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		new GUI().setVisible(true);
-//		System.out.println(System.getProperty("user.dir"));
 	}
 
 }

@@ -56,7 +56,7 @@ public class Homepage extends JPanel {
 		
 		background.setBounds(0, -18, gui.getWidth(), gui.getHeight());
 		background.setBackground(Color.BLACK);
-		background.setIcon(new ImageIcon(getClass().getResource("/image/Forstrous2.png")));
+		background.setIcon(new ImageIcon(getClass().getResource("/image/Forstrous.png")));
 		
 		add(background);
 	}

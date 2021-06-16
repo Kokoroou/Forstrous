@@ -5,18 +5,18 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
- * The ControlPanel is the class that make a base to build main layouts of game: Homepage, PlayGame, Option
+ * The ControlPanel is the class that make a base to build main layouts of game: Homepage, PlayGame, Option, GameOver, Victory
  *
  */
 public class ControlPanel extends JPanel {
 	private static final String TAG_HOMEPAGE = "tag_homepage";
 	private static final String TAG_GAMEPANEL = "tag_gamepanel";
-	private static final String TAG_GAMEOVER = "tag_gameover";
 	private static final String TAG_OPTION = "tag_option";
+	private static final String TAG_GAMEOVER = "tag_gameover";
 	private static final String TAG_VICTORY = "tag_victory";
 	
-	private CardLayout cardLayout;
 	private GUI gui;
+	private CardLayout cardLayout;
 	private Homepage homepage;
 	private GamePanel gamePanel;
 	private Option option;

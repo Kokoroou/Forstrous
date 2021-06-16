@@ -6,6 +6,7 @@ import java.util.Random;
 import effect.Animation;
 import effect.CacheDataLoader;
 import effect.FrameImage;
+import ui.GameWorld;
 
 public abstract class Character {
     public static final int DOWN_DIR = 0;
@@ -197,7 +198,7 @@ public abstract class Character {
 		return this.gameWorld;
 	}
 
-	protected boolean onHit() {
+	public boolean onHit() {
 		Random rand = new Random();
 		int lucky = rand.nextInt(100) + 1;
 		if(lucky < luck)
@@ -205,7 +206,7 @@ public abstract class Character {
 		return false;
 	}
 	
-	protected boolean onInteract(Character character) {
+	public boolean onInteract(Character character) {
 		if(Math.abs(mapX - character.mapX) <= 32 && Math.abs(mapY - character.mapY) <= 32)
 			return true;
 		return false;

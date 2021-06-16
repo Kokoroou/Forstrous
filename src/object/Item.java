@@ -4,6 +4,7 @@ import java.awt.*;
 
 import effect.CacheDataLoader;
 import effect.FrameImage;
+import ui.GameWorld;
 
 
 public class Item {

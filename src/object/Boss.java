@@ -1,5 +1,7 @@
 package object;
 
+import ui.GameWorld;
+
 public class Boss extends Monster {
 
 	public Boss() {

@@ -766,10 +766,10 @@ h 47
 
 HeroFace
 image image/Actor4.png
-x 128
+x 192
 y 0
-w 64
-h 64
+w 96
+h 96
 
 background
 image image/background.png

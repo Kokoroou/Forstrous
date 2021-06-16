@@ -9,6 +9,7 @@ import java.util.List;
 
 import effect.CacheDataLoader;
 import effect.FrameImage;
+import ui.GameWorld;
 
 /**
  * The ObjectManager is the class that store information about monsters and items
@@ -107,7 +108,7 @@ public class ObjectManager {
 		}
 	}
 	
-	public void draw (Graphics2D g2) {
+	public void draw(Graphics2D g2) {
 		if (numOfPotions >= 0) {
 			potion.draw(g2, 580, 35);
 			g2.setFont(new Font("Times New Roman", Font.PLAIN, 14));

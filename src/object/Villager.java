@@ -1,5 +1,7 @@
 package object;
 
+import ui.GameWorld;
+
 public class Villager extends Character {
 
 	public Villager(String name, GameWorld gameWorld) {

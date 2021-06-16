@@ -1,5 +1,7 @@
 package object;
 
+import ui.GameWorld;
+
 public class Hero extends Character{
 
 	public static final int beginY[] = {0, 0, 416, 64, 192};

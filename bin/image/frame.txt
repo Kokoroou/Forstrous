@@ -1,5 +1,5 @@
 
-125
+126
 
 SlimeDown0
 image image/Monster3.png
@@ -766,10 +766,10 @@ h 47
 
 HeroFace
 image image/Actor4.png
-x 128
+x 192
 y 0
-w 64
-h 64
+w 96
+h 96
 
 background
 image image/background.png
@@ -777,6 +777,13 @@ x 0
 y 0
 w 580
 h 444
+
+DemonFullBody
+image image/Demon.png
+x 0
+y 0
+w 397
+h 281
 
 GayzerFullBody
 image image/Gayzer.png
@@ -836,8 +843,8 @@ h 24
 
 Sword
 image image/IconSet.png
-x 264
-y 768
+x 48 
+y 216
 w 24
 h 24
 
@@ -875,3 +882,4 @@ x 0
 y 672
 w 24
 h 24
+

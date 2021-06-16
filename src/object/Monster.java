@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 import effect.CacheDataLoader;
+import ui.GameWorld;
 
 public class Monster extends Character {
 	
