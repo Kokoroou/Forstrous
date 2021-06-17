@@ -8,6 +8,10 @@ import effect.CacheDataLoader;
 import effect.FrameImage;
 import ui.GameWorld;
 
+/**
+ * The Character is the class that used to make a Character object.
+ *
+ */
 public abstract class Character {
     public static final int DOWN_DIR = 0;
 	public static final int LEFT_DIR = 1;
@@ -45,6 +49,8 @@ public abstract class Character {
 	private Animation upAnim, downAnim, leftAnim, rightAnim;
 	protected GameWorld gameWorld;
 	
+	public Character() {}
+	
 	public Character(String name, GameWorld gameWorld) {
 		this.name = name;
 		this.alive = true;
@@ -77,8 +83,6 @@ public abstract class Character {
 		leftAnim = CacheDataLoader.getCachedData().getAnimation(name + "Left");
 		rightAnim = CacheDataLoader.getCachedData().getAnimation(name + "Right");
 	}
-
-	public Character() {}
 
 	public String getName() {
 		return name;

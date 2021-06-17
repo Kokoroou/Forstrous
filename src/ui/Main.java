@@ -5,7 +5,6 @@ package ui;
  * Run this class to start playing game
  */
 public class Main {
-
 	public static void main(String[] args) {
 		new GUI().setVisible(true);
 	}

@@ -22,23 +22,31 @@ import javax.swing.JPanel;
 import effect.FrameImage;
 import object.*;
 
+/**
+ * The Battle is the class that draw everything in a battle.
+ *
+ */
 public class Battle extends JPanel implements KeyListener, ActionListener {
 	private GamePanel gamePanel;
+	public boolean battling = false;
 	private Graphics2D g2d;
-	private JButton buttonHomepage;
-	private String[] battleLog;
-	private int battleLogX = 30, battleLogY = 15, battleLogWidth = 516, battleLogHeight = 100;
-	private int heroLogX = 30, heroLogY = 330, heroLogWidth = 516, heroLogHeight = 100;	
+	private InputManager inputManager;
 	private long beginTime;
-	private FrameImage back = new FrameImage();
+	private String[] battleLog;
+	
+	int battleLogX = 30, battleLogY = 15, battleLogWidth = 516, battleLogHeight = 100;
+	int heroLogX = 30, heroLogY = 330, heroLogWidth = 516, heroLogHeight = 100;
+	
+	private JButton buttonHomepage;
+	private JButton buttonAttack;
+	private JButton buttonDefense;
+	private JButton buttonRun;
+	private JButton buttonItem;
 	
 	private Monster monster;
 	private Hero hero;
 	private static int heroChoice = -1;
-	public ObjectManager objectManager;
-	public boolean battling = false;	
-	
-	private InputManager inputManager;
+	public ObjectManager objectManager;	
 	
 	public Battle(GamePanel gamePanel, Hero hero) {
 		this.gamePanel = gamePanel;
@@ -65,12 +73,46 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		initComps();
 	}
 	
-	private void initComps(){
+	private void initComps(){		
 		buttonHomepage = new JButton();
 		buttonHomepage.setText("Home");
 		buttonHomepage.setBounds(608, 408, 80, 30);
 		buttonHomepage.addActionListener(this);
 		add(buttonHomepage);
+		
+		int padding = 11; //Distant between buttons
+		
+		buttonAttack = new JButton();
+		buttonAttack.setBorder(null);
+		buttonAttack.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		buttonAttack.setText("(1) Attack");
+		buttonAttack.setBounds(145, 380, 88, 30);
+		buttonAttack.addActionListener(this);
+		add(buttonAttack);
+		
+		buttonDefense = new JButton();
+		buttonDefense.setBorder(null);
+		buttonDefense.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		buttonDefense.setText("(2) Defense");
+		buttonDefense.setBounds(buttonAttack.getX() + buttonAttack.getWidth() + padding, buttonAttack.getY(), buttonAttack.getWidth(), buttonAttack.getHeight());
+		buttonDefense.addActionListener(this);
+		add(buttonDefense);
+		
+		buttonRun = new JButton();
+		buttonRun.setBorder(null);
+		buttonRun.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		buttonRun.setText("(3) Run");
+		buttonRun.setBounds(buttonDefense.getX() + buttonDefense.getWidth() + padding, buttonDefense.getY(), buttonDefense.getWidth(), buttonDefense.getHeight());
+		buttonRun.addActionListener(this);
+		add(buttonRun);
+		
+		buttonItem = new JButton();
+		buttonItem.setBorder(null);
+		buttonItem.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		buttonItem.setText("(4) Item");
+		buttonItem.setBounds(buttonRun.getX() + buttonRun.getWidth() + padding, buttonRun.getY(), buttonRun.getWidth(), buttonRun.getHeight());
+		buttonItem.addActionListener(this);
+		add(buttonItem);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -109,44 +151,46 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 		g2d.fillRect(battleLogX, battleLogY, battleLogWidth, battleLogHeight);
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 		
-		//Draw Hero_info board
+		//Draw Hero_log board
 		g2d.setColor(Color.BLUE);
 		g2d.drawRect(heroLogX, heroLogY, heroLogWidth, heroLogHeight);
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
 		g2d.fillRect(heroLogX, heroLogY, heroLogWidth, heroLogHeight);
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 		
-		//Draw Monster HP
-		g2d.setColor(Color.WHITE);
-		g2d.drawString(this.monster.getName() + " HP:" , 110, 50);
-		g2d.setColor(Color.RED);
-		int monsterHPBar = 200; //Length of HP Bar
-		g2d.drawRect(188, 35, monsterHPBar, 18);
-		monsterHPBar = (int) (monsterHPBar * ((float) monster.getCurrentHp() / (float) monster.getMaxHp()));
-		g2d.fillRect(188, 35, monsterHPBar, 18);
-		
 		try {
 			//Draw Hero Face
 			img = this.hero.getFace().getImage();
-			int padding = (heroLogHeight - img.getHeight()) / 2;
+			int padding = (heroLogHeight - img.getHeight()) / 2; //Padding from Hero_log board to Hero_Face 
 			g2d.drawImage(img, heroLogX + padding, heroLogY + padding, null);
 			
 		}
 		catch (Exception e) {}
 		
-		//Draw Hero HP
-		int padding = 15;
-		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		g2d.setColor(Color.WHITE);
-		g2d.drawString("HP:", heroLogX + img.getWidth() + padding, heroLogY + padding + 18);
-		g2d.setColor(Color.GREEN);
-		int heroHPBar = heroLogWidth - 2 * padding - img.getWidth() - 30; //Length of HP Bar
-		g2d.drawRect(heroLogX + img.getWidth() + padding + 30, heroLogY + padding, heroHPBar, 18);
-		heroHPBar = (int) (heroHPBar * ((float) hero.getCurrentHp() / (float) hero.getMaxHp()));
-		g2d.fillRect(heroLogX + img.getWidth() + padding + 30, heroLogY + padding, heroHPBar, 18);
+		int padding = 15; //Padding from Log board to HP bar
+		int HPWidth = heroLogWidth - 2 * padding - img.getWidth() - 30;
+		int HPHeight = 18;
+		int HPPosX = heroLogX + img.getWidth() + padding + 30;
 		
-		//Change default format for text
-//		g2d.setColor(co)
+		//Write HP of hero and Monster HP
+		g2d.setFont(new Font("Times New Roman", Font.PLAIN, HPHeight));
+		g2d.setColor(Color.WHITE);
+		g2d.drawString("HP", HPPosX - 30, heroLogY + padding + HPHeight);
+		g2d.drawString(this.monster.getName() + " HP" , HPPosX - 100, battleLogY + padding + HPHeight);
+		
+		//Draw Hero HP		
+		g2d.setColor(Color.GREEN);
+		int heroHPWidth = HPWidth; //Width of HP Bar
+		g2d.drawRect(HPPosX, heroLogY + padding, heroHPWidth, HPHeight);
+		heroHPWidth = (int) (heroHPWidth * ((float) hero.getCurrentHp() / (float) hero.getMaxHp()));
+		g2d.fillRect(HPPosX, heroLogY + padding, heroHPWidth, HPHeight);
+		
+		//Draw Monster HP		
+		g2d.setColor(Color.RED);
+		int monsterHPWidth = HPWidth; //Width of HP Bar
+		g2d.drawRect(HPPosX, battleLogY + padding, monsterHPWidth, HPHeight);
+		monsterHPWidth = (int) (monsterHPWidth * ((float) monster.getCurrentHp() / (float) monster.getMaxHp()));
+		g2d.fillRect(HPPosX, battleLogY + padding, monsterHPWidth, HPHeight);
 	}
 	
 	public boolean isBattling() {
@@ -180,17 +224,6 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 			case 1: //Attack
 				
 				g2d.drawString("Hero attacked!", 160, 384);
-				
-				try {
-					BufferedImage img;
-
-					//Draw Battleback_Floor
-					img = ImageIO.read(new File("image/Slime.png"));
-					back.setImage(img);
-					back.draw(g2d, 0, 4);
-
-				}
-				catch (IOException e) {}
 				
 				if(hero.onHit()) {
 					if(monsterDefending == false) {
@@ -269,7 +302,6 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	public void update() {
-//		System.out.println("Battle Update!");
 
 		if (battling) {
 			if (heroChoice != -1) {
@@ -325,6 +357,22 @@ public class Battle extends JPanel implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == buttonHomepage){
 			gamePanel.getControl().showHomepage();
+		}
+		if(e.getSource() == buttonAttack) {
+			heroChoice = 1;
+			this.update();
+		}
+		if(e.getSource() == buttonDefense) {
+			heroChoice = 2;
+			this.update();
+		}
+		if(e.getSource() == buttonRun) {
+			heroChoice = 3;
+			this.update();
+		}
+		if(e.getSource() == buttonItem) {
+			heroChoice = 4;
+			this.update();
 		}
 	}
 }

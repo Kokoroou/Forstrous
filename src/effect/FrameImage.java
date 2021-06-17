@@ -4,6 +4,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+/**
+ * The FrameImage is the class that draws images of Characters.
+ *
+ */
 public class FrameImage {
 	private String name;
 	private BufferedImage image;

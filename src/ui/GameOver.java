@@ -7,8 +7,11 @@ import javax.swing.JLabel;
 
 import javax.swing.JPanel;
 
+/**
+ * The GameOver is the class that displays when player loses this game.
+ *
+ */
 public class GameOver extends JPanel {
-	
 	private GUI gui;
 	private ControlPanel control;
 	private JLabel background;
@@ -18,11 +21,11 @@ public class GameOver extends JPanel {
 		this.gui = control.getGui();
 		this.setBackground(Color.YELLOW);
 		this.setLayout(null);
-		
-//		this.initComps(this.gui);
+
 		this.initBackground();
 	}
-
+	
+	//Draw Background
 	private void initBackground() {
 		background = new JLabel();
 		

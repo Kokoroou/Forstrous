@@ -6,7 +6,10 @@ import effect.CacheDataLoader;
 import effect.FrameImage;
 import ui.GameWorld;
 
-
+/**
+ * The Item is the class that used to make an Item object.
+ *
+ */
 public class Item {
 	public static final int POTION = 0;
 	public static final int SWORD = 2;

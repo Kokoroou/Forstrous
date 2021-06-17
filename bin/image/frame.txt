@@ -1,5 +1,5 @@
 
-126
+125
 
 SlimeDown0
 image image/Monster3.png
@@ -770,13 +770,6 @@ x 192
 y 0
 w 96
 h 96
-
-background
-image image/background.png
-x 0
-y 0
-w 580
-h 444
 
 DemonFullBody
 image image/Demon.png

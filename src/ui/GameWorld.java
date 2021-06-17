@@ -18,22 +18,17 @@ import object.*;
  * The GameWorld is the class that draw everything in playing process
  *
  */
-/**
- * @author Admin
- *
- */
 public class GameWorld extends JPanel implements KeyListener, ActionListener {	
 	private GamePanel gamePanel;
 	private InputManager inputManager;
+	private Graphics2D g2d;
+	private JButton buttonHomepage;
+	
 	public ArrayList<Map> map = new ArrayList<Map>();
-	private int round = 3;
+	private int round = 0;
 	public Battle battle;
 	public Hero hero;
 	public ObjectManager objectManager;
-	
-	private JButton buttonHomepage;// buttonNext;
-	private Graphics2D g2d;
-
 	public Boss boss = new Boss("Demon", 288, 224, 700, 100, 50, 0, this, 4);
 	
 	public GameWorld(GamePanel gamePanel) {
@@ -246,7 +241,7 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	/**
-	 * This function add 2 button to window
+	 * This function add button Home to window
 	 */
 	private void initComps(){
 		buttonHomepage = new JButton();
@@ -257,9 +252,13 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 		
 	}
 	
+	/**
+	 * This function paint everything to window
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
+		
 		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("Items", 620, 30);
@@ -268,20 +267,20 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 		g2d.setColor(Color.BLACK);
 		g2d.drawString("Map "+ this.round, 620, 390);
 		
+		//Draw Hero's HP Bar
 		g2d.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		g2d.setColor(Color.BLACK);
-		g2d.drawString("HP:" , 580, 250);
+		g2d.drawString("HP" , 580, 250);
 		g2d.setColor(Color.BLUE);
-		int heroHPBar = 100; //Length of HP Bar
-		g2d.drawRect(610, 235, heroHPBar, 18);
-		heroHPBar = (int) (heroHPBar * ((float) hero.getCurrentHp() / (float) hero.getMaxHp()));
-		g2d.fillRect(610, 235, heroHPBar, 18);
+		int heroHPWidth = 100; //Length of HP Bar
+		g2d.drawRect(610, 235, heroHPWidth, 18);
+		heroHPWidth = (int) (heroHPWidth * ((float) hero.getCurrentHp() / (float) hero.getMaxHp()));
+		g2d.fillRect(610, 235, heroHPWidth, 18);
 		
-		
+		//Draw map, hero, monster and items
 		map.get(this.round).drawMap(g2d);
 		hero.draw(g2d);
 		objectManager.draw(g2d);
-		
 	}
 	
 	public Graphics2D getG2d() {
@@ -305,19 +304,6 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 		hero.update();
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == buttonHomepage){
-			gamePanel.getControl().showHomepage();
-		
-		}
-		else {
-			gamePanel.getControl().showHomepage();
-			gamePanel.getControl().showGamePanel();
-		}
-				
-	}
-	
 	public void nextMap() {
 		if(this.getRound() < 4) {
 			this.setRound(this.getRound() + 1);
@@ -331,9 +317,18 @@ public class GameWorld extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	@Override
-	public void keyTyped(KeyEvent e) {
-		
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == buttonHomepage) {
+			gamePanel.getControl().showHomepage();
+		}
+		else {
+			gamePanel.getControl().showHomepage();
+			gamePanel.getControl().showGamePanel();
+		}		
 	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {}
 
 	@Override
 	public void keyPressed(KeyEvent e) {

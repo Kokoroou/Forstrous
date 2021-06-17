@@ -7,8 +7,11 @@ import javax.swing.JLabel;
 
 import javax.swing.JPanel;
 
+/**
+ * The Victory is the class that displays when player wins this game
+ *
+ */
 public class Victory extends JPanel {
-	
 	private GUI gui;
 	private ControlPanel control;
 	private JLabel background;
@@ -19,7 +22,6 @@ public class Victory extends JPanel {
 		this.setBackground(Color.YELLOW);
 		this.setLayout(null);
 		
-//		this.initComps(this.gui);
 		this.initBackground();
 	}
 

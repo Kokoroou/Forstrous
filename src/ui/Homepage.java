@@ -7,12 +7,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 /**
- * The Homepage is the class that build the page where user interact firstly
+ * The Homepage is the class that builds the page where player interacts firstly
  *
  */
 public class Homepage extends JPanel {
-	private int padding = 10; //Distant between 2 button
 	private GUI gui;
 	private ControlPanel control;
 	private JLabel labelGamePanel;
@@ -35,9 +35,9 @@ public class Homepage extends JPanel {
 	 * This function add 3 buttons to homepage
 	 */
 	public void initComps(GUI gui){
-		labelGamePanel = setLabel((gui.getWidth()-150)/2-40, (gui.getHeight()-30)/2-30, "/image/newgame.png");
-		labelOption = setLabel(labelGamePanel.getX(), labelGamePanel.getY() + labelGamePanel.getHeight() + this.padding, "/image/option.png");
-		labelExit = setLabel(labelOption.getX(), labelOption.getY() + labelOption.getHeight() + padding, "/image/exit.png");
+		labelGamePanel = setLabel((gui.getWidth()-150)/2-40, (gui.getHeight()-30)/2-30, "/image/Play.png");
+		labelOption = setLabel(labelGamePanel.getX(), labelGamePanel.getY() + labelGamePanel.getHeight(), "/image/Option.png");
+		labelExit = setLabel(labelOption.getX(), labelOption.getY() + labelOption.getHeight(), "/image/Exit.png");
 		
 		labelGamePanel.addMouseListener(mouseAdapter);
 		labelOption.addMouseListener(mouseAdapter);
@@ -76,15 +76,15 @@ public class Homepage extends JPanel {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			if(e.getSource() == labelGamePanel){
-				ImageIcon playIcon = new ImageIcon(getClass().getResource("/image/newgame1.png"));
+				ImageIcon playIcon = new ImageIcon(getClass().getResource("/image/Play1.png"));
 				labelGamePanel.setIcon(playIcon);
 			}
 			if(e.getSource() == labelOption){
-				ImageIcon optionIcon = new ImageIcon(getClass().getResource("/image/option1.png"));
+				ImageIcon optionIcon = new ImageIcon(getClass().getResource("/image/Option1.png"));
 				labelOption.setIcon(optionIcon);
 			}
 			if(e.getSource() == labelExit){
-				ImageIcon exitIcon = new ImageIcon(getClass().getResource("/image/exit1.png"));
+				ImageIcon exitIcon = new ImageIcon(getClass().getResource("/image/Exit1.png"));
 				labelExit.setIcon(exitIcon);
 			}
 		}
@@ -92,15 +92,15 @@ public class Homepage extends JPanel {
 		@Override
 		public void mouseExited(MouseEvent e) {
 			if(e.getSource() == labelGamePanel){
-				ImageIcon playIcon = new ImageIcon(getClass().getResource("/image/newgame.png"));
+				ImageIcon playIcon = new ImageIcon(getClass().getResource("/image/Play.png"));
 				labelGamePanel.setIcon(playIcon);
 			}
 			if(e.getSource() == labelOption){
-				ImageIcon optionIcon = new ImageIcon(getClass().getResource("/image/option.png"));
+				ImageIcon optionIcon = new ImageIcon(getClass().getResource("/image/Option.png"));
 				labelOption.setIcon(optionIcon);
 			}
 			if(e.getSource() == labelExit){
-				ImageIcon exitIcon = new ImageIcon(getClass().getResource("/image/exit.png"));
+				ImageIcon exitIcon = new ImageIcon(getClass().getResource("/image/Exit.png"));
 				labelExit.setIcon(exitIcon);
 			}
 		}
@@ -118,7 +118,5 @@ public class Homepage extends JPanel {
 				control.showOption();
 			}
 		}
-	};
-	
-	
+	};	
 }	

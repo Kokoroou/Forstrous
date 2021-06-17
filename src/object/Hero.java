@@ -2,12 +2,14 @@ package object;
 
 import ui.GameWorld;
 
+/**
+ * The Hero is the class that used to make a Hero object.
+ *
+ */
 public class Hero extends Character{
-
 	public static final int beginY[] = {0, 0, 416, 64, 192};
 	public static final int endY[] = {0, 416, 64, 192, 416};
 	public boolean inBattle = false;
-	
 	
 	public Hero() {}
 	
@@ -18,9 +20,8 @@ public class Hero extends Character{
 	public Hero(String name, int mapX, int mapY, int maxHp, int attack, int luck, int movementSpeed, GameWorld gameWorld) {
 		super(name, mapX, mapY, maxHp, attack, luck, movementSpeed, gameWorld);
 	}
-	public void equip(Item item) {
-		
-	}
+	
+	public void equip(Item item) {}
 	
 	public void usePotion() {
 		if(getGameWorld().objectManager.numOfPotions>=1) {
@@ -42,8 +43,8 @@ public class Hero extends Character{
 		
 		if (getMapX() % 32 == 0 && getMapY() % 32 != 0) {
 			for (int i : canDir[15 - getGameWorld().map.get(gameWorld.getRound()).getTile(tileX, tileY+1)])
-				
 				canMove[i] = false;
+			
 			canMove[UP_DIR] = true;
 			canMove[DOWN_DIR] = true;
 		}
@@ -51,6 +52,7 @@ public class Hero extends Character{
 		if (getMapX() % 32 != 0 && getMapY() % 32 == 0) {
 			for (int i : canDir[15 - getGameWorld().map.get(gameWorld.getRound()).getTile(tileX+1, tileY)])
 				canMove[i] = false;
+			
 			canMove[LEFT_DIR] = true;
 			canMove[RIGHT_DIR] = true;
 		}

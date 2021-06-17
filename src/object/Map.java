@@ -10,8 +10,11 @@ import java.io.IOException;
 
 import ui.GameWorld;
 
+/**
+ * The Map is the class that used to make a Map object.
+ *
+ */
 public class Map extends JLabel {
-	
 	private GameWorld gameworld;
 	private int round;
 	private int arr[][];
@@ -30,7 +33,6 @@ public class Map extends JLabel {
 	public int getTile(int tileX, int tileY) {
 		return this.arr[tileX][tileY];
 	}
-	
 
 	public void drawMap(Graphics2D g2d) {
 		BufferedImage img;
@@ -39,12 +41,10 @@ public class Map extends JLabel {
 			g2d.drawImage(img, 0, 0, null);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
-		
+		}			
 	}
 	
 	public void update() {
-		
 	}
 	
 	public int getRound() {
@@ -54,7 +54,6 @@ public class Map extends JLabel {
 	public void setRound(int round) {
 		this.round = round;
 	}
-	
 
 	public int[][] getArr() {
 		return this.arr;

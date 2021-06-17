@@ -13,11 +13,10 @@ import java.util.Hashtable;
 import javax.imageio.ImageIO;
 
 /**
- * The CacheDataLoader is the class that store frame and animation of all items and characters
+ * The CacheDataLoader is the class that stores frames and animations of all items and characters.
  *
  */
 public class CacheDataLoader {
-    
     private static CacheDataLoader cachedData = null;
     
     private String framefile = "image/frame.txt";
@@ -43,7 +42,6 @@ public class CacheDataLoader {
             return animation;
     	}
     	catch (Exception e) {
-    		System.out.println(e);
     		return null;
     	}
                 
@@ -63,14 +61,12 @@ public class CacheDataLoader {
 
     }
     
-    public void LoadData()throws IOException{
-        
+    public void LoadData() throws IOException{
         LoadFrame();
         LoadAnimation();    
     }
     
     public void LoadAnimation() throws IOException {
-        
         animations = new Hashtable<String, Animation>();
         
         FileReader fr = new FileReader(animationfile);
@@ -83,7 +79,6 @@ public class CacheDataLoader {
             throw new IOException();
         }
         else {
-            
             fr = new FileReader(animationfile);
             br = new BufferedReader(fr);
             
@@ -104,16 +99,13 @@ public class CacheDataLoader {
                     animation.add(getFrameImage(str[j]), Double.parseDouble(str[j+1]));
                 
                 cachedData.animations.put(animation.getName(), animation);
-                
             }
-            
         }
         
         br.close();
     }
     
     public void LoadFrame() throws IOException{
-        
         frameImages = new Hashtable<String, FrameImage>();
         
         FileReader fr = new FileReader(framefile);
@@ -121,12 +113,11 @@ public class CacheDataLoader {
         
         String line = null;
         
-        if(br.readLine()==null) {
+        if(br.readLine() == null) {
             System.out.println("No data");
             throw new IOException();
         }
         else {
-            
             fr = new FileReader(framefile);
             br = new BufferedReader(fr);
             
@@ -166,11 +157,8 @@ public class CacheDataLoader {
 
                 cachedData.frameImages.put(frame.getName(), frame);
             }
-            
         }
         
         br.close();
-        
     }
-    
 }

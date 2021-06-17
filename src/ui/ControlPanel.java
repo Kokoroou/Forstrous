@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
- * The ControlPanel is the class that make a base to build main layouts of game: Homepage, PlayGame, Option, GameOver, Victory
+ * The ControlPanel is the class that builds main layouts of game: Homepage, PlayGame, Option, GameOver, Victory.
  *
  */
 public class ControlPanel extends JPanel {

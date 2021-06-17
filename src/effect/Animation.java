@@ -6,8 +6,11 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * The Animation is the class that draws moving animation of Characters.
+ *
+ */
 public class Animation {
-    
     public String name;
     
     private boolean isRepeated;
@@ -89,7 +92,6 @@ public class Animation {
         
     }
 
-    
     public boolean isLastFrame(){
         if(currentFrame == frameImages.size() - 1)
             return true;
@@ -112,8 +114,5 @@ public class Animation {
         if(drawRectFrame) {
         	g2.drawRect(x, x, image.getWidth(), image.getHeight());
         }
-            
-        
-    }
-    
+    }   
 }

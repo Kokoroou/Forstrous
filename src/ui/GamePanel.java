@@ -5,8 +5,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
-import object.*;
-
+/**
+ * The GamePanel is the class that builds 2 layouts of playing process: GameWorld, Battle.
+ *
+ */
 public class GamePanel extends JPanel implements KeyListener, Runnable{
 	private static final String TAG_GAMEWORLD = "tag_gameworld";
 	private static final String TAG_BATTLE = "tag_battle";	
@@ -19,12 +21,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 	private InputManager inputManager;
 	
 	public GamePanel(ControlPanel control) {
-		
 		this.control = control;
 		this.cardLayout = new CardLayout();
 		
 		setLayout(this.cardLayout);
 		setFocusable(true);
+		
 		inputManager = new InputManager(this);
 		gameWorld = new GameWorld(this);
 		battle = new Battle(this, gameWorld.hero);
@@ -32,6 +34,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		this.add(this.gameWorld, TAG_GAMEWORLD);
 		this.add(this.battle, TAG_BATTLE);
 		this.addKeyListener(this);
+		
 		this.showGameWorld();
 	}
 	
@@ -69,12 +72,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		this.battle = battle;
 	}
 
-	public void updateGame() {
-		if(!gameWorld.hero.inBattle)
-			gameWorld.update();
-		else battle.update();
-	}
-	
 	public void startGame() {
 		if(thread == null) {
 			running = true;
@@ -83,9 +80,14 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
 		}
 	}
 	
+	public void updateGame() {
+		if(!gameWorld.hero.inBattle)
+			gameWorld.update();
+		else battle.update();
+	}
+	
 	@Override
 	public void run() {
-
         long previousTime = System.nanoTime();
         long currentTime;
         long sleepTime;
@@ -93,30 +95,25 @@ public class GamePanel extends JPanel implements KeyListener, Runnable{
         long period = 1000000000/30;
 
         while(running){
-        	
             updateGame();
         	
             repaint();
 
             currentTime = System.nanoTime();
             sleepTime = period - (currentTime - previousTime);
-            try{
+            try {
+                if(sleepTime > 0)
+                        Thread.sleep(sleepTime/1000000);
+                else Thread.sleep(period/2000000);
 
-                    if(sleepTime > 0)
-                            Thread.sleep(sleepTime/1000000);
-                    else Thread.sleep(period/2000000);
-
-            }catch(Exception e){}
+            } catch(Exception e) {}
 
             previousTime = System.nanoTime();
         }
-        
     }
 	
 	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 
 	@Override
 	public void keyPressed(KeyEvent e) {

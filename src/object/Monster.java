@@ -6,8 +6,11 @@ import java.util.Random;
 import effect.CacheDataLoader;
 import ui.GameWorld;
 
+/**
+ * The Monster is the class that used to make a Monster object.
+ *
+ */
 public class Monster extends Character {
-	
 	private int beginX, beginY;
 	private int currX, currY;
 	private int round;
@@ -18,19 +21,27 @@ public class Monster extends Character {
 	public Monster(String name, int mapX, int mapY, int maxHp, int attack, int luck, int movementSpeed, GameWorld gameWorld, int round) {
 		super(name, mapX, mapY, maxHp, attack, luck, movementSpeed, gameWorld);
 		this.round = round;
-		this.setDirection(Character.DOWN_DIR);
-		currX = mapX;
-		currY = mapY;
 		beginX = mapX;
 		beginY = mapY;
+		currX = mapX;
+		currY = mapY;
 		firstWander = false;
-		fullBody = CacheDataLoader.getCachedData().getFrameImage(name + "FullBody");
+		this.setDirection(Character.DOWN_DIR);		
 	}
 
+	/**
+	 * This function is used to random pick a direction for monster to move
+	 * 
+	 */
 	private int Random(int a[]) {
 		Random rand = new Random();
-		int dir = rand.nextInt(a.length);
-		return a[dir];
+		if (a.length != 0) {
+			int dir = rand.nextInt(a.length);
+			return a[dir];
+		}
+		else {
+			return -1;
+		}
 	}
 	
 	private void wander() {
@@ -70,6 +81,30 @@ public class Monster extends Character {
 	public void draw(Graphics2D g2, int round) {
 		if(getGameWorld().getRound() == round)
 			this.draw(g2);
+	}
+
+	public int getBeginX() {
+		return beginX;
+	}
+
+	public int getBeginY() {
+		return beginY;
+	}
+
+	public void setCurrX(int currX) {
+		this.currX = currX;
+	}
+
+	public void setCurrY(int currY) {
+		this.currY = currY;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setFirstWonder(boolean firstWonder) {
+		this.firstWander = firstWonder;
 	}
 	
 	@Override
@@ -124,29 +159,4 @@ public class Monster extends Character {
 			}
 		}
 	}
-
-	public int getBeginX() {
-		return beginX;
-	}
-
-	public int getBeginY() {
-		return beginY;
-	}
-
-	public void setCurrX(int currX) {
-		this.currX = currX;
-	}
-
-	public void setCurrY(int currY) {
-		this.currY = currY;
-	}
-
-	public int getRound() {
-		return round;
-	}
-
-	public void setFirstWonder(boolean firstWonder) {
-		this.firstWander = firstWonder;
-	}
-	
 }

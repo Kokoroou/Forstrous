@@ -12,17 +12,17 @@ import effect.FrameImage;
 import ui.GameWorld;
 
 /**
- * The ObjectManager is the class that store information about monsters and items
+ * The ObjectManager is the class that store information about monsters and items.
  *
  */
 public class ObjectManager {
+	protected List<Monster> monsters;
+	
 	protected int numOfPotions;
 	protected List<Item> items;
 	private List<Item> equippedItems;
 	private FrameImage potion;
-	
-	protected List<Monster> monsters;
-	
+		
 	private GameWorld gameWorld;
 
 	public ObjectManager(GameWorld gameWorld) {
@@ -35,10 +35,10 @@ public class ObjectManager {
 	}
 	
 	public void addItem (Item item) {
-			synchronized (items) {
-				items.add(item);
-				item.setGameWorld(gameWorld);
-			}
+		synchronized (items) {
+			items.add(item);
+			item.setGameWorld(gameWorld);
+		}
 	}
 	
 	public void addEquippedItem (Item item) {
@@ -82,7 +82,6 @@ public class ObjectManager {
 	}
 	
 	public void update() {
-		
 		synchronized(equippedItems) {
 			for(int id = 0; id < items.size(); id++) {
 				Item tmp = items.get(id);
