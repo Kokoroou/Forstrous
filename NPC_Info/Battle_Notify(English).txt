@@ -1,0 +1,28 @@
+Hero attacked!
+Monster took 100 damage.
+Monster was defeated!
+
+Monster attacked!
+Miss!
+
+Hero took 100 damage.
+
+Hero took a protective stance.
+
+Monster is moving back and forth.
+
+Hero run away safely.
+
+Hero cast Healing Light!
+Hero recovered 100HP!
+
+Hero cast Shooting Star!
+
+Hero used Recovery Medicine!
+
+Hero was slowed!
+
+Monster is looking for an oppoturnity
+
+Hero dodged the attack!
+

@@ -1,0 +1,27 @@
+Intructor:
+
+
+*Cindy
+Cindy: It looks like you're in trouble there. Can I help?
+Hero: The monster is stronger than I think. How can I protect myself?
+Cindy: Try put your armor on. You will feel safer.
+
+*Omer
+Omer: I have some fantastic drugs here. Do you want to try it?
+Hero: No, thanks. It looked suspicious.
+
+*Sherri
+Sherri: I have a gift for you. Please take this.
+Hero: Thank you so much.
+#You get ...(an item)
+
+*Edwin
+Edwin: Finally, a hero comes to our village. I have waited a person like you for so long.
+Hero: H-how long have you been standing there?
+Edwin: From the day our village destroyed by monsters.
+
+*Jasmine
+Hero: Excuse me. Do you know where I can find the monster?
+Jasmine: Are you a hero? You can find them when you go deeper in the forest.
+Hero: Why are you looked so happy?
+Jasmine: 'Cause I don't often get the chance to talk to someone like you.
